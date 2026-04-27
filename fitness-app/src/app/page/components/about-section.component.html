@@ -1,0 +1,97 @@
+<section class="bg-[#F3F3F4] min-h-screen pt-10 dark:bg-[#232424]  pb-20 relative overflow-visible">
+    <div class="container ">
+         <div class=" grid grid-cols-1 lg:grid-cols-2 gap-4">
+            <div class="order-2 lg:order-1">
+  <div class="grid grid-cols-2 gap-4  relative">
+
+    <div class="space-y-4 relative ">
+      <img src="/assets/heroabout1.png"
+           class="rounded-3xl md:h-[542px] md:w-[358px] w-[203.41571044921875px] h-[307.9645690917969px] object-cover shadow-xl"
+           alt="Fitness">
+
+      <img src="/assets/heroabout3.png"
+           class="rounded-3xl absolute left-[140.35px] md:left-[247px] top-[163.64px] md:top-[240px] w-[200.57470703125px] h-[256.93450927734375px] md:h-[452px] md:w-[353px] object-cover shadow-xl z-10"
+           alt="Training">
+    </div>
+
+    <div class="pt-12">
+      <img src="/assets/heroabout2.png"
+           class="rounded-3xl md:h-[188px] md:w-[222px] w-[126.14046478271484px] h-[106.84439086914062px] object-cover shadow-xl"
+           alt="Workout">
+    </div>
+
+  </div>
+</div>
+<div class="order-1 lg:order-2">
+<div >
+        <h1>About Us</h1>
+    <p class=" text-[20px] md:text-[40px] py-10 font-bold text-[#242424] dark:text-white leading-tight">EMPOWERING YOU TO ACHIEVE <span class="text-[var(--main-color)]">YOUR FITNESS</span> GOALS</p>
+<p class="text-[#242424] dark:text-[#F3F3F4] font-semibold text-start leading-relaxed  md:max-w-xl">
+  We believe fitness is more than just a workout—it's a lifestyle. With top-of-the-line facilities, certified trainers, and a supportive community, we're here to inspire and guide you every step of the way.
+</p>
+</div>
+<div class="my-16 ">
+<div class="grid grid-cols-1 md:grid-cols-2 md:pb-10 border-b">
+
+  @for (item of feature1; track $index) {
+
+    <div class="mb-5 md:mb-0"
+      
+    >
+
+      <h2 class="font-bold text-[16px] pb-4 text-[#242424] dark:text-white">
+        <span class="text-[var(--main-color)] pe-4">
+          <fa-icon [icon]="sagittarius"></fa-icon>
+        </span>
+        {{ item.title }}
+      </h2>
+
+      <p class="text-[#242424] dark:text-white font-sans">
+        {{ item.desc1 }}
+      </p>
+
+      <p class="text-[#242424] dark:text-white font-sans">
+        {{ item.desc2 }}
+      </p>
+
+    </div>
+
+  }
+
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 pt-5 md:pt-10">
+
+  @for (item of feature2; track $index) {
+
+    <div class="mb-5 md:mb-0"
+      
+    >
+
+      <h2 class="font-bold text-[16px] pb-4 text-[#242424] dark:text-white">
+        <span class="text-[var(--main-color)] pe-4">
+          <fa-icon [icon]="sagittarius"></fa-icon>
+        </span>
+        {{ item.title }}
+      </h2>
+
+      <p class="text-[#242424] dark:text-white font-sans">
+        {{ item.desc1 }}
+      </p>
+
+      <p class="text-[#242424] dark:text-white font-sans">
+        {{ item.desc2 }}
+      </p>
+
+    </div>
+
+  }
+
+</div>
+</div>
+<app-button-ui text="Get Started" textcolor="white" backgroundcolor="var(--main-color)"></app-button-ui>
+</div>
+    </div>
+
+    </div>
+   
+</section>
