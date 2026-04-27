@@ -11,6 +11,7 @@
       "outputs": ["{options.outputPath}"],
       "options": {
         "outputPath": "dist/fitness-app",
+        "index": "fitness-app/src/index.html",
         "browser": "fitness-app/src/main.ts",
         "tsConfig": "fitness-app/tsconfig.app.json",
         "assets": [
