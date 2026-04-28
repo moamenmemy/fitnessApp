@@ -3,10 +3,11 @@ import { ButtonModule } from 'primeng/button';
 import { DrawerModule } from 'primeng/drawer';
 
 
-import { NavbarComponent } from './features/navbar/navbar.component';
+
+import { RouterOutlet } from "@angular/router";
 
 @Component({
-  imports: [ButtonModule, DrawerModule, NavbarComponent],
+  imports: [ButtonModule, DrawerModule,  RouterOutlet],
   selector: 'app-root',
   templateUrl: './app.html',
   styleUrl: './app.css',
@@ -14,6 +15,6 @@ import { NavbarComponent } from './features/navbar/navbar.component';
 export class App {
   protected title = 'fitness-app';
   
-        visible2 = false;
+     
 
 }

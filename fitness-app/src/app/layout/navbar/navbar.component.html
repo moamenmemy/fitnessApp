@@ -4,10 +4,10 @@
     </div>
 
     <ul class="hidden md:flex items-center gap-8 font-bold text-gray-800">
-        <li><a href="#" class="text-[#FF4100]">Home</a></li>
-    <li><a href="#" class="hover:text-orange-600 transition">About</a></li>
-    <li><a href="#" class="hover:text-orange-600 transition">Classes</a></li>
-    <li><a href="#" class="hover:text-orange-600 transition">Healthy</a></li>
+       
+    @for (link of navLinks; track $index) {
+            <li ><a  class="hover:text-orange-600 transition">{{ link.name }}</a></li>
+           }
     </ul>
 
 
@@ -23,7 +23,7 @@
     </a>
   </div>
   <div class="md:hidden flex items-center text-white gap-4">
-<button (click)="sidebarVisible = true" 
+<button 
         class="!bg-[#ff4500] hover:bg-[#e63e00] w-12 h-12 rounded-full flex flex-col items-center justify-center gap-[4px] border-none transition-all  shadow-lg">
     
     <i class="pi pi-user" ></i>
@@ -51,10 +51,9 @@
         <img src="/logo.png" alt="logo" class="w-32 mb-8  block">
         
         <ul class="list-none p-0 m-0">
-            <li class="drawer-item">Home</li>
-            <li class="drawer-item">About</li>
-            <li class="drawer-item">Classes</li>
-            <li class="drawer-item">Healthy</li>
+            @for (link of navLinks; track $index) {
+            <li class="drawer-item"><a  class="hover:text-orange-600 transition">{{ link.name }}</a></li>
+           }
         </ul>
     </div>
 </p-drawer>

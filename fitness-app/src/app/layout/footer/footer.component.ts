@@ -9,6 +9,9 @@ import {faPhone,faEnvelope } from '@fortawesome/free-solid-svg-icons';
   styleUrl: './footer.component.css',
 })
 export class FooterComponent {
-   faPhone = faPhone;
-   faEnvelope = faEnvelope;
+  
+     icons ={ 
+     faPhone : faPhone,
+     faEnvelope : faEnvelope
+  }
 }

@@ -1,10 +1,10 @@
-/* 1. تلوين الخلفية اللي ورا (الماسك) بالأسود الشفاف */
+
 .p-drawer-mask {
    background-color: rgba(0, 0, 0, 0.15) !important;
     backdrop-filter: blur(3px);
 }
 
-/* 2. إجبار الدروير إنه يكون أبيض صريح وغير شفاف */
+
 .custom-white-drawer {
     background-color: #ffffff !important; 
     background: #ffffff !important;
@@ -14,19 +14,19 @@
     box-shadow: -10px 0 30px rgba(0,0,0,0.3) !important;
 }
 
-/* 3. زرار القفل (X) - خليه غامق عشان يبان على الأبيض */
+
 .custom-white-drawer .p-drawer-close-button {
     color: #333 !important;
 }
 
-/* 4. تنسيق اللينكات */
+
 .drawer-item {
     color: #1a1a1a !important; 
     padding: 15px 20px;
     font-size: 1.1rem;
     font-weight: bold;
     cursor: pointer;
-    display: block; /* عشان ياخد عرض المنيو كله */
+    display: block; 
     border-bottom: 1px solid #f0f0f0;
     list-style: none;
 }

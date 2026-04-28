@@ -10,4 +10,11 @@ import { ButtonModule } from 'primeng/button';
 })
 export class NavbarComponent {
   sidebarVisible = false;
+
+  navLinks = [
+    { name: 'Home', path: '/home' },
+    { name: 'About', path: '/about' },
+    { name: 'Classes', path: '/classes' },
+    { name: 'Healthy', path: '/healthy' }
+  ];
 }
