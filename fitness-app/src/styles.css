@@ -2,3 +2,17 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+ .container{
+    margin-inline: auto;
+    width: 95%;
+
+}
+
+:root{
+    --main-color:#FF4100;
+}
+.main-color{
+    color: var(--main-color);
+}
+

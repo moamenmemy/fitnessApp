@@ -1,0 +1,45 @@
+
+.p-drawer-mask {
+   background-color: rgba(0, 0, 0, 0.15) !important;
+    backdrop-filter: blur(3px);
+}
+
+
+.custom-white-drawer {
+    background-color: #ffffff !important; 
+    background: #ffffff !important;
+    color: #1a1a1a !important;
+    width: 300px !important;
+    border: none !important;
+    box-shadow: -10px 0 30px rgba(0,0,0,0.3) !important;
+}
+
+
+.custom-white-drawer .p-drawer-close-button {
+    color: #333 !important;
+}
+
+
+.drawer-item {
+    color: #1a1a1a ; 
+    padding: 15px 20px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    cursor: pointer;
+    display: block; 
+    border-bottom: 1px solid #f0f0f0;
+    list-style: none;
+}
+
+.drawer-item:hover {
+    /* color: #ff4500 !important; */
+    background-color: transparent;
+}
+.active-link {
+    background-color: rgba(255, 69, 0, 0.08);
+    border-left: 4px solid var(--main-color);
+}
+
+.active-link a {
+    color: var(--main-color);
+}
