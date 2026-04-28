@@ -1,0 +1,90 @@
+<nav 
+  class="flex items-center justify-between fixed top-0 w-full z-50 py-4 px-12 transition-all duration-300"
+  [ngClass]="{
+    'bg-transparent text-white': !isScrolled,
+ 'bg-white/70 backdrop-blur-md shadow-md dark:bg-[#242424]/80': isScrolled
+  }"
+>
+    <div>
+        <img src="/logo.png" alt="logo" class="w-20">
+    </div>
+
+    <ul class="hidden md:flex items-center gap-8 font-bold text-[#242424] dark:text-white">
+       
+    @for (link of navLinks; track $index) {
+<li>
+  <a  
+    [routerLink]="link.path"
+    routerLinkActive="text-[var(--main-color)]"
+    [routerLinkActiveOptions]="{ exact: true }"
+    class="hover:text-[var(--main-color)] transition"
+  >
+    {{ link.name }}
+  </a>
+</li>           }
+    </ul>
+
+
+    <div class=" hidden md:flex items-center gap-4">
+      <app-button-ui text="LOGIN" textcolor="white" backgroundcolor="var(--main-color)"></app-button-ui>
+    <!-- <a href="#" class="flex items-center gap-2 bg-[#FF4100] text-white px-6 py-2 rounded-full font-bold text-sm hover:bg-orange-700 transition">
+      LOGIN
+      <span class="bg-white text-[var(--main-color)] rounded-full w-5 h-5 flex items-center justify-center text-[10px]">↗</span>
+    </a> -->
+ <app-button-ui text="SIGN UP" textcolor="var(--main-color)" backgroundcolor="transparent"></app-button-ui>
+    <!-- <a href="#" class="flex items-center gap-2 border-2 border-[var(--main-color)] text-[var(--main-color)] px-6 py-2 rounded-full font-bold text-sm hover:bg-[var(--main-color)] hover:text-white transition group">
+      SIGN UP
+      <span class="bg-[var(--main-color)] text-white rounded-full w-5 h-5 flex items-center justify-center text-[10px] group-hover:bg-white group-hover:text-[var(--main-color)]">↗</span>
+    </a> -->
+  </div>
+  <div class="md:hidden flex items-center text-white gap-4">
+<button 
+        class="!bg-[#ff4500] hover:bg-[#e63e00] w-12 h-12 rounded-full flex flex-col items-center justify-center gap-[4px] border-none transition-all  shadow-lg">
+    
+    <i class="pi pi-user" ></i>
+
+</button>
+<button (click)="sidebarVisible = true" 
+        class="!bg-[#ff4500] hover:bg-[#e63e00] w-12 h-12 rounded-full flex flex-col items-center justify-center gap-[4px] border-none transition-all  shadow-lg">
+    
+    <span class="w-6 h-[2px] bg-white rounded-full"></span>
+    
+    <span class="w-5 h-[2px] bg-white rounded-full self-end mr-[12px]"></span>
+    
+    <span class="w-3 h-[2px] bg-white rounded-full self-end mr-[12px]"></span>
+</button>
+
+
+  </div>
+
+</nav>
+ <div>
+
+
+<p-drawer   [(visible)]="sidebarVisible" 
+  position="right" 
+  [modal]="false"
+  styleClass="custom-white-drawer">
+    <div class="p-6">
+        <img src="/logo.png" alt="logo" class="w-32 mb-8  block">
+        
+        <ul class="list-none p-0 m-0">
+            @for (link of navLinks; track $index) {
+            <li 
+  class="drawer-item hover:text-[var(--main-color)] text-[#242424] dark:text-white"
+  routerLinkActive="active-link"
+  [routerLinkActiveOptions]="{ exact: true }"
+>
+  <a 
+    [routerLink]="link.path"
+        (click)="sidebarVisible = false"
+    class=" transition  hover:text-[var(--main-color)] text-[#242424] dark:text-white"
+  >
+    {{ link.name }}
+  </a>
+</li>
+           }
+        </ul>
+    </div>
+</p-drawer>
+  </div>

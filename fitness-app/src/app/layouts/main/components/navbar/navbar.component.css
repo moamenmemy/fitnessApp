@@ -21,7 +21,7 @@
 
 
 .drawer-item {
-    color: #1a1a1a !important; 
+    color: #1a1a1a ; 
     padding: 15px 20px;
     font-size: 1.1rem;
     font-weight: bold;
@@ -32,6 +32,14 @@
 }
 
 .drawer-item:hover {
-    color: #ff4500 !important;
-    background-color: #f9f9f9;
+    /* color: #ff4500 !important; */
+    background-color: transparent;
+}
+.active-link {
+    background-color: rgba(255, 69, 0, 0.08);
+    border-left: 4px solid var(--main-color);
+}
+
+.active-link a {
+    color: var(--main-color);
 }
