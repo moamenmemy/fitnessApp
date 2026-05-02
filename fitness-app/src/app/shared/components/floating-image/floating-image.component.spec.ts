@@ -1,17 +1,16 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { NavbarComponent } from './navbar.component';
+import { FloatingImageComponent } from './floating-image.component';
 
-
-describe('NavbarComponent', () => {
-  let component: NavbarComponent;
-  let fixture: ComponentFixture<NavbarComponent>;
+describe('FloatingImageComponent', () => {
+  let component: FloatingImageComponent;
+  let fixture: ComponentFixture<FloatingImageComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [NavbarComponent],
+      imports: [FloatingImageComponent],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(NavbarComponent);
+    fixture = TestBed.createComponent(FloatingImageComponent);
     component = fixture.componentInstance;
     await fixture.whenStable();
   });
