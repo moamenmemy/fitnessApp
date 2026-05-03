@@ -1,1 +1,25 @@
-<p>auth-layouts works!</p>
+
+
+<section class="relative h-screen w-full overflow-hidden">
+<img
+  ngSrc="assets/layout.png"
+  fill
+  class="absolute inset-0 w-full h-full object-cover"
+/>
+  <div class="absolute inset-0 
+              bg-[#24242499]
+              backdrop-blur-xl ">
+  </div>
+  <div class="relative z-10  h-full grid grid-cols-1 md:grid-cols-2 bg-[#24242433]  ">
+    <div class=" flex flex-col items-center justify-center border-r-2 border-[#FF410033]   ">
+      <img src="/assets/logo.png" alt="Super Fitness Logo" class="w-[243px] h-[151px] object-contain  ">
+      <img src="/assets/main.png" alt="" srcset="" class="w-[628px] h-[474px] object-contain ">
+    </div>
+   <div class="  flex flex-col items-center justify-center   overflow-hidden">
+<router-outlet></router-outlet>
+   </div>
+   
+  </div>
+
+</section>
+
