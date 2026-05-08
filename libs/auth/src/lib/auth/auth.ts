@@ -30,12 +30,10 @@ return this._httpclient.post<AuthResponseDto>(this._bASEURL+AuthEndPoint.SiginUp
     );
   };
     uploadProfilePhoto(data: UploadProfilePhoto): Observable<UploadProfilePhotoResponse> {
-    const formData = new FormData();
-    formData.append('photo', data.photo);
 
     return this._httpclient.post<UploadProfilePhotoResponse>(
       this._bASEURL + AuthEndPoint.uploadProfilePhoto,
-      formData
+      data
     );
   };
     GetloggedUserData(): Observable<UploadProfileUserResponse> {
