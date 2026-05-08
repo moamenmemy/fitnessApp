@@ -1,22 +1,51 @@
 import { Route } from '@angular/router';
-import { MainLayoutsComponent } from './layouts/main/main-layouts.component';
-import { HomeComponent } from './page/home.component';
-import { AuthLayoutsComponent } from './layouts/auth/auth-layouts.component';
-import { RegisterComponent } from './page/register/register.component';
-import { LoginComponent } from './page/login/login.component';
 
 export const appRoutes: Route[] = [
   {
     path: '',
-    component: MainLayoutsComponent,
+    loadComponent: () =>
+      import('./layouts/main/main-layouts.component').then(
+        (m) => m.MainLayoutsComponent
+      ),
     children: [
-        { path: '', redirectTo: 'home', pathMatch: 'full' },
-        { path: 'home', component:HomeComponent}
+      {
+        path: '',
+        redirectTo: 'home',
+        pathMatch: 'full',
+      },
+      {
+        path: 'home',
+        loadComponent: () =>
+          import('./page/home.component').then((m) => m.HomeComponent),
+      },
     ],
   },
-  {path:'auth',component:AuthLayoutsComponent,children:[
-    {path:'',redirectTo:'login',pathMatch:'full'},
-    {path:'login',component:LoginComponent},
-    {path:'register',component:RegisterComponent}
-  ]}
+  {
+    path: 'auth',
+    loadComponent: () =>
+      import('./layouts/auth/auth-layouts.component').then(
+        (m) => m.AuthLayoutsComponent
+      ),
+    children: [
+      {
+        path: '',
+        redirectTo: 'login',
+        pathMatch: 'full',
+      },
+      {
+        path: 'login',
+        loadComponent: () =>
+          import('./page/login/login.component').then(
+            (m) => m.LoginComponent
+          ),
+      },
+      {
+        path: 'register',
+        loadComponent: () =>
+          import('./page/register/register.component').then(
+            (m) => m.RegisterComponent
+          ),
+      },
+    ],
+  },
 ];
