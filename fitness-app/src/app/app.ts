@@ -1,8 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { ButtonModule } from 'primeng/button';
 import { RouterOutlet } from '@angular/router';
 import { DrawerModule } from 'primeng/drawer';
-import { FloatingImageComponent } from "./shared/components/floating-image/floating-image.component";
+import { FloatingImageComponent } from './shared/components/floating-image/floating-image.component';
+import { Theme } from './core/services/theme/theme';
+
 @Component({
   imports: [ButtonModule, DrawerModule, RouterOutlet, FloatingImageComponent],
   selector: 'app-root',
@@ -11,7 +13,5 @@ import { FloatingImageComponent } from "./shared/components/floating-image/float
 })
 export class App {
   protected title = 'fitness-app';
-  
-     
-
+  private theme = inject(Theme);
 }

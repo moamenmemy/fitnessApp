@@ -8,9 +8,14 @@ import { Component, HostListener } from '@angular/core';
 })
 export class FloatingImageComponent {
   isVisible = false;
+  isChatOpen = false;
 
-@HostListener('window:scroll')
-onScroll() {
-  this.isVisible = window.scrollY > 300;
-}
+  @HostListener('window:scroll')
+  onScroll() {
+    this.isVisible = window.scrollY > 300;
+  }
+
+  toggleChat() {
+    this.isChatOpen = !this.isChatOpen;
+  }
 }
