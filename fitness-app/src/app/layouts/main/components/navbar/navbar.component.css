@@ -1,40 +1,58 @@
-
-.p-drawer-mask {
-   background-color: rgba(0, 0, 0, 0.15) !important;
+/* 1. تأثير القناع (الخلفية خلف القائمة) */
+:host ::ng-deep .p-drawer-mask {
+    background-color: rgba(0, 0, 0, 0.15) !important;
     backdrop-filter: blur(3px);
 }
 
-
-.custom-white-drawer {
-    background-color: #ffffff !important; 
-    background: #ffffff !important;
-    color: #1a1a1a !important;
+/* 2. التنسيق الأساسي للـ Drawer (الأبعاد والحدود) */
+:host ::ng-deep .custom-white-drawer {
     width: 300px !important;
+    height: 100% !important;
     border: none !important;
-    box-shadow: -10px 0 30px rgba(0,0,0,0.3) !important;
+    box-shadow: -10px 0 30px rgba(0, 0, 0, 0.3) !important;
+    background-color: #ffffff !important; /* اللون الافتراضي أبيض */
+    transition: background-color 0.3s ease;
 }
 
-
-.custom-white-drawer .p-drawer-close-button {
-    color: #333 !important;
+/* 3. تنظيف الهيدر والمحتوى (إزالة المساحات البيضاء الزائدة) */
+:host ::ng-deep .custom-white-drawer .p-drawer-header,
+:host ::ng-deep .custom-white-drawer .p-drawer-content {
+    background: transparent !important; /* لجعل خلفية الـ Drawer الرئيسية هي اللي تظهر */
+    padding: 0 !important;
+    margin: 0 !important;
+    border: none !important;
 }
 
+/* 4. دعم الوضع المظلم (Dark Mode) */
+:host-context(.dark) :host ::ng-deep .custom-white-drawer {
+    background-color: #1a1a1a !important; /* لون الخلفية في الوضع المظلم */
+}
+
+/* تغيير لون زر الإغلاق (X) في الوضع المظلم */
+:host-context(.dark) :host ::ng-deep .custom-white-drawer .p-drawer-close-button {
+    color: white !important;
+}
+
+/* 5. تنسيق العناصر الداخلية للقائمة */
+.drawer-container {
+    min-height: 100vh;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
 
 .drawer-item {
-    color: #1a1a1a ; 
     padding: 15px 20px;
     font-size: 1.1rem;
     font-weight: bold;
     cursor: pointer;
-    display: block; 
-    border-bottom: 1px solid #f0f0f0;
+    display: block;
+    border-bottom: 1px solid rgba(128, 128, 128, 0.1);
     list-style: none;
+    transition: all 0.3s ease;
 }
 
-.drawer-item:hover {
-    /* color: #ff4500 !important; */
-    background-color: transparent;
-}
+/* 6. حالة الرابط النشط (Active Link) */
 .active-link {
     background-color: rgba(255, 69, 0, 0.08);
     border-left: 4px solid var(--main-color);

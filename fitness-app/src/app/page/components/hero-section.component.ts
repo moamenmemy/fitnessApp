@@ -5,7 +5,7 @@ import { NavbarComponent } from '../../layouts/main/components/navbar/navbar.com
 
 @Component({
   selector: 'app-hero-section',
-  imports: [ButtonUiComponent, NavbarComponent],
+  imports: [ButtonUiComponent],
   templateUrl: './hero-section.component.html',
   styleUrl: './hero-section.component.css',
 })
