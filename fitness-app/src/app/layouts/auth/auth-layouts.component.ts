@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
-
+import { RouterOutlet } from '@angular/router';
+import { NgOptimizedImage } from '@angular/common';
 @Component({
   selector: 'app-auth-layouts',
-  imports: [],
+  imports: [RouterOutlet, NgOptimizedImage],
   templateUrl: './auth-layouts.component.html',
   styleUrl: './auth-layouts.component.css',
 })
