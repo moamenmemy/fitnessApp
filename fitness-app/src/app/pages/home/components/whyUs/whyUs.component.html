@@ -58,7 +58,7 @@
 
   <!-- Item 02 -->
   <div class="relative group flex gap-6 items-start">
-    <!-- الشرط اللي تحت الدائرة الثانية (بين 02 و 03) -->
+
     <div class="absolute left-[24px] top-[56px] flex flex-col gap-2 opacity-20">
       <div class="w-[2px] h-4 bg-[#242424]"></div>
       <div class="w-[2px] h-4 bg-[#242424]"></div>
@@ -88,16 +88,27 @@
 </div>
     </div>
 
-    <div class="grid grid-cols-2 gap-4">
-      <div class="space-y-4">
-        <img src="/Image.png" alt="Training" class="rounded-3xl w-full h-80 object-cover">
-        <img src="/Image (2).png" alt="Gym" class="rounded-3xl w-full h-64 object-cover">
-      </div>
-      <div class="space-y-4 pt-8">
-        <img src="/Image (1).png" alt="Bodybuilder" class="rounded-3xl w-full h-64 object-cover">
-        <img src="/Figure [image-anime].png" alt="Stretching" class="rounded-3xl w-full h-80 object-cover">
-      </div>
+   <div class="grid grid-cols-2 gap-4">
+  <div class="space-y-4">
+    <div class="relative w-full h-80">
+      <img ngSrc="assets/Image.png" alt="Training" fill class="rounded-3xl object-cover">
     </div>
+    
+    <div class="relative w-full h-64">
+      <img ngSrc="assets/Image (2).png" alt="Gym" fill class="rounded-3xl object-cover">
+    </div>
+  </div>
+
+  <div class="space-y-4 pt-8">
+    <div class="relative w-full h-64">
+      <img ngSrc="assets/Image (1).png" alt="Bodybuilder" fill class="rounded-3xl object-cover">
+    </div>
+    
+    <div class="relative w-full h-80">
+      <img ngSrc="assets/Figure [image-anime].png" alt="Stretching" fill class="rounded-3xl object-cover">
+    </div>
+  </div>
+</div>
 
   </div>
 </section>
