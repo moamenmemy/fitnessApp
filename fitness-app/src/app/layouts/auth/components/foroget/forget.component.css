@@ -1,0 +1,35 @@
+::ng-deep .custom-otp-input {
+    all: unset;
+    width: 50px !important;
+    height: 60px !important;
+    text-align: center !important;
+    font-size: 2rem !important;
+    font-weight: bold !important;
+    color: white !important;
+    background: transparent !important; 
+    border-bottom: 2px solid #4b5563 !important; 
+    margin: 0 10px !important;
+    transition: all 0.2s ease-in-out;
+    
+   
+    appearance: none !important;
+    -webkit-appearance: none !important;
+    box-shadow: none !important;
+}
+
+
+::ng-deep .custom-otp-input:focus {
+    border-bottom: 2px solid #FF4500 !important;
+    background: transparent !important;
+    outline: none !important;
+}
+
+
+::ng-deep .custom-otp-input.filled {
+    border-bottom: 2px solid #FF4500 !important;
+}
+
+
+::ng-deep .custom-otp-input::placeholder {
+    color: transparent !important;
+}

@@ -1,0 +1,21 @@
+<div class="w-full relative group">
+  <p-iconField iconPosition="left" class="w-full">
+    <p-inputIcon [styleClass]="icon + ' text-gray-400'" />
+    
+    <input 
+      [type]="type === 'password' ? (isPasswordVisible ? 'text' : 'password') : type" 
+      pInputText 
+      [placeholder]="placeholder" 
+      class="w-full !bg-transparent !border !border-white/30 rounded-full py-4 px-12 !text-white placeholder:text-gray-500 focus:!border-orange-500 focus:ring-0 outline-none transition-all" 
+    />
+
+    @if (type === 'password') {
+      <div 
+        (click)="togglePassword()" 
+        class="absolute right-5 top-1/2 -translate-y-1/2 cursor-pointer z-20 p-2">
+         <i [class]="isPasswordVisible ? 'pi pi-eye-slash text-black' : 'pi pi-eye text-gray-800'" 
+            class="transition-colors"></i>
+      </div>
+    }
+  </p-iconField>
+</div>

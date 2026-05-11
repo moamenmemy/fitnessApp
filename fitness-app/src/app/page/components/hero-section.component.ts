@@ -1,11 +1,10 @@
 import { Component } from '@angular/core';
 import { ButtonUiComponent } from '../../shared/components/button-ui/buttonUi.component';
-import { SecrionTitleComponent } from '../../shared/components/secrion-title.component';
-import { NavbarComponent } from '../../layouts/main/components/navbar/navbar.component';
+
 
 @Component({
   selector: 'app-hero-section',
-  imports: [ButtonUiComponent, NavbarComponent],
+  imports: [ButtonUiComponent],
   templateUrl: './hero-section.component.html',
   styleUrl: './hero-section.component.css',
 })
