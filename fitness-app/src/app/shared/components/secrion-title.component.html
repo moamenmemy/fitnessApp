@@ -1,0 +1,53 @@
+<div class="w-full  relative ">
+
+  <svg class="w-full max-w-[600px] h-[100px]" viewBox="0 0 700 120">
+
+    <defs>
+      <linearGradient id="grad-light" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="#242424"/>
+        <stop offset="100%" stop-color="#FFFFFF"/>
+      </linearGradient>
+
+      <linearGradient id="grad-dark" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="#FFFFFF"/>
+        <stop offset="100%" stop-color="#232425"/>
+      </linearGradient>
+    </defs>
+     <text
+      x="0"
+      y="70%"
+      text-anchor="start"
+      class="block dark:hidden"
+      font-size="80"
+      font-weight="700"
+      fill="none"
+      stroke="url(#grad-light)"
+      stroke-width="2"
+      style="font-family: 'Baloo Thambi 2', system-ui"
+    >
+      {{title()}}
+    </text>
+
+    <text
+      x="0"
+      y="70%"
+      text-anchor="start"
+      class="hidden dark:block"
+      font-size="80"
+      font-weight="700"
+      fill="none"
+      stroke="url(#grad-dark)"
+      stroke-width="2"
+      style="font-family:'Baloo Thambi 2', system-ui"
+    >
+      {{title()}}
+    </text>
+
+  </svg>
+<div class="absolute  text-sm md:text-2xl  left-2 top-[45%] translate-y-1 flex items-center gap-2 text-[var(--main-color)] font-semibold">
+<span class=" text-2xl">  <fa-icon [icon]="fadumbbell"/></span>
+
+  <span class="text-sm md:text-base">{{bgTitle()}}</span>
+</div>
+
+</div>

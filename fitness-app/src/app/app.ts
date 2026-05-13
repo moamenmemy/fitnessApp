@@ -1,18 +1,19 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { ButtonModule } from 'primeng/button';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { faCoffee } from '@fortawesome/free-solid-svg-icons';
-import { ServicesBarComponent } from "./Shared/services-bar/servicesBar.component";
-import { WhyUsComponent } from "./pages/home/components/whyUs/whyUs.component";
+import { RouterOutlet } from '@angular/router';
+
+import { FloatingImageComponent } from './Shared/components/floating-image/floating-image.component'
+import { Theme } from './core/services/theme/theme';
+
 
 @Component({
-  imports: [ButtonModule, FontAwesomeModule, ServicesBarComponent, WhyUsComponent],
+  imports: [ButtonModule, FontAwesomeModule, RouterOutlet, FloatingImageComponent],
   selector: 'app-root',
   templateUrl: './app.html',
   styleUrl: './app.css',
 })
 export class App {
   protected title = 'fitness-app';
-    faCoffee = faCoffee;
-
+  private theme = inject(Theme);
 }

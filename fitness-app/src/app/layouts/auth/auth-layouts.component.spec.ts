@@ -1,0 +1,21 @@
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { AuthLayoutsComponent } from './auth-layouts.component';
+
+describe('AuthLayoutsComponent', () => {
+  let component: AuthLayoutsComponent;
+  let fixture: ComponentFixture<AuthLayoutsComponent>;
+
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      imports: [AuthLayoutsComponent],
+    }).compileComponents();
+
+    fixture = TestBed.createComponent(AuthLayoutsComponent);
+    component = fixture.componentInstance;
+    await fixture.whenStable();
+  });
+
+  it('should create', () => {
+    expect(component).toBeTruthy();
+  });
+});
