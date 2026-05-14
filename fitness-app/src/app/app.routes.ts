@@ -1,8 +1,7 @@
 import { Route } from '@angular/router';
 import { MainLayoutsComponent } from './layouts/main/main-layouts.component';
 import { HomeComponent } from './page/home.component';
-import { AuthLayoutsComponent } from './layouts/auth/auth-layouts.component';
-import { ForgetComponent } from './layouts/auth/components/foroget/forget.component';
+
 
 export const appRoutes: Route[] = [
   {
@@ -16,9 +15,11 @@ export const appRoutes: Route[] = [
 
   {
     path:'',
-    component:AuthLayoutsComponent,
+    loadComponent:()=>import('./features/auth/auth-layouts.component').then(m => m.AuthLayoutsComponent),
     children:[
-      {path:'forgotPass',component:ForgetComponent}
+      {path:'forgotPass',
+      loadComponent:()=>import('./features/auth/components/foroget/forget.component').then(m => m.ForgetComponent)
+      }
     ]
   }
 ];

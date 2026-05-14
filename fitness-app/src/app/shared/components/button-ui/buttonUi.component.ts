@@ -4,10 +4,11 @@ import { OverlayBadgeModule } from 'primeng/overlaybadge';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faSagittarius } from '@fortawesome/free-solid-svg-icons';
 @Component({
+  standalone: true,
   selector: 'app-button-ui',
   imports: [BadgeModule, OverlayBadgeModule, FontAwesomeModule],
   templateUrl: './buttonUi.component.html',
-  styleUrl: './buttonUi.component.css',
+  styleUrls: ["./buttonUi.component.css"],
 })
 export class ButtonUiComponent {
   sagittarius=faSagittarius

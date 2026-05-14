@@ -2,13 +2,14 @@ import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faSagittarius } from '@fortawesome/free-solid-svg-icons';
-import { ButtonUiComponent } from "../../shared/components/button-ui/buttonUi.component";
+import { ButtonUiComponent } from "../../Shared/components/button-ui/buttonUi.component";
 
 @Component({
+  standalone: true,
   selector: 'app-about-section',
   imports: [FontAwesomeModule, CommonModule, ButtonUiComponent],
   templateUrl: './about-section.component.html',
-  styleUrl: './about-section.component.css',
+  styleUrls: ["./about-section.component.css"],
 })
 export class AboutSectionComponent {
   sagittarius = faSagittarius;

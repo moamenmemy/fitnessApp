@@ -5,9 +5,10 @@ import { FooterComponent } from './components/footer/footer.component';
 
 
 @Component({
+  standalone: true,
   selector: 'app-main-layouts',
   imports: [RouterOutlet, NavbarComponent, FooterComponent],
   templateUrl: './main-layouts.component.html',
-  styleUrl: './main-layouts.component.css',
+  styleUrls: ["./main-layouts.component.css"],
 })
 export class MainLayoutsComponent {}

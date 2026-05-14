@@ -1,0 +1,89 @@
+@if(stap === 1){
+
+  <div class="min-h-screen w-full flex items-center justify-center bg-cover bg-center">
+    <div class="relative z-10 w-full max-w-md px-6">
+      <h1 class="text-white text-4xl font-bold text-center mb-8">Forget Password</h1>
+
+      <div class="bg-white/5 backdrop-blur-md border border-white/20 rounded-[40px] p-10 shadow-2xl">
+        <p class="text-white text-lg text-center mb-6">Enter Your Email</p>
+
+        <form class="flex flex-col gap-6">
+          <div class="relative">
+            <app-custom-input
+              placeholder="Email"
+              icon="pi pi-envelope"
+              type="email">
+            </app-custom-input>
+          </div>
+
+          <button
+            type="submit"
+            class="w-full bg-[#FF4500] hover:bg-[#FF5722] text-white font-bold py-3 rounded-full transition-all duration-300 shadow-lg shadow-orange-900/20">
+            Sent OTP
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+  }@else if(stap === 2){
+
+
+
+  <div class="flex flex-col items-center">
+    <h1 class="text-black text-4xl font-bold mb-8 text-center">Create New Password</h1>
+
+    <div class="bg-white/5 backdrop-blur-md border border-white/20 rounded-[40px] p-10 w-full max-w-md shadow-2xl">
+      <p class="text-white text-center mb-8 text-sm opacity-90">Make Sure Its 8 Characters Or More</p>
+
+      <form class="flex flex-col gap-5">
+        <app-custom-input
+          placeholder="Password"
+          icon="pi pi-lock"
+          type="password">
+        </app-custom-input>
+
+        <app-custom-input
+          placeholder="Password"
+          icon="pi pi-lock"
+          type="password">
+        </app-custom-input>
+
+        <button
+          type="submit"
+          class="w-full bg-[#FF4500] hover:bg-[#e63e00] text-white font-bold py-4 rounded-full mt-4 transition-all shadow-lg">
+          Done
+        </button>
+      </form>
+    </div>
+  </div>
+}@else if(stap === 3){
+
+
+
+  <div class="min-h-screen flex items-center justify-center">
+    <div class="backdrop-blur-xl border border-white/20 rounded-[40px] p-12 w-full max-w-md shadow-2xl text-center">
+      <h2 class="text-white text-xl mb-8">Enter Your OTP Check Your Email</h2>
+
+      <div class="card flex justify-center mb-12">
+        <p-inputotp [(ngModel)]="value">
+          <ng-template #input let-token let-events="events">
+            <input
+              class="custom-otp-input"
+              (keydown)="events.keydown($event)"
+              (input)="events.input($event)"
+              type="text"
+              [attr.value]="token"
+              [maxLength]="1"
+            />
+          </ng-template>
+        </p-inputotp>
+      </div>
+
+      <button class="w-full bg-[#FF4500] hover:bg-[#e63e00] text-white font-bold py-4 rounded-full transition-all shadow-lg mb-6">
+        Confirm
+      </button>
+
+      <p class="text-gray-400 text-sm">Didnt Recieve Verification Code?</p>
+      <a href="#" class="text-[#FF4500] font-bold hover:underline mt-2 inline-block">Resend Code?</a>
+    </div>
+  </div>}
