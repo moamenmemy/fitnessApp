@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
 import { ButtonUiComponent } from 'fitness-app/src/app/shared/components/button-ui/buttonUi.component';
+import { ServicesBarComponent } from 'fitness-app/src/app/shared/components/services-bar/servicesBar.component';
 
 @Component({
   selector: 'app-hero-section',
-  imports: [ButtonUiComponent],
+  imports: [ButtonUiComponent, ServicesBarComponent],
   templateUrl: './hero-section.component.html',
   styleUrl: './hero-section.component.css',
 })

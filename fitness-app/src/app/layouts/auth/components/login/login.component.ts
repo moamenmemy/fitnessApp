@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { MainButtonComponent } from '../../shared/components/main-button/mainButton.component';
+import { MainButtonComponent } from '../../../../shared/components/main-button/mainButton.component';
 
 @Component({
   selector: 'app-login',
