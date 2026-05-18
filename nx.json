@@ -50,7 +50,7 @@
     }
   },
   "release": {
-    "projects": ["api"],
+    "projects": ["fitness-app"],
     "projectsRelationship": "independent",
     "docker": {
       "skipVersionActions": true

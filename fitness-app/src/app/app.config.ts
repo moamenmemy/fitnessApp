@@ -1,4 +1,5 @@
-import { BASE_URL } from './../../../libs/auth/src/lib/interface/Base_url';
+import { BASE_URL } from '@org/auth'
+
 import {
   ApplicationConfig,
   APP_INITIALIZER,

@@ -3,7 +3,7 @@ import { ButtonModule } from 'primeng/button';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { RouterOutlet } from '@angular/router';
 
-import { FloatingImageComponent } from './Shared/components/floating-image/floating-image.component'
+import { FloatingImageComponent } from './shared/components/floating-image/floating-image.component'
 import { Theme } from './core/services/theme/theme';
 
 
