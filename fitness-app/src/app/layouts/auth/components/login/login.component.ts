@@ -1,6 +1,9 @@
 import { Component } from '@angular/core';
-import { MainButtonComponent } from '../../Shared/components/main-button/mainButton.component';
+
 import { RouterLink } from "@angular/router";
+
+import { MainButtonComponent } from '../../../../Shared/components/main-button/mainButton.component';
+
 
 @Component({
   selector: 'app-login',

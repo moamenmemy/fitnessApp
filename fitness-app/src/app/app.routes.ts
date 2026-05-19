@@ -6,7 +6,7 @@ export const appRoutes: Route[] = [
     path: '',
     loadComponent: () =>
       import('./layouts/main/main-layouts.component').then(
-        (m) => m.MainLayoutsComponent
+        (m) => m.MainLayoutsComponent,
       ),
     children: [
       {
@@ -41,15 +41,15 @@ export const appRoutes: Route[] = [
       {
         path: 'login',
         loadComponent: () =>
-          import('./page/login/login.component').then(
-            (m) => m.LoginComponent
+          import('./layouts/auth/components/login/login.component').then(
+            (m) => m.LoginComponent,
           ),
       },
       {
         path: 'register',
         loadComponent: () =>
-          import('./page/register/register.component').then(
-            (m) => m.RegisterComponent
+          import('./layouts/auth/components/register/register.component').then(
+            (m) => m.RegisterComponent,
           ),
       },
          {path:'forgotPass',
