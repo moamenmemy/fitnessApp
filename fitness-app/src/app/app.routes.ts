@@ -1,25 +1,60 @@
 import { Route } from '@angular/router';
-import { MainLayoutsComponent } from './layouts/main/main-layouts.component';
-import { HomeComponent } from './page/home.component';
 
 
 export const appRoutes: Route[] = [
   {
     path: '',
-    component: MainLayoutsComponent,
+    loadComponent: () =>
+      import('./layouts/main/main-layouts.component').then(
+        (m) => m.MainLayoutsComponent
+      ),
     children: [
-        { path: '', redirectTo: 'home', pathMatch: 'full' },
-        { path: 'home', component:HomeComponent}
+      {
+        path: '',
+        redirectTo: 'home',
+        pathMatch: 'full',
+      },
+      {
+        path: 'home',
+        loadComponent: () =>
+          import('./page/home/home.component').then((m) => m.HomeComponent),
+      },
+      {
+        path: 'about',
+        loadComponent: () =>
+          import('./page/about/about.component').then((m) => m.AboutComponent),
+      },
     ],
   },
-
   {
-    path:'',
-    loadComponent:()=>import('./features/auth/auth-layouts.component').then(m => m.AuthLayoutsComponent),
-    children:[
-      {path:'forgotPass',
+    path: 'auth',
+    loadComponent: () =>
+      import('./features/auth/auth-layouts.component').then(
+        (m) => m.AuthLayoutsComponent
+      ),
+    children: [
+      {
+        path: '',
+        redirectTo: 'login',
+        pathMatch: 'full',
+      },
+      {
+        path: 'login',
+        loadComponent: () =>
+          import('./page/login/login.component').then(
+            (m) => m.LoginComponent
+          ),
+      },
+      {
+        path: 'register',
+        loadComponent: () =>
+          import('./page/register/register.component').then(
+            (m) => m.RegisterComponent
+          ),
+      },
+         {path:'forgotPass',
       loadComponent:()=>import('./features/auth/components/foroget/forget.component').then(m => m.ForgetComponent)
-      }
-    ]
-  }
+      },
+    ],
+  },
 ];

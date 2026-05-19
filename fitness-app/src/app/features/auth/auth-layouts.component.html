@@ -1,1 +1,31 @@
- <router-outlet></router-outlet>
+<section class="relative h-screen w-full overflow-hidden">
+<img alt="authLogo"
+  ngSrc="assets/layout.png"
+  fill
+  class="absolute inset-0 w-full h-full object-cover"
+/>
+  <div class="absolute inset-0 
+              bg-[#24242499]
+              backdrop-blur-xl ">
+  </div>
+  <div class="relative z-10  h-full grid grid-cols-1 md:grid-cols-2 bg-[#24242433]  ">
+  <div class=" flex-col hidden md:flex items-center justify-between  border-r-2 border-[#FF410033]">
+  <img ngSrc="/assets/logo.png"
+       alt="Super Fitness Logo"
+       width="243"
+       height="151"
+       class="object-contain">
+
+   <img ngSrc="/assets/main.png"
+        alt="Fitness app main illustration showing workout equipment"
+        width="500"
+        height="474"
+        class="object-contain ">
+</div>
+   <div class="  flex flex-col items-center justify-center   overflow-hidden">
+<router-outlet></router-outlet>
+   </div>
+   
+  </div>
+
+</section>
