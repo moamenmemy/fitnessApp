@@ -4,9 +4,10 @@ import { AboutSectionComponent } from './components/about-section.component';
 import { WhyUsComponent } from './components/whyUs/whyUs.component';
 
 @Component({
+  standalone: true,
   selector: 'app-home',
   imports: [HeroSectionComponent, AboutSectionComponent, WhyUsComponent],
   templateUrl: './home.component.html',
-  styleUrl: './home.component.css',
+  styleUrls: ["./home.component.css"],
 })
 export class HomeComponent {}

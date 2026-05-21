@@ -1,5 +1,6 @@
 import { Route } from '@angular/router';
 
+
 export const appRoutes: Route[] = [
   {
     path: '',
@@ -28,8 +29,8 @@ export const appRoutes: Route[] = [
   {
     path: 'auth',
     loadComponent: () =>
-      import('./layouts/auth/auth-layouts.component').then(
-        (m) => m.AuthLayoutsComponent,
+      import('./features/auth/auth-layouts.component').then(
+        (m) => m.AuthLayoutsComponent
       ),
     children: [
       {
@@ -50,6 +51,9 @@ export const appRoutes: Route[] = [
           import('./layouts/auth/components/register/register.component').then(
             (m) => m.RegisterComponent,
           ),
+      },
+         {path:'forgotPass',
+      loadComponent:()=>import('./features/auth/components/foroget/forget.component').then(m => m.ForgetComponent)
       },
     ],
   },

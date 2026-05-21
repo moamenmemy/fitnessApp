@@ -4,7 +4,7 @@
   "projectType": "application",
   "prefix": "app",
   "sourceRoot": "fitness-app/src",
-  "tags": [],
+  "tags": ["scope:shop"],
   "targets": {
     "build": {
       "executor": "@angular/build:application",
@@ -20,8 +20,7 @@
             "input": "fitness-app/public"
           }
         ],
-        "styles": ["node_modules/primeicons/primeicons.css",
-  "fitness-app/src/styles.css"],
+        "styles": ["fitness-app/src/styles.css"],
         "server": "fitness-app/src/main.server.ts",
         "ssr": {
           "entry": "fitness-app/src/server.ts"

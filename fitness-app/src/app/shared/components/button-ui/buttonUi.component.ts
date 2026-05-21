@@ -5,10 +5,11 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faSagittarius } from '@fortawesome/free-solid-svg-icons';
 import { RouterLink } from '@angular/router';
 @Component({
+  standalone: true,
   selector: 'app-button-ui',
   imports: [BadgeModule, OverlayBadgeModule, FontAwesomeModule,RouterLink],
   templateUrl: './buttonUi.component.html',
-  styleUrl: './buttonUi.component.css',
+  styleUrls: ["./buttonUi.component.css"],
 })
 export class ButtonUiComponent {
   sagittarius=faSagittarius

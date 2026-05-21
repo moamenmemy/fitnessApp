@@ -9,7 +9,7 @@ import { AuthApiadaptor } from '../adaptor/auth-apiadaptor';
 @Injectable({
   providedIn: 'root',
 })
-export class Auth implements AuthApi {
+export class AuthService implements AuthApi {
   _httpclient=inject(HttpClient)
   _authApiadaptor=inject(AuthApiadaptor)
    _bASEURL=inject(BASE_URL)

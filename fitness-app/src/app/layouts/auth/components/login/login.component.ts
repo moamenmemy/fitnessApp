@@ -1,9 +1,13 @@
 import { Component } from '@angular/core';
-import { MainButtonComponent } from '../../../../shared/components/main-button/mainButton.component';
+
+import { RouterLink } from "@angular/router";
+
+import { MainButtonComponent } from '../../../../Shared/components/main-button/mainButton.component';
+
 
 @Component({
   selector: 'app-login',
-  imports: [MainButtonComponent],
+  imports: [MainButtonComponent, RouterLink],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css',
 })

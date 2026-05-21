@@ -11,7 +11,7 @@ import { Theme } from './core/services/theme/theme';
   imports: [ButtonModule, FontAwesomeModule, RouterOutlet, FloatingImageComponent],
   selector: 'app-root',
   templateUrl: './app.html',
-  styleUrl: './app.css',
+  styleUrls: ["./app.css"],
 })
 export class App {
   protected title = 'fitness-app';

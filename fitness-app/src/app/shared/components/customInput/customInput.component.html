@@ -1,0 +1,29 @@
+<div class="w-full relative group">
+  <p-iconField iconPosition="left" class="w-full flex items-center relative">
+    
+    <p-inputIcon [styleClass]="icon + ' text-white/60 absolute left-6 z-10 text-lg'" />
+
+    <input
+      [type]="type === 'password' ? (isPasswordVisible ? 'text' : 'password') : type"
+      pInputText
+      [placeholder]="placeholder"
+      [disabled]="disabled"
+      [(ngModel)]="value"
+      (ngModelChange)="onModelChange($event)"
+      (blur)="onTouched()"
+      class="w-full !bg-transparent !border !border-white/20 !rounded-full py-3.5 pl-14 pr-4 !text-white placeholder:text-gray-500 focus:!border-orange-500 focus:!ring-1 focus:!ring-orange-500/50 outline-none transition-all"
+    />
+
+    @if (type === 'password') {
+      <div
+        (click)="togglePassword()"
+        class="absolute right-4 top-1/2 -translate-y-1/2 cursor-pointer z-20 p-2"
+      >
+        <i
+          [class]="isPasswordVisible ? 'pi pi-eye-slash text-white' : 'pi pi-eye text-white/60'"
+          class="transition-colors"
+        ></i>
+      </div>
+    }
+  </p-iconField>
+</div>

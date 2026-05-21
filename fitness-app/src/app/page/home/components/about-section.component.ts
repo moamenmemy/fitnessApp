@@ -2,14 +2,15 @@ import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faSagittarius } from '@fortawesome/free-solid-svg-icons';
-import { ButtonUiComponent } from 'fitness-app/src/app/shared/components/button-ui/buttonUi.component';
-import { SecrionTitleComponent } from 'fitness-app/src/app/shared/components/secrion-title.component';
+import { ButtonUiComponent } from '../../../Shared/components/button-ui/buttonUi.component';
+import { SecrionTitleComponent } from '../../../Shared/components/secrion-title.component';
 
 @Component({
+  standalone: true,
   selector: 'app-about-section',
   imports: [FontAwesomeModule, CommonModule, SecrionTitleComponent, ButtonUiComponent],
   templateUrl: './about-section.component.html',
-  styleUrl: './about-section.component.css',
+  styleUrls: ["./about-section.component.css"],
 })
 export class AboutSectionComponent {
   sagittarius = faSagittarius;

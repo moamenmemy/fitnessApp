@@ -1,4 +1,7 @@
+@import "primeicons/primeicons.css";
+
 /* You can add global styles to this file, and also import other style files */
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -8,6 +11,7 @@
     width: 95%;
 
 }
+
 
 :root{
     --main-color:#FF4100;

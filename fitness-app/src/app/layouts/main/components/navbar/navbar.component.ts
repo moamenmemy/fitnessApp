@@ -1,13 +1,14 @@
 import { Component, HostListener, inject, PLATFORM_ID } from '@angular/core';
 import { DrawerModule } from 'primeng/drawer';
 import { ButtonModule } from 'primeng/button';
-import { ButtonUiComponent } from '../../../../shared/components/button-ui/buttonUi.component';
+import { ButtonUiComponent } from '../../../../Shared/components/button-ui/buttonUi.component';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { Theme } from '../../../../core/services/theme/theme';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faSun,faMoon } from '@fortawesome/free-solid-svg-icons';
 @Component({
+  standalone: true,
   selector: 'app-navbar',
   imports: [
     DrawerModule,
@@ -19,7 +20,7 @@ import { faSun,faMoon } from '@fortawesome/free-solid-svg-icons';
     FontAwesomeModule
   ],
   templateUrl: './navbar.component.html',
-  styleUrl: './navbar.component.css',
+  styleUrls: ["./navbar.component.css"],
 })
 export class NavbarComponent {
  private platformId = inject(PLATFORM_ID);
