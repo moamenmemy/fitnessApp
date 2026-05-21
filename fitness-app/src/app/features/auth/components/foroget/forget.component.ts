@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { IconFieldModule } from 'primeng/iconfield';
 import { InputIconModule } from 'primeng/inputicon';
 import { InputTextModule } from 'primeng/inputtext';
-import { CustomInputComponent } from "../../../../Shared/components/customInput/customInput.component";
+import { CustomInputComponent } from "../../../../shared/components/customInput/customInput.component";
 import { InputOtpModule } from 'primeng/inputotp';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AuthService } from '@org/auth';

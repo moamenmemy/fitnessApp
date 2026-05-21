@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faPhone, faEnvelope } from '@fortawesome/free-solid-svg-icons';
-import { ServicesBarComponent } from 'fitness-app/src/app/shared/components/services-bar/servicesBar.component';
+import { ServicesBarComponent } from '../../../../shared/components/services-bar/servicesBar.component';
 
 @Component({
   standalone: true,

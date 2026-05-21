@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 
 import { RouterLink } from "@angular/router";
 
-import { MainButtonComponent } from '../../../../Shared/components/main-button/mainButton.component';
+import { MainButtonComponent } from '../../../../shared/components/main-button/mainButton.component';
 
 
 @Component({
