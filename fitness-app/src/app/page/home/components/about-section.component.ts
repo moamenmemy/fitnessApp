@@ -2,8 +2,8 @@ import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faSagittarius } from '@fortawesome/free-solid-svg-icons';
-import { ButtonUiComponent } from '../../../Shared/components/button-ui/buttonUi.component';
-import { SecrionTitleComponent } from '../../../Shared/components/secrion-title.component';
+import { ButtonUiComponent } from '../../../shared/components/button-ui/buttonUi.component';
+import { SecrionTitleComponent } from '../../../shared/components/secrion-title.component';
 
 @Component({
   standalone: true,
