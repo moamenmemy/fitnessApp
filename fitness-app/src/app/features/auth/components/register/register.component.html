@@ -1,0 +1,317 @@
+<main>
+  <form [formGroup]="registerForm">
+    @if (step() == 1) {
+      <p class="text-white text-lg text-center my-4 font-light">Hey There!</p>
+      <h1 class="text-white text-4xl font-bold text-center mb-10 tracking-wide">
+        Create An Account
+      </h1>
+
+      <div
+        class="w-[486px] mx-auto border mb-8 border-white/20 rounded-[50px] lg:p-[40px] p-[20px] shadow-2xl backdrop-blur-md flex flex-col gap-4"
+      >
+        <h1 class="text-white text-2xl font-bold text-center">Register</h1>
+        <div class="relative">
+          <app-custom-input
+            formControlName="firstName"
+            [icon]="'pi pi-user'"
+            placeholder="First Name"
+            type="text"
+          >
+          </app-custom-input>
+        </div>
+        <app-error
+          [control]="registerForm.get('firstName')"
+          [messages]="{
+            required: 'First Name is required.',
+            minlength: 'First Name must be at least 3 characters',
+          }"
+        ></app-error>
+        <div class="relative">
+          <app-custom-input
+            formControlName="lastName"
+            [icon]="'pi pi-user'"
+            placeholder="Last Name"
+            type="text"
+          >
+          </app-custom-input>
+        </div>
+        <app-error
+          [control]="registerForm.get('lastName')"
+          [messages]="{
+            required: 'Last Name is required.',
+            minlength: 'Last Name must be at least 3 characters',
+          }"
+        ></app-error>
+        <div class="relative">
+          <app-custom-input
+            formControlName="email"
+            [icon]="'pi pi-envelope'"
+            placeholder="Email"
+            type="email"
+          >
+          </app-custom-input>
+        </div>
+        <app-error
+          [control]="registerForm.get('email')"
+          [messages]="{
+            required: 'Email is required.',
+            email: 'Invalid email format',
+          }"
+        ></app-error>
+        <div class="relative">
+          <app-custom-input
+            formControlName="password"
+            [icon]="'pi pi-lock'"
+            placeholder="Password"
+            type="password"
+          >
+          </app-custom-input>
+        </div>
+        <app-error
+          [control]="registerForm.get('password')"
+          [messages]="{
+            required: 'Password is required.',
+            pattern: 'Password must be at least 8 characters',
+          }"
+        ></app-error>
+        <div class="relative">
+          <app-custom-input
+            formControlName="rePassword"
+            [icon]="'pi pi-lock'"
+            placeholder="Confirm Password"
+            type="password"
+          >
+          </app-custom-input>
+        </div>
+        <app-error
+          [control]="registerForm.get('rePassword')"
+          [messages]="{
+            required: 'Confirm Password is required.',
+            mismatch: 'Passwords do not match.',
+          }"
+        ></app-error>
+        <div class="flex justify-end">
+          <a
+            routerLink="/auth/forgotPass"
+            class="text-[var(--main-color)] underline text-sm font-bold"
+            >Forget Password ?</a
+          >
+        </div>
+        <div class="flex items-center">
+          <div class="flex-grow border-t border-gray-600"></div>
+
+          <span class="mx-4 text-gray-400 text-sm font-medium">Or</span>
+
+          <div class="flex-grow border-t border-gray-600"></div>
+        </div>
+        <div class="flex justify-center items-center gap-4">
+          <span class="flex items-center bg-[#242424] p-2 rounded-full"
+            ><i class="pi pi-google" style="color: white"></i>
+          </span>
+          <span class="flex items-center bg-[#242424] p-2 rounded-full"
+            ><i class="pi pi-facebook" style="color: white"></i>
+          </span>
+          <span class="flex items-center bg-[#242424] p-2 rounded-full"
+            ><i class="pi pi-apple" style="color: white"></i>
+          </span>
+        </div>
+        <app-main-button
+          [label]="'Next'"
+          [onClick]="advanceStep"
+          [disabled]="isStepButtonDisabled()"
+        ></app-main-button>
+        <p class="text-white text-sm text-center">
+          Already Have an account ?
+          <a
+            routerLink="/auth/login"
+            class="text-[var(--main-color)] font-bold underline"
+            >Login</a
+          >
+        </p>
+      </div>
+    } @else {
+      <div class="flex justify-center flex-col items-center p-4">
+        <div
+          class="relative w-[64px] h-[64px] rounded-full mb-5 flex justify-center items-center transition-all duration-500 ease-in-out"
+          [style.background]="getGradientBg()"
+        >
+          <div
+            class="absolute w-[92%] h-[92%] bg-[#1A1A1A] rounded-full flex justify-center items-center"
+          >
+            <span
+              class="text-xl font-bold text-white tracking-wider select-none"
+            >
+              {{ step() - 1 }}/{{ totalSteps }}
+            </span>
+          </div>
+        </div>
+
+        @if (step() == 2) {
+          <div class="w-full mx-auto">
+            
+           <app-text title="TELL US ABOUT YOURSELF!"></app-text>
+            <div class="flex justify-center flex-col items-center gap-8 my-8">
+              <label
+                for="male"
+                class="gender-card"
+                [class.selected]="registerForm.get('gender')?.value === 'male'"
+              >
+                <p-radiobutton
+                  inputId="male"
+                  name="gender"
+                  value="male"
+                  formControlName="gender"
+                >
+                </p-radiobutton>
+
+                <i
+                  class="pi pi-mars text-3xl text-white"
+                  style="font-size: 2rem"
+                ></i>
+                <span class="text-sm font-medium text-white">Male</span>
+              </label>
+
+              <label
+                for="female"
+                class="gender-card"
+                [class.selected]="
+                  registerForm.get('gender')?.value === 'female'
+                "
+              >
+                <p-radiobutton
+                  inputId="female"
+                  name="gender"
+                  value="female"
+                  formControlName="gender"
+                >
+                </p-radiobutton>
+
+                <i
+                  class="pi pi-venus text-3xl text-white"
+                  style="font-size: 2rem"
+                ></i>
+                <span class="text-sm font-medium text-white">Female</span>
+              </label>
+            </div>
+            <app-main-button
+              [label]="'Next'"
+              [onClick]="advanceStep"
+              [disabled]="isStepButtonDisabled()"
+            ></app-main-button>
+          </div>
+        } @else if (step() == 3) {
+          <div class="flex flex-col w-full mx-auto">
+            
+             <app-text [title]="'How Old Are You ?'"></app-text>
+            <div class="">
+              <app-scroll
+                formControlName="age"
+                [label]="'yea'"
+                [min]="10"
+                [max]="60"
+                [step]="1"
+              ></app-scroll>
+            </div>
+          </div>
+          <div class="w-[350px] lg:w-[400px] mx-auto">
+            <app-main-button
+              [label]="'Next'"
+              [onClick]="advanceStep"
+              [disabled]="isStepButtonDisabled()"
+            ></app-main-button>
+          </div>
+        } @else if (step() == 4) {
+          <div class="flex flex-col w-full max-w-[486px] mx-auto">
+            
+            <app-text title="What is your weight ?"></app-text>
+            <div class="">
+              <app-scroll
+                formControlName="weight"
+                [label]="'kg'"
+                [min]="30"
+                [max]="600"
+                [step]="1"
+              ></app-scroll>
+            </div>
+          </div>
+          <div class="w-[350px] lg:w-[400px] mx-auto">
+            <app-main-button
+              [label]="'Next'"
+              [onClick]="advanceStep"
+              [disabled]="isStepButtonDisabled()"
+            ></app-main-button>
+          </div>
+        } @else if (step() == 5) {
+          <div class="flex flex-col w-full max-w-[486px] mx-auto">
+            <app-text title="What is your height ?"></app-text>
+            
+            <div class="">
+              <app-scroll
+                formControlName="height"
+                [label]="'CM'"
+                [min]="100"
+                [max]="250"
+                [step]="1"
+              ></app-scroll>
+            </div>
+          </div>
+          <div class="w-[350px] lg:w-[400px] mx-auto">
+            <app-main-button
+              [label]="'Next'"
+              [onClick]="advanceStep"
+              [disabled]="isStepButtonDisabled()"
+            ></app-main-button>
+          </div>
+        } @else if (step() == 6) {
+          <div class="flex flex-col w-full max-w-[486px] mx-auto">
+           
+            <app-text title="what is your Goal ?"></app-text>
+            <div class="">
+              @for (goal of goals(); track goal.id) {
+                <app-radio
+                  [label]="goal.text"
+                  [value]="goal.id"
+                  name="userGoalGroup"
+                  [checked]="registerForm.get('goal')?.value === goal.id"
+                  (checkedChange)="registerForm.get('goal')?.setValue($event)"
+                ></app-radio>
+              }
+            </div>
+            <app-main-button
+              [label]="'next'"
+              [onClick]="advanceStep"
+              [disabled]="isStepButtonDisabled()"
+            ></app-main-button>
+          </div>
+        } @else if (step() == 7) {
+          <div class="flex flex-col w-full max-w-[486px] mx-auto">
+            <app-text title="Your Regular Physical Activity Level ?"></app-text>
+           
+
+            <div class="">
+              @for (activity of activityLevel(); track activity.id) {
+                <app-radio
+                  [label]="activity.text"
+                  [value]="activity.id"
+                  name="userActivityGroup"
+                  [checked]="
+                    registerForm.get('activityLevel')?.value === activity.id
+                  "
+                  (checkedChange)="
+                    registerForm.get('activityLevel')?.setValue($event)
+                  "
+                ></app-radio>
+              }
+            </div>
+            <app-main-button
+              [label]="'Register'"
+              [onClick]="submit"
+              [disabled]="isStepButtonDisabled() || isSubmitting()"
+              [loading]="isSubmitting()"
+            ></app-main-button>
+          </div>
+        }
+      </div>
+    }
+  </form>
+</main>

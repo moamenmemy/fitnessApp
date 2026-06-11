@@ -1,0 +1,41 @@
+.gender-card {
+  width: 90px;
+  height: 90px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+
+  border-radius: 50%;
+  cursor: pointer;
+
+  display: flex;
+  
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.gender-card:hover {
+  transform: scale(1.05);
+}
+
+.gender-card.selected {
+  border-color: white;
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.gender-card ::ng-deep .p-radiobutton {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+}
+
+.gender-card ::ng-deep .p-radiobutton-box {
+  background: transparent;
+  border-color: white;
+}
+.gender-card ::ng-deep .p-radiobutton {
+  display: none;
+}

@@ -1,0 +1,15 @@
+
+/* إخفاء شريط التمرير (Scrollbar) تماماً ليبدو المظهر احترافي ومثل تطبيقات الهاتف */
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+.scrollbar-hide {
+  -ms-overflow-style: none; /* متصفح إيدج القديم */
+  scrollbar-width: none; /* متصفح فايرفوكس */
+}
+
+/* عمل تأثير الفلتر الشفاف (Mask) لجعل الأرقام البعيدة على اليمين واليسار تختفي بالتدريج */
+.mask-gradient {
+  mask-image: linear-gradient(to right, transparent, white 20%, white 80%, transparent);
+  -webkit-mask-image: linear-gradient(to right, transparent, white 20%, white 80%, transparent);
+}

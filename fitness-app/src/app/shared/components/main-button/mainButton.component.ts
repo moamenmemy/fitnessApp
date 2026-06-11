@@ -7,6 +7,13 @@ import { Component, input } from '@angular/core';
   styleUrl: './mainButton.component.css',
 })
 export class MainButtonComponent {
-  label = input.required<string>(); // نص الزر
- 
+  label = input.required<string>();
+  onClick = input<() => void>();
+  disabled = input<boolean>();
+  loading = input<boolean>();
+
+  handleClick() {
+    const callback = this.onClick();
+    callback?.();
+  }
 }

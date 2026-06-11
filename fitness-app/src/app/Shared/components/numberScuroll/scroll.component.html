@@ -1,0 +1,33 @@
+<div class="relative w-full max-w-md flex flex-col mb-5 items-center">
+  <span class="text-[#ff4500] text-sm font-semibold tracking-wider block">
+    {{ label() }} 
+  </span>
+
+  <div
+    #scrollContainer
+    (scroll)="onScroll($event)"
+    class="w-full flex items-center overflow-x-auto scrollbar-hide snap-x snap-mandatory h-24 relative mask-gradient px-[30%]"
+  >
+    @for (value of values(); track value) {
+      @let diff = Math.abs(value - selectedValue());
+      <div
+        (click)="selectValue(value)"
+        class="w-16 h-full shrink-0 flex items-center justify-center text-center font-bold cursor-pointer snap-center transition-all duration-200 ease-out"
+        [ngClass]="{
+          'text-[#ff4500] text-5xl scale-120 font-extrabold': diff === 0,
+          'text-gray-300 text-2xl opacity-80 scale-90': diff === 1,
+          'text-gray-500 text-xl opacity-50 scale-80': diff === 2,
+          'text-gray-700 text-lg opacity-20 scale-60  ': diff >= 3,
+        }"
+      >
+        {{ value }}
+      </div>
+    }
+  </div>
+
+  <div>
+    <div
+      class="w-0 h-0 border-l-[10px] border-l-transparent border-r-[10px] border-r-transparent border-b-[14px] border-b-[#ff4500]"
+    ></div>
+  </div>
+</div>
