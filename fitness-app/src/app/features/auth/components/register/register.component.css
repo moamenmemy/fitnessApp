@@ -22,8 +22,8 @@
 }
 
 .gender-card.selected {
-  border-color: white;
-  background: rgba(255, 255, 255, 0.05);
+  border-color: var(--main-color);
+  background: var(--main-color);
 }
 
 .gender-card ::ng-deep .p-radiobutton {
