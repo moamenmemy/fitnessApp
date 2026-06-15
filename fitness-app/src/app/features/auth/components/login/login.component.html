@@ -1,5 +1,70 @@
-<app-main-button [label]="'Login'"></app-main-button>
+<div class="min-h-screen w-full flex items-center justify-center bg-cover bg-center">
+  <div class="relative z-10 w-full max-w-xxl px-6 flex flex-col justify-center items-center">
+    
+    <p class="text-gray-400 text-lg mb-2 font-medium">Hey There</p>
+    <h1 class="text-white text-5xl font-bold text-center mb-10 tracking-wide uppercase">Welcome Back</h1>
 
-<a routerLink="/auth/forgotPass">
-    forgotPass
-</a>
+    <form [formGroup]="loginForm" class="w-full max-w-md  backdrop-blur-md border border-white/20 rounded-[40px] p-12 shadow-2xl flex flex-col gap-6">
+      
+      <h2 class="text-white text-2xl font-bold text-center mb-2">Login</h2>
+
+      <div class="relative w-full">
+        <app-custom-input 
+          [icon]="'pi pi-envelope'" 
+          placeholder="Email" 
+          type="email" 
+          formControlName="email">
+        </app-custom-input>
+      </div>
+
+      <div class="relative w-full">
+        <app-custom-input 
+          [icon]="'pi pi-lock'" 
+          placeholder="Password" 
+          type="password" 
+          formControlName="password">
+        </app-custom-input>
+      </div>
+
+      <div class="text-right -mt-2">
+        <a routerLink="/auth/forgotPass" class="text-[#FF4500] font-semibold text-sm hover:underline transition-all">
+          Forget Password?
+        </a>
+      </div>
+
+      <div class="mt-2">
+        <app-main-button
+          [label]="'Login'"
+          [disabled]="loginForm.invalid"
+          (btnClick)="submitLogin()">
+        </app-main-button>
+      </div>
+
+      <div class="flex items-center justify-center gap-4 my-2">
+        <div class="h-[1px] w-1/4 bg-white/20"></div>
+        <span class="text-gray-400 text-sm font-light">Or</span>
+        <div class="h-[1px] w-1/4 bg-white/20"></div>
+      </div>
+
+      <div class="flex justify-center items-center gap-4">
+    <button type="button" class="w-11 h-11 rounded-full bg-black/20 border border-white/5 text-white flex items-center justify-center hover:bg-white/10 transition-all">
+            <i class="pi pi-facebook text-lg"></i>
+          </button>
+          <button type="button" class="w-11 h-11 rounded-full bg-black/20  border border-white/5 text-white flex items-center justify-center hover:bg-white/10 transition-all">
+            <i class="pi pi-google text-lg"></i>
+          </button>
+          <button type="button" class="w-11 h-11 rounded-full bg-black/20 border border-white/5 text-white flex items-center justify-center hover:bg-white/10 transition-all">
+            <i class="pi pi-apple text-lg"></i>
+          </button>
+      </div>
+
+      <div class="text-center mt-4">
+        <p class="text-gray-400 text-sm">
+          Don't Have An Account Yet? 
+          <a routerLink="/auth/register" class="text-[#FF4500] font-bold hover:underline ml-1">Register</a>
+        </p>
+      </div>
+
+    </form>
+  </div>
+</div>

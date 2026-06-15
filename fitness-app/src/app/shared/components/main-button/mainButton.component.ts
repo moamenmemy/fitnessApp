@@ -1,4 +1,4 @@
-import { Component, input } from '@angular/core';
+import { Component, EventEmitter, input, Output } from '@angular/core';
 
 @Component({
   selector: 'app-main-button',
@@ -8,5 +8,7 @@ import { Component, input } from '@angular/core';
 })
 export class MainButtonComponent {
   label = input.required<string>(); // نص الزر
- 
+disabled = input<boolean>(false);
+ @Output() btnClick = new EventEmitter<void>();
+
 }
