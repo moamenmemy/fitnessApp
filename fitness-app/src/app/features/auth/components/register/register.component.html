@@ -19,13 +19,10 @@
           >
           </app-custom-input>
         </div>
-        <app-error
-          [control]="registerForm.get('firstName')"
-          [messages]="{
-            required: 'First Name is required.',
-            minlength: 'First Name must be at least 3 characters',
-          }"
-        ></app-error>
+      <app-error
+  [control]="registerForm.get('firstName')"
+  label="first Name"
+></app-error>
         <div class="relative">
           <app-custom-input
             formControlName="lastName"
@@ -35,13 +32,10 @@
           >
           </app-custom-input>
         </div>
-        <app-error
-          [control]="registerForm.get('lastName')"
-          [messages]="{
-            required: 'Last Name is required.',
-            minlength: 'Last Name must be at least 3 characters',
-          }"
-        ></app-error>
+       <app-error
+  [control]="registerForm.get('lastName')"
+  label="last Name"
+></app-error>
         <div class="relative">
           <app-custom-input
             formControlName="email"
@@ -51,13 +45,10 @@
           >
           </app-custom-input>
         </div>
-        <app-error
-          [control]="registerForm.get('email')"
-          [messages]="{
-            required: 'Email is required.',
-            email: 'Invalid email format',
-          }"
-        ></app-error>
+       <app-error
+  [control]="registerForm.get('email')"
+  label="Email"
+></app-error>
         <div class="relative">
           <app-custom-input
             formControlName="password"
@@ -67,13 +58,10 @@
           >
           </app-custom-input>
         </div>
-        <app-error
-          [control]="registerForm.get('password')"
-          [messages]="{
-            required: 'Password is required.',
-            pattern: 'Password must be at least 8 characters',
-          }"
-        ></app-error>
+      <app-error
+  [control]="registerForm.get('password')"
+  label="Password"
+></app-error>
         <div class="relative">
           <app-custom-input
             formControlName="rePassword"
@@ -83,13 +71,10 @@
           >
           </app-custom-input>
         </div>
-        <app-error
-          [control]="registerForm.get('rePassword')"
-          [messages]="{
-            required: 'Confirm Password is required.',
-            mismatch: 'Passwords do not match.',
-          }"
-        ></app-error>
+       <app-error
+  [control]="registerForm.get('rePassword')"
+  label="Confirm Password"
+></app-error>
         <div class="flex justify-end">
           <a
             routerLink="/auth/forgotPass"

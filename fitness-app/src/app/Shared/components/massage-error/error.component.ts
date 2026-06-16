@@ -8,28 +8,42 @@ import { AbstractControl } from '@angular/forms';
   styleUrl: './error.component.css',
 })
 export class ErrorComponent {
-   @Input() control!: AbstractControl | null;
+    @Input() control: AbstractControl | null = null;
+  @Input() label = '';
+  
 
-  @Input() messages: Record<string, string> = {};
-
-  private defaultMessages: Record<string, string> = {
-    required: 'This field is required',
-    minlength: 'Too short',
-    maxlength: 'Too long',
-    email: 'Invalid email',
-    pattern: 'Invalid format'
-  };
-get errorMessage(): string | null {
-    if (!this.control || !this.control.touched || !this.control.errors) {
+  get errorMessage(): string | null {
+    if (
+      !this.control ||
+      !this.control.touched ||
+      !this.control.errors
+    ) {
       return null;
     }
 
-    const firstErrorKey = Object.keys(this.control.errors)[0];
+    if (this.control.hasError('required')) {
+      return `${this.label} is required.`;
+    }
 
-    return (
-      this.messages[firstErrorKey] ||
-      this.defaultMessages[firstErrorKey] ||
-      'Invalid field'
-    );
+    if (this.control.hasError('email')) {
+      return 'Please enter a valid email address.';
+    }
+
+    if (this.control.hasError('minlength')) {
+      const requiredLength =
+        this.control.getError('minlength').requiredLength;
+
+      return `${this.label} must be at least ${requiredLength} characters.`;
+    }
+
+   
+    if (this.control.hasError('pattern')) {
+      return 'Must contain at least 8 chars, 1 uppercase, 1 lowercase, 1 number, and 1 special character.';
+    }
+    if (this.control.hasError('passwordMismatch')) {
+      return 'Passwords do not match.';
+    }
+
+    return null;
   }
 }

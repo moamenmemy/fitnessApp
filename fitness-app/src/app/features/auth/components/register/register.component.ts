@@ -1,13 +1,16 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject, OnInit, signal } from '@angular/core';
+import { Component, inject, signal,DestroyRef } from '@angular/core';
 import {
   FormsModule,
   ReactiveFormsModule,
   FormBuilder,
   FormGroup,
+
   Validators,
-  AbstractControl,
+
 } from '@angular/forms';
+
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { CustomInputComponent } from 'fitness-app/src/app/shared/components/customInput/customInput.component';
 import { MainButtonComponent } from 'fitness-app/src/app/shared/components/main-button/mainButton.component';
 import { ScrollComponent } from 'fitness-app/src/app/shared/components/numberScuroll/scroll.component';
@@ -18,6 +21,7 @@ import { AuthService } from '@org/auth';
 import { Router } from '@angular/router';
 import { ErrorComponent } from "fitness-app/src/app/shared/components/massage-error/error.component";
 import { TextComponent } from "fitness-app/src/app/shared/components/register-text/text.component";
+import { passwordMatchValidator } from 'fitness-app/src/app/utils/password-match.validator';
 @Component({
   selector: 'app-register',
   imports: [
@@ -26,6 +30,7 @@ import { TextComponent } from "fitness-app/src/app/shared/components/register-te
     ScrollComponent,
     RadioButtonModule,
     FormsModule,
+
     ReactiveFormsModule,
     CommonModule,
     RadioComponent,
@@ -36,6 +41,7 @@ import { TextComponent } from "fitness-app/src/app/shared/components/register-te
   styleUrl: './register.component.css',
 })
 export class RegisterComponent {
+  destroyRef = inject(DestroyRef);
   step = signal<number>(1);
   totalSteps = 6;
   isSubmitting = signal(false);
@@ -60,45 +66,47 @@ export class RegisterComponent {
       weight: ['', [Validators.required]],
       activityLevel: ['', [Validators.required]],
     },
-    { validators: this.passwordMatchValidator },
+    {
+  validators: passwordMatchValidator(
+    'password',
+    'rePassword'
+  )
+},
   );
-  passwordMatchValidator(form: AbstractControl) {
-    const password = form.get('password')?.value;
-    const confirm = form.get('rePassword')?.value;
-
-    if (password !== confirm && confirm !== '') {
-      form.get('rePassword')?.setErrors({ mismatch: true });
-      return { mismatch: true };
-    }
-    return null;
+ 
+ submit = () => {
+  if (!this.registerForm.valid || this.isSubmitting()) {
+    this.registerForm.markAllAsTouched();
+    return;
   }
-  submit = () => {
-    if (!this.registerForm.valid || this.isSubmitting()) {
-      if (!this.registerForm.valid) {
-        this.registerForm.markAllAsTouched();
-      }
-      return;
-    }
 
-    this.isSubmitting.set(true);
+  this.isSubmitting.set(true);
 
-    this._auth.SignUp(this.registerForm.value).subscribe({
+  this._auth
+    .SignUp(this.registerForm.value)
+    .pipe(
+      takeUntilDestroyed(this.destroyRef)
+    )
+    .subscribe({
       next: (res) => {
-        console.log(res);
         if (res.message === 'success') {
           this._router.navigate(['/auth/login']);
         }
       },
+
       error: (err) => {
         console.log(err);
+        this.isSubmitting.set(false);
       },
+
       complete: () => {
         this.isSubmitting.set(false);
       },
     });
-
-    console.log('Form Values:', this.registerForm.value);
-  };
+};
+get knobValue(): number {
+  return Math.max(this.step() - 1, 0);
+}
   getGradientBg(): string {
     const chartStep = this.step() - 1;
     const percentage = (chartStep / this.totalSteps) * 100;
