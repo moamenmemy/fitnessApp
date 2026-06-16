@@ -9,14 +9,16 @@
     "noPropertyAccessFromIndexSignature": true,
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,
-    "emitDecoratorMetadata": false,
-    "module": "preserve"
+    "emitDecoratorMetadata": true,
+    "module": "preserve",
+    "skipLibCheck": true,
+    "sourceMap": false
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,
     "strictInjectionParameters": true,
     "strictInputAccessModifiers": true,
-    "strictTemplates": true
+    "strictTemplates": false
   },
   "files": [],
   "include": [],

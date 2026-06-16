@@ -1,10 +1,8 @@
 <div >
   <div >
     
-    <!-- ربط الفورم بالـ Form Group الرئيسي -->
     <form [formGroup]="forgetForm" class="w-full max-w-md">
 
-      <!-- ---------------- الخطوة الأولى: إدخال الإيميل ---------------- -->
       @if (step() === 1) {
         <h1 class="text-white text-5xl font-bold text-center mb-10 tracking-wide">Forget Password</h1>
         
@@ -18,26 +16,23 @@
               type="email" 
               formControlName="email">
             </app-custom-input>
-          
           </div>
 
-          <button
-            type="button"
-            (click)="submitEmail()"
-            [disabled]="formControls.email.invalid"
-            class="w-full bg-[#FF4500] hover:bg-[#FF5722] disabled:opacity-50 disabled:cursor-not-allowed text-white font-bold py-4 rounded-full transition-all duration-300 shadow-lg shadow-orange-900/30 text-lg">
-            Send OTP
-          </button>
+       
+
+<app-main-button
+  [label]="'Send OTP'"
+  [disabled]="forgetForm.get('email')?.invalid"
+  (btnClick)="submitEmail()">
+</app-main-button>
         </div>
       }
 
-      <!-- ---------------- الخطوة الثانية: إدخال كود الـ OTP ---------------- -->
       @if (step() === 2) {
         <div class="backdrop-blur-xl border border-white/20 rounded-[40px] p-12 w-full shadow-2xl text-center flex flex-col gap-6">
           <h2 class="text-white text-xl mb-4">Enter Your OTP Check Your Email</h2>
 
           <div class="card flex flex-col justify-center items-center gap-2 mb-4">
-            <!-- استخدام PrimeNG InputOtp مع الـ formControlName الخاص به والـ Custom Template الخاص بك -->
             <p-inputOtp formControlName="resetCode">
               <ng-template #input let-token let-events="events">
                 <input
@@ -50,16 +45,14 @@
                 />
               </ng-template>
             </p-inputOtp>
-        
           </div>
+          <app-main-button
+  [label]="'Confirm'"
+  [disabled]="forgetForm.get('resetCode')?.invalid"
+  (btnClick)="submitCode()">
+</app-main-button>
 
-          <button 
-            type="button"
-            (click)="submitCode()"
-            
-            class="w-full bg-[#FF4500] hover:bg-[#e63e00] disabled:opacity-50 disabled:cursor-not-allowed text-white font-bold py-4 rounded-full transition-all shadow-lg">
-            Confirm
-          </button>
+       
 
           <div class="mt-2">
             <p class="text-gray-400 text-sm">Didn't Receive Verification Code?</p>
@@ -73,7 +66,6 @@
         </div>
       }
 
-      <!-- ---------------- الخطوة الثالثة: تعيين كلمة المرور الجديدة ---------------- -->
       @if (step() === 3) {
         <div class="flex flex-col items-center w-full">
           <h1 class="text-white text-4xl font-bold mb-8 text-center">Create New Password</h1>
@@ -88,7 +80,6 @@
                 type="password"
                 formControlName="password">
               </app-custom-input>
-              
             </div>
 
             <div class="relative">
@@ -98,16 +89,19 @@
                 type="password"
                 formControlName="newPassword">
               </app-custom-input>
-              <
             </div>
-
-            <button
+       <app-main-button
+  [label]="'Done'"
+  [disabled]="forgetForm.get('password')?.invalid || forgetForm.get('newPassword')?.invalid || forgetForm.hasError('passwordMismatch')"
+  (btnClick)="submitPassword()">
+</app-main-button>
+            <!-- <button
               type="button"
               (click)="submitPassword()"
               [disabled]="forgetForm.invalid"
               class="w-full bg-[#FF4500] hover:bg-[#e63e00] disabled:opacity-50 disabled:cursor-not-allowed text-white font-bold py-4 rounded-full mt-4 transition-all shadow-lg">
               Done
-            </button>
+            </button> -->
           </div>
         </div>
       }
@@ -115,5 +109,3 @@
     </form>
   </div>
 </div>
-
-<!-- كومبوننت الـ Toast لعرض الإشعارات المنبثقة للـ API -->

@@ -3,18 +3,19 @@ import { CommonModule } from '@angular/common';
 import { IconFieldModule } from 'primeng/iconfield';
 import { InputIconModule } from 'primeng/inputicon';
 import { InputTextModule } from 'primeng/inputtext';
-import { CustomInputComponent } from "../../../../shared/components/customInput/customInput.component";
+import { CustomInputComponent } from "../../../../Shared/components/customInput/customInput.component";
 import { InputOtpModule } from 'primeng/inputotp';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AuthService } from '@org/auth';
 import { Router } from '@angular/router';
 import { passwordMatchValidator } from '../../../../utils/password-match.validator';
 import { passwordValidator } from '../../../../utils/password-validator';
+import { MainButtonComponent } from '../../../../Shared/components/main-button/mainButton.component';
 
 @Component({
   standalone: true,
   selector: 'app-forget',
-  imports: [CommonModule, IconFieldModule, InputIconModule, InputTextModule, CustomInputComponent, InputOtpModule, FormsModule,ReactiveFormsModule],
+  imports: [CommonModule, IconFieldModule, InputIconModule, InputTextModule, CustomInputComponent, InputOtpModule, FormsModule,ReactiveFormsModule, MainButtonComponent],
   templateUrl: './forget.component.html',
   styleUrls: ['./forget.component.css'],
 })
@@ -31,7 +32,7 @@ forgetForm!: FormGroup;
 initForm() {
     this.forgetForm = new FormGroup({
       email: new FormControl(null, [Validators.required, Validators.email]),
-      resetCode: new FormControl(null, [Validators.required, Validators.pattern(/^\w{6}$/)]),
+      resetCode: new FormControl(null, [Validators.required, Validators.pattern(/^\w{4}$/)]),
       password: new FormControl(null, [Validators.required, Validators.pattern(passwordValidator.pattern)]),
       newPassword: new FormControl(null, [Validators.required, Validators.pattern(passwordValidator.pattern)])
     }, { validators: passwordMatchValidator('password', 'newPassword') });

@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { ButtonUiComponent } from '../../../shared/components/button-ui/buttonUi.component';
-import { ServicesBarComponent } from '../../../shared/components/services-bar/servicesBar.component';
+import { ButtonUiComponent } from '../../../Shared/components/button-ui/buttonUi.component';
+import { ServicesBarComponent } from '../../../Shared/components/services-bar/servicesBar.component';
 
 @Component({
   selector: 'app-hero-section',
