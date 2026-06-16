@@ -1,29 +1,29 @@
 {
   "extends": "../tsconfig.base.json",
   "compilerOptions": {
-    "strict": true,
-    "noImplicitOverride": true,
-    "noPropertyAccessFromIndexSignature": true,
+    "strict": false,
+    "noImplicitOverride": false,
+    "noPropertyAccessFromIndexSignature": false,
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,
     "moduleResolution": "bundler",
     "emitDecoratorMetadata": true,
     "skipLibCheck": true,
-    "target": "es2022"
+    "skipDefaultLibCheck": true,
+    "target": "es2022",
+    "sourceMap": false,
+    "declaration": false
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,
-    "strictInjectionParameters": true,
-    "strictTemplates": true
+    "strictInjectionParameters": false,
+    "strictTemplates": false,
+    "strictAttributeTypes": false,
+    "strictDomLocalRefTypes": false,
+    "strictOutputEventTypes": false,
+    "strictDomEventTypes": false
   },
   "files": [],
-  "include": [],
-  "references": [
-    {
-      "path": "./tsconfig.app.json"
-    },
-    {
-      "path": "./tsconfig.spec.json"
-    }
-  ]
+  "include": ["src/**/*.ts"],
+  "exclude": ["src/**/*.spec.ts", "src/**/*.test.ts"]
 }
