@@ -1,0 +1,14 @@
+<button
+  class="text-white w-full py-3 px-4 rounded-full font-semibold border bg-[--main-color] border-[--main-color] transition duration-150 flex items-center justify-center gap-2"
+  [class.bg-gray-500]="disabled()"
+  [class.border-gray-500]="disabled()"
+  [class.cursor-not-allowed]="disabled()"
+  [disabled]="disabled()"
+  (click)="handleClick()"
+>
+  @if (loading()) {
+    <i  class="pi pi-spin pi-spinner"></i>
+  }
+  
+  {{ label() }}
+</button>

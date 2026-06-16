@@ -1,38 +1,53 @@
-<div class="min-h-screen w-full flex items-center justify-center bg-cover bg-center">
-  <div class="relative z-10 w-full max-w-xxl px-6 flex justify-center items-center">
-    
+<div>
+  <div>
     <form [formGroup]="forgetForm" class="w-full max-w-md">
-
       @if (step() === 1) {
-        <h1 class="text-white text-5xl font-bold text-center mb-10 tracking-wide">Forget Password</h1>
-        
-        <div class="border border-white/20 rounded-[40px] p-12 shadow-2xl backdrop-blur-md flex flex-col gap-8">
-          <p class="text-white text-xl text-center mb-2 font-light">Enter Your Email</p>
+        <h1
+          class="text-white text-5xl font-bold text-center mb-10 tracking-wide"
+        >
+          Forget Password
+        </h1>
+
+        <div
+          class="border border-white/20 rounded-[40px] p-12 shadow-2xl backdrop-blur-md flex flex-col gap-8"
+        >
+          <p class="text-white text-xl text-center mb-2 font-light">
+            Enter Your Email
+          </p>
 
           <div class="relative">
-            <app-custom-input 
-              [icon]="'pi pi-envelope'" 
-              placeholder="Email" 
-              type="email" 
-              formControlName="email">
+            <app-custom-input
+              [icon]="'pi pi-envelope'"
+              placeholder="Email"
+              type="email"
+              formControlName="email"
+            >
             </app-custom-input>
           </div>
-
-       
-
-<app-main-button
-  [label]="'Send OTP'"
-  [disabled]="forgetForm.get('email')?.invalid"
-  (btnClick)="submitEmail()">
-</app-main-button>
+  <app-error
+  [control]="forgetForm.get('email')"
+  label="Email"
+></app-error>
+          <app-butonnns
+            [label]="'Send OTP'"
+            [disabled]="forgetForm.get('email')?.invalid ?? true"
+            (btnClick)="submitEmail()"
+          >
+          </app-butonnns>
         </div>
       }
 
       @if (step() === 2) {
-        <div class="backdrop-blur-xl border border-white/20 rounded-[40px] p-12 w-full shadow-2xl text-center flex flex-col gap-6">
-          <h2 class="text-white text-xl mb-4">Enter Your OTP Check Your Email</h2>
+        <div
+          class="backdrop-blur-xl border border-white/20 rounded-[40px] p-12 w-full shadow-2xl text-center flex flex-col gap-6"
+        >
+          <h2 class="text-white text-xl mb-4">
+            Enter Your OTP Check Your Email
+          </h2>
 
-          <div class="card flex flex-col justify-center items-center gap-2 mb-4">
+          <div
+            class="card flex flex-col justify-center items-center gap-2 mb-4"
+          >
             <p-inputOtp formControlName="resetCode">
               <ng-template #input let-token let-events="events">
                 <input
@@ -46,20 +61,22 @@
               </ng-template>
             </p-inputOtp>
           </div>
-          <app-main-button
-  [label]="'Confirm'"
-  [disabled]="forgetForm.get('resetCode')?.invalid"
-  (btnClick)="submitCode()">
-</app-main-button>
-
-       
+          <app-butonnns
+        
+            [label]="'Confirm'"
+            [disabled]="forgetForm.get('resetCode')?.invalid ?? true"
+            (btnClick)="submitCode()"
+         ></app-butonnns>
 
           <div class="mt-2">
-            <p class="text-gray-400 text-sm">Didn't Receive Verification Code?</p>
-            <button 
-              type="button" 
-              (click)="resendCode()" 
-              class="text-[#FF4500] font-bold hover:underline mt-2 bg-transparent border-none cursor-pointer">
+            <p class="text-gray-400 text-sm">
+              Didn't Receive Verification Code?
+            </p>
+            <button
+              type="button"
+              (click)="resendCode()"
+              class="text-[#FF4500] font-bold hover:underline mt-2 bg-transparent border-none cursor-pointer"
+            >
               Resend Code?
             </button>
           </div>
@@ -68,44 +85,55 @@
 
       @if (step() === 3) {
         <div class="flex flex-col items-center w-full">
-          <h1 class="text-white text-4xl font-bold mb-8 text-center">Create New Password</h1>
+          <h1 class="text-white text-4xl font-bold mb-8 text-center">
+            Create New Password
+          </h1>
 
-          <div class="bg-white/5 backdrop-blur-md border border-white/20 rounded-[40px] p-10 w-full shadow-2xl flex flex-col gap-5">
-            <p class="text-white text-center mb-4 text-sm opacity-90">Make Sure It's 8 Characters Or More</p>
+          <div
+            class="bg-white/5 backdrop-blur-md border border-white/20 rounded-[40px] p-10 w-full shadow-2xl flex flex-col gap-5"
+          >
+            <p class="text-white text-center mb-4 text-sm opacity-90">
+              Make Sure It's 8 Characters Or More
+            </p>
 
             <div class="relative">
               <app-custom-input
                 placeholder="Password"
                 icon="pi pi-lock"
                 type="password"
-                formControlName="password">
+                formControlName="password"
+              >
               </app-custom-input>
             </div>
-
+   <app-error
+  [control]="forgetForm.get('password')"
+  label="Password"
+></app-error>
             <div class="relative">
               <app-custom-input
                 placeholder="Confirm Password"
                 icon="pi pi-lock"
                 type="password"
-                formControlName="newPassword">
+                formControlName="newPassword"
+              >
               </app-custom-input>
             </div>
-       <app-main-button
-  [label]="'Done'"
-  [disabled]="forgetForm.get('password')?.invalid || forgetForm.get('newPassword')?.invalid || forgetForm.hasError('passwordMismatch')"
-  (btnClick)="submitPassword()">
-</app-main-button>
-            <!-- <button
-              type="button"
-              (click)="submitPassword()"
+            <app-error
+              [control]="forgetForm.get('rePassword')"
+              label="Confirm Password"
+            ></app-error>
+            <app-butonnns
+              [label]="'Done'"
               [disabled]="forgetForm.invalid"
-              class="w-full bg-[#FF4500] hover:bg-[#e63e00] disabled:opacity-50 disabled:cursor-not-allowed text-white font-bold py-4 rounded-full mt-4 transition-all shadow-lg">
-              Done
-            </button> -->
+              (btnClick)="submitPassword()"
+            >
+            </app-butonnns>
+             
+         
           </div>
         </div>
       }
-
     </form>
   </div>
 </div>
+

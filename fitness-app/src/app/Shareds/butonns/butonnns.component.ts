@@ -1,14 +1,12 @@
 import { Component, EventEmitter, input, Output } from '@angular/core';
-
 @Component({
-  selector: 'app-main-button',
+  selector: 'app-butonnns',
   imports: [],
-  templateUrl: './mainButton.component.html',
-  styleUrl: './mainButton.component.css',
+  templateUrl: './butonnns.component.html',
+  styleUrl: './butonnns.component.css',
 })
-export class MainButtonComponent {
+export class ButonnnsComponent {
   label = input.required<string>(); // نص الزر
 disabled = input<boolean>(false);
  @Output() btnClick = new EventEmitter<void>();
-
 }

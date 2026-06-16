@@ -1,0 +1,33 @@
+<div
+  (click)="selectOption()"
+  [ngClass]="{
+    'border-[var(--main-color)]': checked,
+    'border-[#D9D9D9] bg-white/5': !checked,
+  }"
+  class="flex items-center justify-between px-6 py-3 mb-4 rounded-[20px] border backdrop-blur-[4px] cursor-pointer transition-all duration-300 hover:bg-white/10 select-none"
+>
+  <span
+    [ngClass]="{
+      'text-[var(--main-color)]': checked,
+      'text-white': !checked,
+    }"
+    class="text-base font-medium tracking-wide transition-colors duration-300"
+  >
+    {{ label }}
+  </span>
+
+  <div
+    (click)="$event.stopPropagation(); selectOption()"
+    class="flex items-center"
+  >
+    <input
+      type="radio"
+      [name]="name"
+      [value]="value"
+      [checked]="checked"
+      (change)="selectOption()"
+      class="sr-only"
+    />
+    <span class="custom-radio" [class.checked]="checked"></span>
+  </div>
+</div>

@@ -1,16 +1,16 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { FloatingImageComponent } from './floating-image.component';
+import { ScrollComponent } from './scroll.component';
 
-describe('FloatingImageComponent', () => {
-  let component: FloatingImageComponent;
-  let fixture: ComponentFixture<FloatingImageComponent>;
+describe('ScrollComponent', () => {
+  let component: ScrollComponent;
+  let fixture: ComponentFixture<ScrollComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [FloatingImageComponent],
+      imports: [ScrollComponent],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(FloatingImageComponent);
+    fixture = TestBed.createComponent(ScrollComponent);
     component = fixture.componentInstance;
     await fixture.whenStable();
   });
