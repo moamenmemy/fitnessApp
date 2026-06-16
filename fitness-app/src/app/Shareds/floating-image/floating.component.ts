@@ -1,13 +1,13 @@
 import { Component, HostListener } from '@angular/core';
 
 @Component({
-  selector: 'app-floating-image',
+  selector: 'app-floating',
   imports: [],
-  templateUrl: './floating-image.component.html',
-  styleUrl: './floating-image.component.css',
+  templateUrl: './floating.component.html',
+  styleUrl: './floating.component.css',
 })
-export class FloatingImageComponent {
-  isVisible = false;
+export class FloatingComponent {
+    isVisible = false;
   isChatOpen = false;
 
   @HostListener('window:scroll')

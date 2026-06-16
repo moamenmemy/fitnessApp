@@ -1,5 +1,3 @@
-
-/* إخفاء شريط التمرير (Scrollbar) تماماً ليبدو المظهر احترافي ومثل تطبيقات الهاتف */
 .scrollbar-hide::-webkit-scrollbar {
   display: none;
 }

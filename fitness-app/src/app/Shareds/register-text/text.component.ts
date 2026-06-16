@@ -1,5 +1,6 @@
 import { Component, input } from '@angular/core';
 
+
 @Component({
   selector: 'app-text',
   imports: [],
@@ -7,6 +8,6 @@ import { Component, input } from '@angular/core';
   styleUrl: './text.component.css',
 })
 export class TextComponent {
-  title = input<string>();
+    title = input<string>();
   paragraph = input<string>('This Helps Us Create Your Personalized Plan');
 }

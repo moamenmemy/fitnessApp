@@ -7,7 +7,7 @@ import { Component } from '@angular/core';
   styleUrl: './servicesBar.component.css',
 })
 export class ServicesBarComponent {
-  marqueeItems: string[] = [
+    marqueeItems: string[] = [
     'live classes',
     'outdoor & online trainers',
     'personal training',

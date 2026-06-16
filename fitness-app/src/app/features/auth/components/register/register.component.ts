@@ -11,26 +11,30 @@ import {
 } from '@angular/forms';
 
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { CustomInputComponent } from 'fitness-app/src/app/shared/components/customInput/customInput.component';
-import { MainButtonComponent } from 'fitness-app/src/app/shared/components/main-button/mainButton.component';
-import { ScrollComponent } from 'fitness-app/src/app/shared/components/numberScuroll/scroll.component';
+
+
+
 import { RadioButtonModule } from 'primeng/radiobutton';
-import { RadioComponent } from 'fitness-app/src/app/shared/components/reusableRadio/radio.component';
 import { passwordValidator } from 'fitness-app/src/app/utils/password-validator';
 import { AuthService } from '@org/auth';
-import { Router } from '@angular/router';
-import { ErrorComponent } from "fitness-app/src/app/shared/components/massage-error/error.component";
-import { TextComponent } from "fitness-app/src/app/shared/components/register-text/text.component";
+import { Router, RouterLink } from '@angular/router';
+
 import { passwordMatchValidator } from 'fitness-app/src/app/utils/password-match.validator';
+import { CustomInputComponent } from 'fitness-app/src/app/Shareds/custominput/customInput.component';
+import { MainbuttonComponent } from 'fitness-app/src/app/Shareds/main-button/mainbutton.component';
+import { ErrorComponent } from 'fitness-app/src/app/Shareds/massage-error/error.component';
+import { ScrollComponent } from 'fitness-app/src/app/Shareds/number-scuroll/scroll.component';
+import { TextComponent } from 'fitness-app/src/app/Shareds/register-text/text.component';
+import { RadioComponent } from 'fitness-app/src/app/Shareds/reusableRadio/radio.component';
 @Component({
   selector: 'app-register',
   imports: [
-    CustomInputComponent,
-    MainButtonComponent,
+   CustomInputComponent,
+   MainbuttonComponent,
     ScrollComponent,
     RadioButtonModule,
     FormsModule,
-
+RouterLink,
     ReactiveFormsModule,
     CommonModule,
     RadioComponent,

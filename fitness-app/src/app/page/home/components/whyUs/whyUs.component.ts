@@ -1,6 +1,6 @@
 import { NgOptimizedImage } from '@angular/common';
 import { Component } from '@angular/core';
-import { SecrionTitleComponent } from "../../../../Shared/components/secrion-title.component";
+import { SecrionTitleComponent } from 'fitness-app/src/app/Shareds/section-title/secrion-title.component';
 
 @Component({
   selector: 'app-why-us',

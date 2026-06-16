@@ -1,16 +1,16 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { MainButtonComponent } from './mainButton.component';
+import { FloatingComponent } from './floating.component';
 
-describe('MainButtonComponent', () => {
-  let component: MainButtonComponent;
-  let fixture: ComponentFixture<MainButtonComponent>;
+describe('FloatingComponent', () => {
+  let component: FloatingComponent;
+  let fixture: ComponentFixture<FloatingComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [MainButtonComponent],
+      imports: [FloatingComponent],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(MainButtonComponent);
+    fixture = TestBed.createComponent(FloatingComponent);
     component = fixture.componentInstance;
     await fixture.whenStable();
   });

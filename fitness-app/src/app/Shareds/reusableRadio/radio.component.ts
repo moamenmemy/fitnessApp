@@ -3,13 +3,12 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 @Component({
   selector: 'app-radio',
-  standalone: true,
   imports: [CommonModule],
   templateUrl: './radio.component.html',
-  styleUrls: ['./radio.component.css'],
+  styleUrl: './radio.component.css',
 })
 export class RadioComponent {
-  @Input() label = '';
+    @Input() label = '';
   @Input() value: any = null;
   @Input() name = 'radioGroup';
   @Input() checked = false;

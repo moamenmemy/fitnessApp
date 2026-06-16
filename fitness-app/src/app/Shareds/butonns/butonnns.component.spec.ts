@@ -1,16 +1,16 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { FloatingImageComponent } from './floating-image.component';
+import { ButonnnsComponent } from './butonnns.component';
 
-describe('FloatingImageComponent', () => {
-  let component: FloatingImageComponent;
-  let fixture: ComponentFixture<FloatingImageComponent>;
+describe('ButonnnsComponent', () => {
+  let component: ButonnnsComponent;
+  let fixture: ComponentFixture<ButonnnsComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [FloatingImageComponent],
+      imports: [ButonnnsComponent],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(FloatingImageComponent);
+    fixture = TestBed.createComponent(ButonnnsComponent);
     component = fixture.componentInstance;
     await fixture.whenStable();
   });

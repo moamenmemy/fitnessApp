@@ -14,11 +14,11 @@ import {
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
+
 @Component({
   selector: 'app-scroll',
-  standalone: true,
-  imports: [CommonModule],
-  providers: [
+   imports: [CommonModule],
+    providers: [
     {
       provide: NG_VALUE_ACCESSOR,
       useExisting: forwardRef(() => ScrollComponent),
@@ -28,8 +28,8 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
   templateUrl: './scroll.component.html',
   styleUrl: './scroll.component.css',
 })
-export class ScrollComponent implements ControlValueAccessor, AfterViewInit {
-
+export class ScrollComponent  implements ControlValueAccessor, AfterViewInit {
+  
   min = input(10);
   max = input(60);
   step = input(1);

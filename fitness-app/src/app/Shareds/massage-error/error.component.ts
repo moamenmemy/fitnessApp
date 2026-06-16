@@ -8,7 +8,7 @@ import { AbstractControl } from '@angular/forms';
   styleUrl: './error.component.css',
 })
 export class ErrorComponent {
-    @Input() control: AbstractControl | null = null;
+   @Input() control: AbstractControl | null = null;
   @Input() label = '';
   
 
