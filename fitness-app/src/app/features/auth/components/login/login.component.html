@@ -47,15 +47,11 @@
       </div>
 
       <div class="flex justify-center items-center gap-4">
-    <button type="button" class="w-11 h-11 rounded-full bg-black/20 border border-white/5 text-white flex items-center justify-center hover:bg-white/10 transition-all">
-            <i class="pi pi-facebook text-lg"></i>
-          </button>
-          <button type="button" class="w-11 h-11 rounded-full bg-black/20  border border-white/5 text-white flex items-center justify-center hover:bg-white/10 transition-all">
-            <i class="pi pi-google text-lg"></i>
-          </button>
-          <button type="button" class="w-11 h-11 rounded-full bg-black/20 border border-white/5 text-white flex items-center justify-center hover:bg-white/10 transition-all">
-            <i class="pi pi-apple text-lg"></i>
-          </button>
+  @for (provider of authProviders; track provider.name) {
+    <button type="button" class="w-11 h-11 rounded-full bg-black/20 border border-white/5 text-white flex items-center justify-center">
+      <i [class]="provider.icon + ' text-lg'"></i>
+    </button>
+  }
       </div>
 
       <div class="text-center mt-4">

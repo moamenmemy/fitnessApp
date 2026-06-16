@@ -58,6 +58,12 @@ initForm() {
     });
   }
 
+  authProviders = [
+  { name: 'facebook', icon: 'pi pi-facebook' },
+  { name: 'google', icon: 'pi pi-google' },
+  { name: 'apple', icon: 'pi pi-apple' }
+];
+
 
   ngOnInit(): void {
     this.initForm();
