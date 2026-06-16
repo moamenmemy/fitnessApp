@@ -1,0 +1,18 @@
+<div class="w-full flex items-center justify-center overflow-x-auto no-scrollbar py-2">
+  
+  <div class="flex items-center gap-2 md:gap-4  p-1.5 rounded-full backdrop-blur-sm border border-white/5">
+    
+    @for (tab of tabsData(); track tab) {
+      <button
+        (click)="selectTab(tab)"
+        [class]="isActive(tab) 
+          ? 'bg-[#f15a24] text-white font-extrabold shadow-lg shadow-[#f15a24]/20 scale-105' 
+          : 'text-gray-300 hover:text-white font-medium bg-transparent'"
+        class="px-5 py-2 text-xs md:text-sm font-sans tracking-wide uppercase rounded-full transition-all duration-300 ease-in-out cursor-pointer whitespace-nowrap">
+        {{ getTabLabel(tab) }}
+      </button>
+    }
+
+  </div>
+
+</div>
