@@ -1,0 +1,19 @@
+<div class="flex items-center justify-center min-h-screen  p-6">
+
+  <!-- نداء الـ Custom Component وتمرير البيانات -->
+  <app-custom-list 
+    [tabs]="classTabs" 
+    [items]="classItems"
+    [activeTab]="currentTab"
+    (tabChanged)="onTabChange($event)">
+    
+    <!-- الزرار اللي هيظهر على يمين كل عنصر في الليست -->
+    <button action class="bg-[#FF4500] hover:bg-[#e03d00] text-white p-2 rounded-full flex items-center justify-center w-8 h-8 transition-colors duration-200">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24" class="w-4 h-4 ml-0.5">
+        <path d="M8 5v14l11-7z"/>
+      </svg>
+    </button>
+
+  </app-custom-list>
+
+</div>

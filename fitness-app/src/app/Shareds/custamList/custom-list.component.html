@@ -1,0 +1,49 @@
+<div class="bg-[#1A1A1A]/80 backdrop-blur-md rounded-3xl p-6 w-full max-w-md border border-white/5">
+  
+  <div class="flex items-center justify-between   p-1 mb-6">
+    @for (tab of tabs; track tab) {
+      <button 
+        (click)="selectTab(tab)"
+        [class.bg-[#FF4500]]="activeTab === tab"
+        [class.text-white]="activeTab === tab"
+        [class.text-gray-400]="activeTab !== tab"
+        class="flex-1 text-center py-2 px-4 rounded-full text-sm font-medium bg-transparent border-0 outline-none cursor-pointer transition-all duration-300">
+        {{ tab }}
+      </button>
+    }
+  </div>
+
+  <div class="flex flex-col gap-5 overflow-y-auto max-h-[500px] pr-1">
+    @for (item of items; track item.id) {
+      <div class="flex items-center justify-between gap-4 group">
+        
+        <div class="flex items-center gap-4">
+          <img [src]="item.imageUrl" [alt]="item.title" class="w-16 h-16 rounded-2xl object-cover border border-white/10" />
+          <div class="flex flex-col">
+            <h4 class="text-white font-semibold text-base">{{ item.title }}</h4>
+            
+            @if (item.subTitle) {
+              <span class="text-gray-400 text-xs mt-0.5">{{ item.subTitle }}</span>
+            }
+            
+            <p class="text-gray-500 text-xs mt-1 max-w-[200px] line-clamp-2">{{ item.description }}</p>
+          </div>
+        </div>
+
+        <div class="flex-shrink-0 w-8 h-8 flex items-center justify-center">
+          @if (item.hasVideo) {
+            <button class="bg-[#FF4500] hover:bg-[#e03d00] text-white p-2 rounded-full flex items-center justify-center w-8 h-8 transition-colors duration-200 border-0 cursor-pointer">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24" class="w-4 h-4 ml-0.5">
+                <path d="M8 5v14l11-7z"/>
+              </svg>
+            </button>
+          }
+        </div>
+
+      </div>
+    } @empty {
+      <p class="text-gray-500 text-sm text-center py-4">No items found</p>
+    }
+  </div>
+
+</div>
