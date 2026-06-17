@@ -1,4 +1,5 @@
 import { Component, input, output, signal, OnInit } from '@angular/core';
+import { TabItem } from './interface/customTabs';
 
 @Component({
   selector: 'app-custom-tabs',
@@ -8,48 +9,38 @@ import { Component, input, output, signal, OnInit } from '@angular/core';
   styleUrl: './custamTabs.component.css'   
 })
 export class CustomTabsComponent implements OnInit {
-  // 1. استقبال الداتا من الـ API
-  tabsData = input.required<any[]>();
 
-  // 2. الحقل المراد عرضه في حالة الأوبجكتس
-  bindLabel = input<string>('');
+  tabsData = input.required<TabItem[]>();
   
-  // 3. التاب الافتراضي اللي الأب عاوزه يبدأ بيه (اختياري)
-  initialTab = input<any>(null); 
-
-  // 🎯 4. الـ Signal الداخلي الحر والمسؤول عن تغيير الـ Active Tab
-  activeTabInternal = signal<any>(null); 
-
-  // 5. الحدث الموجه للأب عند التغيير
-  tabChanged = output<any>();
+  
+  bindLabel = input<string>('text');
+  
+ 
+  initialTab = input<string | number | null>(null);
+  
+  
+  activeTabInternal = signal<string | number | null>(null);
+  
+  
+  tabChanged = output<string | number>();
 
   ngOnInit() {
-    // تحديد التاب النشط عند البداية
+
     if (this.initialTab()) {
       this.activeTabInternal.set(this.initialTab());
     } else if (this.tabsData().length > 0) {
-      this.activeTabInternal.set(this.tabsData()[0]);
+      this.activeTabInternal.set(this.tabsData()[0].id);
     }
   }
 
-  getTabLabel(tab: any): string {
-    if (this.bindLabel() && typeof tab === 'object') {
-      return tab[this.bindLabel()];
-    }
-    return tab;
+  selectTab(tab: TabItem) {
+    this.activeTabInternal.set(tab.id);
+    this.tabChanged.emit(tab.id);
   }
 
-  selectTab(tab: any) {
-    this.activeTabInternal.set(tab); // ✅ هنا بنعدل الـ Signal الداخلي بحرية تامة
-    this.tabChanged.emit(tab);
-  }
-
-  // دالة الفحص بتعتمد على الـ Signal الداخلي حالياً
-  isActive(tab: any): boolean {
-    const currentActive = this.activeTabInternal();
-    if (typeof tab === 'object' && typeof currentActive === 'object') {
-      return tab.id === currentActive?.id || JSON.stringify(tab) === JSON.stringify(currentActive);
-    }
-    return tab === currentActive;
-  }
+ l
+ getTabLabel(tab: Record<string, string | number | boolean>): string {
+  const labelKey = this.bindLabel() || 'text';
+  return String(tab[labelKey] || '');
+}
 }

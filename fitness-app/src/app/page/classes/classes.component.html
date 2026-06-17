@@ -4,7 +4,4 @@
     [subText]="singleMeal.btnText">
   </app-custom-card>
 
-  <app-custom-tabs 
-  [tabsData]="['Breakfast', 'Lunch', 'Dinner']"
-  (tabChanged)="onFoodTabChange($event)">
-</app-custom-tabs>
+<app-custom-tabs [tabsData]="mealTabs"></app-custom-tabs>

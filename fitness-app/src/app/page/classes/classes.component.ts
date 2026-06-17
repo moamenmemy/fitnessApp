@@ -15,11 +15,9 @@ export class ClassesComponent {
     btnText: 'Explore'
   };
 
-  
-  onFoodTabChange(category: any) {
-    console.log('التاب اللي ضغطت عليه حالياً هو:', category);
-    
-    // هنا مستقبلاً هتعمل الـ API Call بتاعك بناءً على الـ category اللي راجع
-    // مثلاً لو راجع نص صريح: Breakfast أو أوبجكت كامل
-  }
+mealTabs = [
+  { id: 'breakfast', text: 'Breakfast' },
+  { id: 'lunch', text: 'Lunch' },
+  { id: 'dinner', text: 'Dinner' }
+];
 }
