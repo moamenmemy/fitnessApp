@@ -23,6 +23,11 @@ export const appRoutes: Route[] = [
         loadComponent: () =>
           import('./page/about/about.component').then((m) => m.AboutComponent),
       },
+      {
+        path: 'classes',
+        loadComponent: () =>
+          import('./page/classes/classes.component').then((m) => m.ClassesComponent),
+      },
     ],
   },
   {
