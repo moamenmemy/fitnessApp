@@ -1,5 +1,6 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, input,  } from '@angular/core';
 import { CustomListItem } from './interface/custom-list';
+
 
 @Component({
   selector: 'app-custom-list',
@@ -8,15 +9,5 @@ import { CustomListItem } from './interface/custom-list';
   styleUrl: './custom-list.component.css',
 })
 export class CustomListComponent {
-  @Input() tabs: string[] = [];
-  @Input() items: CustomListItem[] = [];
-  @Input() activeTab = '';
-
-  
-  @Output() tabChanged = new EventEmitter<string>();
-
-  selectTab(tab: string) {
-    this.activeTab = tab;
-    this.tabChanged.emit(tab);
-  }
+items = input.required<CustomListItem[]>();
 }
