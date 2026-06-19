@@ -1,0 +1,16 @@
+/* Styles moved to styles.css for PrimeNG toggle switch customization */
+.p-toggleswitch.p-toggleswitch-checked .p-toggleswitch-slider {
+  background: var(--main-color) !important;
+  border-color: var(--main-color) !important;
+}
+
+.p-toggleswitch .p-toggleswitch-slider {
+  background: #f3f4f6 !important;
+  border-color: #d1d5db !important;
+}
+
+.dark .p-toggleswitch .p-toggleswitch-slider {
+  background: #374151 !important;
+  border-color: #374151 !important;
+}
+

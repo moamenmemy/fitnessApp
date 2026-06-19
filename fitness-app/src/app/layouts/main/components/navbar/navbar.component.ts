@@ -5,7 +5,7 @@ import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { Theme } from '../../../../core/services/theme/theme';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { faSun,faMoon } from '@fortawesome/free-solid-svg-icons';
+import { faSun,faMoon, faUser } from '@fortawesome/free-solid-svg-icons';
 import { ButtonUiComponent } from 'fitness-app/src/app/Shareds/button-ui/buttonUi.component';
 @Component({
   standalone: true,
@@ -30,6 +30,7 @@ export class NavbarComponent {
   isScrolled = false;
   fasun = faSun;
   famoon = faMoon;
+  User=faUser
 
   @HostListener('window:scroll', [])
   onScroll() {

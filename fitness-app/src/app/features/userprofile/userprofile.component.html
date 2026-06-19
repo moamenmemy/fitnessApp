@@ -1,0 +1,74 @@
+<section class="relative min-h-screen w-full overflow-auto">
+  <img
+    alt="authLogo"
+    ngSrc="assets/layout.png"
+    fill
+    class="absolute inset-0 w-full h-full object-cover"
+  />
+  <div
+    class="absolute inset-0 bg-[#FFFFFF99] dark:bg-[#242424]/60 backdrop-blur-[46px]"
+  ></div>
+  <div
+    class="flex justify-center items-center flex-col container mx-auto pt-40"
+  >
+    <div class="grid grid-cols-2 md:grid-cols-3 gap-16 z-10">
+      @for (info of infos; track $index) {
+        <div class="">
+          <h2
+            class="text-[#242424] dark:text-white text-center font-bold text-3xl"
+          >
+            {{ info.title }}
+          </h2>
+          <p
+            class="text-[#242424] text-sm text-center pb-4 dark:text-white underline"
+          >
+            {{ info.text }}
+          </p>
+          <button
+            class="dark:text-white text-[#242424] w-[240px] py-3 px-4 rounded-full font-semibold border bg-[--main-color] border-[#242424] dark:border-white transition duration-150 flex items-center justify-between gap-2"
+          >
+            {{ info.lable }}
+            <fa-icon [icon]="rotate" />
+          </button>
+        </div>
+      }
+    </div>
+    <div
+      class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 my-16 justify-items-center"
+    >
+      @for (card of settingsCards; track card.id; let last = $last) {
+        <div
+          [class.md:col-start-2]="last"
+          class="border border-[#242424] dark:border-white w-[209px] h-[168px] backdrop-blur-sm rounded-2xl p-6 flex flex-col items-center justify-center gap-3 cursor-pointer bg-white/5 dark:bg-[#242424]/20 transition min-h-[140px]"
+        >
+          <i [class]="card.icon + ' text-[var(--main-color)] text-4xl'"></i>
+
+          <div class="text-center">
+            <div
+              class="flex flex-wrap justify-center items-center gap-1 text-sm font-medium text-[#242424] dark:text-white"
+            >
+              <span>{{ card.title }}</span>
+
+              @if (card.subTitle) {
+                <span class="text-lg font-bold">
+                  (
+                  <span class="text-[var(--main-color)]">
+                    {{ card.subTitle }}
+                  </span>
+                  )
+                </span>
+              }
+            </div>
+          </div>
+
+          @if (card.type === 'switch') {
+            <p-toggleswitch
+              [ngModel]="isDarkMode()"
+              (ngModelChange)="onThemeToggle($event)"
+            />
+          }
+        </div>
+      }
+    </div>
+  </div>
+</section>

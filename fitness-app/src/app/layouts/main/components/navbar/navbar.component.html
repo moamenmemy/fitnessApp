@@ -1,7 +1,7 @@
 <nav
   class="flex items-center justify-between fixed top-0 w-full z-50 py-4 px-12 transition-all duration-300"
   [ngClass]="{
-    'bg-transparent text-white': !isScrolled,
+    'bg-transparent text-[#242424] dark:text-white': !isScrolled,
     'bg-white/70 backdrop-blur-md shadow-md dark:bg-[#242424]/80 text-[#242424] dark:text-white':
       isScrolled,
   }"
@@ -17,11 +17,7 @@
 
   <!-- Desktop Links -->
   <ul
-    class="hidden md:flex items-center gap-8 font-bold"
-    [ngClass]="{
-      'text-white': !isScrolled,
-      'text-[#242424] dark:text-white': isScrolled,
-    }"
+    class="hidden md:flex items-center gap-8 font-bold text-[#242424] dark:text-white"
   >
     @for (link of navLinks; track $index) {
       <li>
@@ -48,6 +44,14 @@
         [ngClass]="{ 'rotate-[360deg]': _theme.theme() === 'dark' }"
       >
         <fa-icon [icon]="_theme.theme() === 'dark' ? fasun : famoon" />
+      </div>
+    </button>
+    <button
+      routerLink="/UserProfile"
+      class="flex items-center text-white justify-center w-10 h-10 rounded-full bg-[var(--main-color)] transition-all active:scale-90"
+    >
+      <div class="transition-transform duration-500 dark:text-white text-black">
+        <fa-icon [icon]="User"  />
       </div>
     </button>
 

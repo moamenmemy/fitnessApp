@@ -19,6 +19,11 @@ export const appRoutes: Route[] = [
           import('./page/home/home.component').then((m) => m.HomeComponent),
       },
       {
+        path: 'UserProfile',
+        loadComponent: () =>
+          import('./features/userprofile/userprofile.component').then((m) => m.UserprofileComponent),
+      },
+      {
         path: 'about',
         loadComponent: () =>
           import('./page/about/about.component').then((m) => m.AboutComponent),
