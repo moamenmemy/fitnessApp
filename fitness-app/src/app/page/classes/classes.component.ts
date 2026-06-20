@@ -1,7 +1,8 @@
 import { Component,  signal } from '@angular/core';
 import { CustomCaruselComponent } from '../../Shareds/customCarousel/customCarusel.component';
 import { CommonModule } from '@angular/common';
-
+import { CustomCardComponent } from '../../Shareds/customCard/customCard.component';
+import { CustomTabsComponent } from "../../Shareds/customTabs/custamTabs.component";
 @Component({
   selector: 'app-classes',
   imports: [CommonModule, CustomCaruselComponent],
@@ -17,9 +18,13 @@ export class ClassesComponent  {
   ]);
 
 
+    singleMeal = {
+    titleName: 'Pasta With Chicken',
+    imageCover: 'https://images.unsplash.com/photo-1645112411341-6c4fd023714a?q=80&w=500&auto=format&fit=cover',
+    btnText: 'Explore'
 
-  
-  handleCarouselClick(item: any) {
-    console.log('تم الضغط على العنصر جوه الكاروسيل:', item);
+
   }
+
+
 }
