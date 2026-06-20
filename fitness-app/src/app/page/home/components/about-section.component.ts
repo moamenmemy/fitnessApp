@@ -4,16 +4,23 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faSagittarius } from '@fortawesome/free-solid-svg-icons';
 import { ButtonUiComponent } from 'fitness-app/src/app/Shareds/button-ui/buttonUi.component';
 import { SecrionTitleComponent } from 'fitness-app/src/app/Shareds/section-title/secrion-title.component';
+import { CustomCardComponent } from "fitness-app/src/app/Shareds/customCard/customCard.component";
 
 @Component({
   standalone: true,
   selector: 'app-about-section',
-  imports: [FontAwesomeModule, CommonModule, SecrionTitleComponent, ButtonUiComponent],
+  imports: [FontAwesomeModule, CommonModule, SecrionTitleComponent, ButtonUiComponent, CustomCardComponent],
   templateUrl: './about-section.component.html',
   styleUrls: ["./about-section.component.css"],
 })
 export class AboutSectionComponent {
   sagittarius = faSagittarius;
+
+  singleMeal = {
+    titleName: 'Pasta With Chicken',
+    imageCover: 'https://images.unsplash.com/photo-1645112411341-6c4fd023714a?q=80&w=500&auto=format&fit=cover',
+    btnText: 'Explore'
+  };
   feature1 = [
   {
     title: 'Personal Trainer',

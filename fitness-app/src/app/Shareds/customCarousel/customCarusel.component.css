@@ -1,0 +1,26 @@
+:host {
+   
+    --p-carousel-indicator-active-background: #f15a24 !important;
+    --p-carousel-indicator-background: #e5e7eb !important;
+}
+
+
+::v-deep .p-carousel-prev,
+::v-deep .p-carousel-next {
+    display: none !important;
+}
+
+
+::v-deep .p-carousel-indicator button {
+    width: 8px !important;  
+    height: 8px !important; 
+    border-radius: 50% !important;
+    transition: all 0.3s ease-in-out !important;
+}
+
+
+::v-deep .p-carousel-indicator-active button {
+    width: 24px !important; 
+    height: 8px !important;  
+    border-radius: 9999px !important; 
+}

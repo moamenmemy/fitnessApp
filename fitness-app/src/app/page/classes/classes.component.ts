@@ -1,4 +1,4 @@
-import { Component, computed, inject, signal } from '@angular/core';
+import { Component, computed,signal } from '@angular/core';
 import { CustomListItem } from '../../Shareds/custamList/interface/custom-list';
 import { CustomListComponent } from '../../Shareds/custamList/custom-list.component';
 import { CommonModule } from '@angular/common';
