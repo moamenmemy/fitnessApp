@@ -17,6 +17,7 @@ import { passwordValidator } from '../../../../utils/password-validator';
 import { CustomInputComponent } from 'fitness-app/src/app/Shareds/custominput/customInput.component';
 import { ErrorComponent } from 'fitness-app/src/app/Shareds/massage-error/error.component';
 import { ButonnnsComponent } from 'fitness-app/src/app/Shareds/butonns/butonnns.component';
+import { AuthCookieService } from '../../services/auth-cookie-service';
 
 @Component({
   selector: 'app-login',
@@ -36,7 +37,7 @@ import { ButonnnsComponent } from 'fitness-app/src/app/Shareds/butonns/butonnns.
 export class LoginComponent implements OnInit {
   private _authService = inject(AuthService);
   private _router = inject(Router);
-
+private authCookieService = inject(AuthCookieService);
   loginForm!: FormGroup;
   isSubmitting = false;
 
@@ -60,7 +61,10 @@ export class LoginComponent implements OnInit {
       next: (res) => {
         this.isSubmitting = false;
         console.log('Login Success:', res);
-        // Navigate to home on successful login
+        if (res && res.token) {
+        this.authCookieService.setToken(res.token);
+      }
+    
         this._router.navigate(['/home']);
       },
       error: (err) => {
