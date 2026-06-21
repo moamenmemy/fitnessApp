@@ -16,8 +16,9 @@ import {
 } from '@angular/platform-browser';
 import { providePrimeNG } from 'primeng/config';
 import Aura from '@primeuix/themes/aura';
-import { provideHttpClient, withFetch } from '@angular/common/http';
+import { provideHttpClient, withFetch, withInterceptors } from '@angular/common/http';
 import { Theme } from './core/services/theme/theme';
+import { languageInterceptor } from './core/interceptors/language-interceptor';
 
 function initializeTheme(): void {
   const theme = inject(Theme);
@@ -27,7 +28,7 @@ export const appConfig: ApplicationConfig = {
   providers: [
     provideClientHydration(withEventReplay()),
     provideBrowserGlobalErrorListeners(),
-    provideHttpClient(withFetch()),
+    provideHttpClient(withFetch(),  withInterceptors([languageInterceptor])),
     provideRouter(appRoutes),
     providePrimeNG({
       theme: {

@@ -5,6 +5,9 @@ import { faArrowsRotate } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { ToggleSwitchModule } from 'primeng/toggleswitch';
 import { Theme } from '../../core/services/theme/theme';
+import { signal } from '@angular/core';
+import { Exercises } from '../../core/auth/exercises/exercises';
+import { Language } from '../../core/auth/language/language';
 interface SettingCard {
   id: string;
   title: string;
@@ -14,16 +17,22 @@ interface SettingCard {
 }
 @Component({
   selector: 'app-userprofile',
-  imports: [NgOptimizedImage, FontAwesomeModule, FormsModule, ToggleSwitchModule],
+  imports: [
+    NgOptimizedImage,
+    FontAwesomeModule,
+    FormsModule,
+    ToggleSwitchModule,
+  ],
   templateUrl: './userprofile.component.html',
   styleUrl: './userprofile.component.css',
 })
 export class UserprofileComponent {
+  _e = inject(Exercises);
   rotate = faArrowsRotate;
-theme = inject(Theme);
-
+  theme = inject(Theme);
+ langService = inject(Language);
   isDarkMode = computed(() => this.theme.theme() === 'dark');
- onThemeToggle(checked: boolean) {
+  onThemeToggle(checked: boolean) {
     this.theme.setTheme(checked ? 'dark' : 'light');
   }
   infos = [
@@ -47,19 +56,44 @@ theme = inject(Theme);
   // مصفوفة البيانات الخاصة بالكروت
   settingsCards: SettingCard[] = [
     { id: 'password', title: 'Change Password', icon: 'pi pi-refresh' },
-    { id: 'language', title: 'Select Language', subTitle: 'English', icon: 'pi pi-globe' },
-    { id: 'mood', title: 'Mood', subTitle: 'Dark', icon: 'pi pi-moon', type: 'switch' },
+    {
+      id: 'language',
+      title: 'Select Language',
+      subTitle: 'English',
+      icon: 'pi pi-globe',
+    },
+    {
+      id: 'mood',
+      title: 'Mood',
+      subTitle: 'Dark',
+      icon: 'pi pi-moon',
+      type: 'switch',
+    },
     { id: 'security', title: 'Security', icon: 'pi pi-shield' },
     { id: 'privacy', title: 'Privacy Policy', icon: 'pi pi-lock' },
     { id: 'help', title: 'Help', icon: 'pi pi-question-circle' },
-    { id: 'logout', title: 'Logout', icon: 'pi pi-sign-out', type: 'logout' }
+    { id: 'logout', title: 'Logout', icon: 'pi pi-sign-out', type: 'logout' },
   ];
-
+  toggleLanguage() {
+  this.langService.toggleLanguage();
+  }
   onCardClick(cardId: string) {
+    if (cardId === 'language') {
+      this.toggleLanguage();
+      return;
+    }
+
     if (cardId === 'logout') {
       console.log('Logging out...');
-    } else {
-      console.log('Card clicked:', cardId);
+      return;
     }
+
+    console.log('Card clicked:', cardId);
+  }
+ngOnInit(): void {
+  this.getExercise();
+}
+  getExercise() {
+    this._e.getExercises().subscribe((res) => console.log(res));
   }
 }
