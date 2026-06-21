@@ -80,6 +80,12 @@ export interface UploadProfileUserRequest {
     passwordChangedAt:string
   
 }
+export interface UpdateProfileRequest {
+  goal?: string;
+  weight?: number;
+  height?: number;
+  activityLevel?: string;
+}
 export interface UploadProfileUserResponse {
 message:string,
 user:UploadProfileUserRequest

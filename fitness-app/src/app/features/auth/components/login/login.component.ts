@@ -62,6 +62,7 @@ export class LoginComponent implements OnInit {
         console.log('Login Success:', res);
         // Navigate to home on successful login
         this._router.navigate(['/home']);
+        localStorage.setItem('token', res.token);
       },
       error: (err) => {
         this.isSubmitting = false;

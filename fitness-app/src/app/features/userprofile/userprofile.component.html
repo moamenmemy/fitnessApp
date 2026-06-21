@@ -24,12 +24,14 @@
           >
             {{ info.text }}
           </p>
-          <button
-            class="dark:text-white text-[#242424] w-[240px] py-3 px-4 rounded-full font-semibold border bg-[--main-color] border-[#242424] dark:border-white transition duration-150 flex items-center justify-between gap-2"
-          >
-            {{ info.lable }}
-            <fa-icon [icon]="rotate" />
-          </button>
+      <button
+  (click)="openEdit(info.id)"
+  class="dark:text-white text-[#242424] w-[240px] py-3 px-4 rounded-full font-semibold border bg-[--main-color] border-[#242424] dark:border-white transition duration-150 flex items-center justify-between gap-2"
+>
+ {{ userData()?.[info.id] }}
+
+  <fa-icon [icon]="rotate" />
+</button>
         </div>
       }
     </div>
@@ -51,18 +53,29 @@
               <span>{{ card.title }}</span>
 @if (card.id === 'language') {
   <span class="text-lg font-bold">
- ( <span class="text-[var(--main-color)] ">
-   {{ langService.lang ()=== 'en' ? 'English' : 'Arabic' }}
-  </span>)
+    (
+    <span class="text-[var(--main-color)]">
+      {{ currentLanguage() }}
+    </span>
+    )
   </span>
-} @else {
-  <span class="text-[var(--main-color)]">
-     <span class="text-lg font-bold">
- ( <span class="text-[var(--main-color)] ">
-   {{ card.subTitle }}
-  </span>)
+}
+@else if (card.id === 'mood') {
+  <span class="text-lg font-bold">
+    (
+    <span class="text-[var(--main-color)]">
+      {{ isDarkMode() ? 'Dark' : 'Light' }}
+    </span>
+    )
   </span>
-    
+}
+@else {
+  <span class="text-lg font-bold">
+    (
+    <span class="text-[var(--main-color)]">
+      {{ card.subTitle }}
+    </span>
+    )
   </span>
 }
               <!-- @if (card.subTitle) {
@@ -88,3 +101,25 @@
     </div>
   </div>
 </section>
+<p-dialog
+  [(visible)]="showPasswordDialog"
+  [modal]="true"
+  [closable]="true"
+  [dismissableMask]="true"
+  [style]="{ width: '100%', height: '100%' }"
+>
+  
+  <app-change-password-dialog
+    (close)="showPasswordDialog = false"
+  ></app-change-password-dialog>
+
+</p-dialog>
+<app-update-profile-dialog
+  [visible]="showUpdateDialog()"
+  (visibleChange)="showUpdateDialog.set($event)"
+  [type]="selectedType()"
+  [userData]="userData()"
+  [goals]="goals()"
+  [activityLevel]="activityLevel()"
+  (save)="saveProfile($event)"
+></app-update-profile-dialog>
