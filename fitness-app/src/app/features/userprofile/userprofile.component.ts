@@ -8,6 +8,8 @@ import { Theme } from '../../core/services/theme/theme';
 import { signal } from '@angular/core';
 import { Exercises } from '../../core/auth/exercises/exercises';
 import { Language } from '../../core/auth/language/language';
+import { AuthService } from '@org/auth';
+import { Router } from '@angular/router';
 interface SettingCard {
   id: string;
   title: string;
@@ -28,6 +30,8 @@ interface SettingCard {
 })
 export class UserprofileComponent {
   _e = inject(Exercises);
+  _auth = inject(AuthService);
+  _router = inject(Router);
   rotate = faArrowsRotate;
   theme = inject(Theme);
  langService = inject(Language);
@@ -84,8 +88,14 @@ export class UserprofileComponent {
     }
 
     if (cardId === 'logout') {
-      console.log('Logging out...');
-      return;
+   this._auth.logout().subscribe({
+     next: (res) => {
+       console.log(res);
+       if (res.message === 'success'){
+       this._router.navigate(['/auth/login']);}
+     },
+   });
+   
     }
 
     console.log('Card clicked:', cardId);

@@ -81,12 +81,12 @@ export interface UploadProfileUserRequest {
   
 }
 export interface UploadProfileUserResponse {
-massage:string,
+message:string,
 user:UploadProfileUserRequest
   
 }
 export interface logoutResponse {
-massage:string,
+message:string,
 
   
 }

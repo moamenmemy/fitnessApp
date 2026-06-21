@@ -4,6 +4,7 @@ import { computed, Injectable, signal } from '@angular/core';
   providedIn: 'root',
 })
 export class Language {
+  
   private _lang = signal<'en' | 'ar'>(
     (localStorage.getItem('lang') as 'en' | 'ar') || 'en'
   );
