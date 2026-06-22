@@ -1,16 +1,3 @@
-:host {
-   
-    --p-carousel-indicator-active-background: #f15a24 !important;
-    --p-carousel-indicator-background: #e5e7eb !important;
-}
-
-
-::v-deep .p-carousel-prev,
-::v-deep .p-carousel-next {
-    display: none !important;
-}
-
-
 
 ::v-deep .p-carousel-indicator {
     display: flex !important;
@@ -20,10 +7,13 @@
 }
 
 ::v-deep .p-carousel-indicator button {
+    width: 8px !important;  
+    height: 8px !important; 
     width: 8px !important;
     height: 8px !important;
     padding: 0 !important;
     border-radius: 50% !important;
+    transition: all 0.3s ease-in-out !important;
     border: none !important;
     background-color: var(--p-carousel-indicator-background) !important;
     box-shadow: none !important;
@@ -81,3 +71,24 @@
 
 
 
+
+
+
+/* في حالة إذا كان إصدار PrimeNG يستخدم الكلاس القديم (Active) */
+:host ::ng-deep .p-carousel .p-carousel-indicator.p-carousel-indicator-active button {
+    background-color: #f15a24 !important;
+        display: flex;
+    align-items: center;
+    justify-content: center;
+    
+    width: var(--p-carousel-indicator-width);
+    height: var(--p-carousel-indicator-height);
+    border: 0 none;
+    transition: background var(--p-carousel-transition-duration), color var(--p-carousel-transition-duration), outline-color var(--p-carousel-transition-duration), box-shadow var(--p-carousel-transition-duration);
+    outline-color: transparent;
+    border-radius: var(--p-carousel-indicator-border-radius);
+    padding: 0  ;
+    margin: 2px;
+    user-select: none;
+    cursor: pointer;
+}
