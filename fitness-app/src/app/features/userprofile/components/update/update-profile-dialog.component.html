@@ -15,7 +15,7 @@
         <app-radio
           [label]="goal.text"
           [value]="goal.id"
-          [checked]="localData().goal === goal.id"
+          [checked]="isSelected('goal', goal.id)"
           (checkedChange)="updateField('goal', $event)"
         />
       }
@@ -27,7 +27,7 @@
         <app-radio
           [label]="a.text"
           [value]="a.id"
-          [checked]="localData().activityLevel === a.id"
+          [checked]="isSelected('activityLevel', a.id)"
           (checkedChange)="updateField('activityLevel', $event)"
         />
       }
@@ -40,6 +40,7 @@
         [min]="30"
         [max]="300"
         [step]="1"
+        [ngModel]="localData().weight"
         (valueChange)="updateField('weight', $event)"
       />
     }

@@ -1,10 +1,11 @@
 import { Component, effect, input, output, signal } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { ScrollComponent } from 'fitness-app/src/app/Shareds/number-scuroll/scroll.component';
 import { RadioComponent } from 'fitness-app/src/app/Shareds/reusableRadio/radio.component';
 import { DialogModule } from 'primeng/dialog';
 @Component({
   selector: 'app-update-profile-dialog',
-  imports: [DialogModule, RadioComponent,ScrollComponent],
+  imports: [DialogModule, RadioComponent, ScrollComponent, FormsModule],
   templateUrl: './update-profile-dialog.component.html',
   styleUrl: './update-profile-dialog.component.css',
 })
@@ -38,6 +39,13 @@ export class UpdateProfileDialogComponent {
   submit() {
     this.save.emit(this.localData());
     this.close();
+  }
+
+  isSelected(key: 'goal' | 'activityLevel', value: string): boolean {
+    const current = String(this.localData()?.[key] ?? '').trim().toLowerCase();
+    const option = String(value ?? '').trim().toLowerCase();
+
+    return current === option;
   }
 
   updateField(key: string, value: any) {

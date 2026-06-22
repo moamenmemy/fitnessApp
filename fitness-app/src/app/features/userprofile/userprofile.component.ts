@@ -13,7 +13,7 @@ import { Router } from '@angular/router';
 import { DialogModule } from 'primeng/dialog';
 import { ChangePasswordDialogComponent } from "./components/chanagePassword/change-password-dialog.component";
 import { UpdateProfileDialogComponent } from "./components/update/update-profile-dialog.component";
-import { UpdateProfileRequest, UploadProfileUserRequest, UploadProfileUserResponse } from 'libs/auth/src/lib/interface/auth-response-dto';
+import { UpdateProfileRequest, UploadProfileUserRequest } from 'libs/auth/src/lib/interface/auth-response-dto';
 
 @Component({
   selector: 'app-userprofile',
@@ -130,8 +130,20 @@ uploaddata() {
 
   // ===================== SAVE =====================
   saveProfile(updated: any) {
-    this.userData.set(updated);
-    console.log('UPDATED:', updated);
+    const payload: UpdateProfileRequest = {
+      goal: updated.goal,
+      weight: updated.weight,
+      activityLevel: updated.activityLevel,
+    };
+
+    this._auth.editProfile(payload).subscribe({
+      next: (res) => {
+        this.userData.set(res.user);
+      },
+      error: (err) => {
+        console.error('edit profile failed', err);
+      },
+    });
   }
 
   toggleLanguage() {
