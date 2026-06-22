@@ -4,15 +4,16 @@ import { faSagittarius } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-custom-card',
+  standalone: true,
   imports: [],
- templateUrl: './customCard.component.html',
+  templateUrl: './customCard.component.html',
   styleUrl: './customCard.component.css',
 })
 export class CustomCardComponent {
   sagittarius = faSagittarius;
 
-  imageSrc = input<string>('assets/logo.png'); 
-  title = input.required<string>();         
+imageSrc = input.required<string>(); 
+  title = input.required<string>(); 
   subText = input<string>('Explore');
   cardClicked = output<void>();
 
