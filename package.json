@@ -20,7 +20,7 @@
     "@lucide/angular": "^1.11.0",
     "@primeuix/themes": "^2.0.3",
     "express": "^4.21.2",
-    "ngx-cookie-service": "^22.0.0",
+    "ngx-cookie-service": "^21.3.1",
     "or": "^0.2.0",
     "primeicons": "^7.0.0",
     "primeng": "^21.1.6",
