@@ -1,11 +1,10 @@
-import { Component, computed, inject } from '@angular/core';
+import { Component, computed, effect, inject, signal } from '@angular/core';
 import { NgOptimizedImage } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { faArrowsRotate } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { ToggleSwitchModule } from 'primeng/toggleswitch';
 import { Theme } from '../../core/services/theme/theme';
-import { signal } from '@angular/core';
 import { Exercises } from '../../core/auth/exercises/exercises';
 import { Language } from '../../core/auth/language/language';
 import { AuthService } from '@org/auth';
@@ -81,10 +80,19 @@ export class UserprofileComponent {
     { id: 'logout', title: 'Logout', icon: 'pi pi-sign-out', type: 'logout' },
   ];
 
-  // ===================== INIT =====================
-  ngOnInit(): void {
-    this.getExercise();
-    this.loadUserProfile();
+  private hasLoadedInitialData = false;
+
+  constructor() {
+    effect(() => {
+      this.langService.lang();
+
+      if (!this.hasLoadedInitialData) {
+        this.hasLoadedInitialData = true;
+      }
+
+      this.loadUserProfile();
+      this.getExercise();
+    });
   }
 
   loadUserProfile() {
