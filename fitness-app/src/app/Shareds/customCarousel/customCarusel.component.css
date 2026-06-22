@@ -1,26 +1,94 @@
-:host {
-   
-    --p-carousel-indicator-active-background: #f15a24 !important;
-    --p-carousel-indicator-background: #e5e7eb !important;
+
+::v-deep .p-carousel-indicator {
+    display: flex !important;
+    gap: 0.5rem !important;
+    align-items: center !important;
+    justify-content: center !important;
 }
-
-
-::v-deep .p-carousel-prev,
-::v-deep .p-carousel-next {
-    display: none !important;
-}
-
 
 ::v-deep .p-carousel-indicator button {
     width: 8px !important;  
     height: 8px !important; 
+    width: 8px !important;
+    height: 8px !important;
+    padding: 0 !important;
     border-radius: 50% !important;
     transition: all 0.3s ease-in-out !important;
+    border: none !important;
+    background-color: var(--p-carousel-indicator-background) !important;
+    box-shadow: none !important;
+    transition: all 0.25s ease-in-out !important;
+}
+
+::v-deep .p-carousel-indicator .p-carousel-indicator-active button,
+::v-deep .p-carousel-indicator button.p-carousel-indicator-active {
+    width: 24px !important;
+    height: 8px !important;
+    border-radius: 9999px !important;
+    background-color: var(--p-carousel-indicator-active-background) !important;
 }
 
 
-::v-deep .p-carousel-indicator-active button {
-    width: 24px !important; 
-    height: 8px !important;  
-    border-radius: 9999px !important; 
+
+::ng-deep .tight-carousel {
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    width: auto !important; 
+    margin: 0 auto !important;
+}
+
+::ng-deep .tight-carousel .p-carousel-content,
+::ng-deep .tight-carousel .p-carousel-container {
+    width: 100% !important;
+    display: flex !important;
+    justify-content: center !important;
+}
+
+
+::ng-deep .tight-carousel .p-carousel-items-container {
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    gap: 1.5rem !important;
+}
+
+
+::ng-deep .tight-carousel .p-carousel-item {
+    flex: 0 0 auto !important;
+    width: 280px !important; 
+    display: flex !important;
+    justify-content: center !important;
+}
+
+
+
+:host ::ng-deep .p-carousel .p-carousel-indicator button {
+    width: 12px;    
+    height: 12px;   
+    border-radius: 50%; 
+}
+
+
+
+
+
+
+/* في حالة إذا كان إصدار PrimeNG يستخدم الكلاس القديم (Active) */
+:host ::ng-deep .p-carousel .p-carousel-indicator.p-carousel-indicator-active button {
+    background-color: #f15a24 !important;
+        display: flex;
+    align-items: center;
+    justify-content: center;
+    
+    width: var(--p-carousel-indicator-width);
+    height: var(--p-carousel-indicator-height);
+    border: 0 none;
+    transition: background var(--p-carousel-transition-duration), color var(--p-carousel-transition-duration), outline-color var(--p-carousel-transition-duration), box-shadow var(--p-carousel-transition-duration);
+    outline-color: transparent;
+    border-radius: var(--p-carousel-indicator-border-radius);
+    padding: 0  ;
+    margin: 2px;
+    user-select: none;
+    cursor: pointer;
 }

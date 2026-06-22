@@ -1,0 +1,51 @@
+<div class="w-full min-h-screen bg-[#0a0a0a] text-white py-8 md:py-12 px-3 md:px-4 flex flex-col items-center">
+  
+  <div class="text-center mb-6 md:mb-8 px-2">
+    <p class="text-xs uppercase tracking-widest text-zinc-500 font-bold mb-2">Healthy Nutrition</p>
+    <h2 class="text-2xl md:text-3xl lg:text-4xl font-black uppercase tracking-wide">
+      Fuel Your Fitness Journey With <br>
+      Customized <span class="text-[#f15a24]">Meal Plans</span> For You
+    </h2>
+  </div>
+
+
+
+  
+
+  @if (chunkedTabs().length > 0) {
+    <div class="w-full max-w-4xl mx-auto mb-8 md:mb-10 px-1 md:px-8 custom-tabs-carousel">
+      
+      <p-carousel 
+        [value]="chunkedTabs()" 
+        [numVisible]="1" 
+        [numScroll]="1" 
+        [circular]="false" 
+        [showIndicators]="false"
+        [showNavigators]="true">
+        
+        <ng-template pTemplate="item" let-pageTabs>
+          <div class="w-full flex justify-center py-2 z-10">
+            
+            <app-custom-tabs 
+              [tabsData]="pageTabs" 
+              (tabChanged)="onTabChange($event)">
+            </app-custom-tabs>
+
+          </div>
+        </ng-template>
+
+      </p-carousel>
+
+    </div>
+@if (mealsList().length > 0) {
+ <app-custom-carusel [carouselItems]="mealsList()" [rowsCount]="2"></app-custom-carusel>
+}
+  }
+
+  @if (isLoadingMeals()) {
+    <div class="text-center py-12">
+      <div class="text-[#f15a24] font-bold animate-pulse text-base md:text-lg">جاري سحب الوجبات اللذيذة...</div>
+    </div>
+  } 
+
+</div>

@@ -28,6 +28,11 @@ export const appRoutes: Route[] = [
         loadComponent: () =>
           import('./page/classes/classes.component').then((m) => m.ClassesComponent),
       },
+      {
+        path: 'healthy',
+        loadComponent: () =>
+          import('./page/healthy/healthy.component').then((m) => m.HealthyComponent),
+      },
     ],
   },
   {
