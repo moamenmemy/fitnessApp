@@ -16,9 +16,12 @@ imageSrc = input.required<string>();
   title = input.required<string>(); 
   subText = input<string>('Explore');
   cardClicked = output<void>();
-
+fallbackImage = 'assets/workout.jpg';
   onCardClick(event: MouseEvent) {
     event.stopPropagation(); 
     this.cardClicked.emit();
   }
+  getImage(img: string | null | undefined): string {
+  return img?.trim() ? img : this.fallbackImage;
+}
 }

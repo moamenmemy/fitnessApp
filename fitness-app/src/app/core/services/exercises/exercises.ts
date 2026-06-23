@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { BASE_URL } from 'libs/auth/src/lib/interface/Base_url';
 import { Observable } from 'rxjs';
-import { Workout } from '../../interface/workout';
+import { workotbyid, Workout } from '../../interface/workout';
 
 @Injectable({
   providedIn: 'root',
@@ -18,5 +18,8 @@ export class Exercises {
  
   getMuscleGroups(): Observable<Workout> {
     return this._httpclint.get<Workout>(this._bASEURL+`/api/v1/muscles`);
+  }
+  getMuscleGroupsById(id: string): Observable<workotbyid> {
+    return this._httpclint.get<workotbyid>(this._bASEURL+`/api/v1/musclesGroup/${id}`);
   }
 }

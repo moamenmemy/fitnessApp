@@ -1,33 +1,119 @@
-import { Component, computed, inject, signal } from '@angular/core';
+
+import {
+  Component,
+  computed,
+  inject,
+  OnDestroy,
+  OnInit,
+  signal,
+} from '@angular/core';
 import { NgOptimizedImage } from '@angular/common';
 import { SecrionTitleComponent } from 'fitness-app/src/app/Shareds/section-title/secrion-title.component';
 import { Exercises } from 'fitness-app/src/app/core/services/exercises/exercises';
-import { Workout } from 'fitness-app/src/app/core/interface/workout';
+import {
+  Workout,
+  workotbyid,
+} from 'fitness-app/src/app/core/interface/workout';
 import { CustomTabsComponent } from 'fitness-app/src/app/Shareds/customTabs/custamTabs.component';
+import { CarouselModule } from 'primeng/carousel';
+import { CustomCaruselComponent } from 'fitness-app/src/app/Shareds/customCarousel/customCarusel.component';
+import { forkJoin, map } from 'rxjs';
+
 @Component({
   selector: 'app-workouts',
-  imports: [NgOptimizedImage, SecrionTitleComponent,CustomTabsComponent],
+  standalone: true,
+  imports: [
+    NgOptimizedImage,
+    SecrionTitleComponent,
+    CustomTabsComponent,
+    CarouselModule,
+    CustomCaruselComponent
+  ],
   templateUrl: './workouts.component.html',
   styleUrl: './workouts.component.css',
 })
-export class WorkoutsComponent {
-  _exercises = inject(Exercises);
-  getTab=signal<Workout>({} as Workout);
+export class WorkoutsComponent implements OnInit {
+  private _exercises = inject(Exercises);
+  responsiveOptions = [
+    { breakpoint: '1400px', numVisible: 5, numScroll: 1 },
+    { breakpoint: '1024px', numVisible: 4, numScroll: 1 },
+    { breakpoint: '768px', numVisible: 3, numScroll: 1 },
+    { breakpoint: '560px', numVisible: 2, numScroll: 1 }
+  ];
+
+
+  getTab = signal<Workout>({} as Workout);
+  workotbyid = signal<workotbyid>({} as workotbyid);
+
+  activeTabId = signal<string | number>('');
+
+  // Tabs
    tabs = computed(() =>
-    this.getTab()?.musclesGroup?.map(item => ({
+    this.getTab()?.musclesGroup?.map((item) => ({
       id: item._id,
-      text: item.name
+      text: item.name,
     })) ?? []
   );
+
+  // Carousel data (muscles)
+  musclesList = computed(() => this.workotbyid()?.muscles ?? []);
+
+  // Chunked Tabs (زي زميلك)
+  chunkedTabs = computed(() => {
+    const allTabs = this.tabs();
+    const chunkSize = 6;
+    const pages: any[][] = [];
+
+    for (let i = 0; i < allTabs.length; i += chunkSize) {
+      pages.push(allTabs.slice(i, i + chunkSize));
+    }
+
+    return pages;
+  });
+
   ngOnInit() {
     this.getMuscleGroups();
   }
+
+  // Load tabs (only show groups that have data)
   getMuscleGroups() {
     this._exercises.getMuscleGroups().subscribe({
       next: (res) => {
-        console.log(res);
-        this.getTab.set(res);
+        const checks = res.musclesGroup.map(group =>
+          this._exercises.getMuscleGroupsById(group._id).pipe(
+            map(data => ({
+              ...group,
+              hasData: data.muscles && data.muscles.length > 0,
+            })),
+          ),
+        );
+
+        forkJoin(checks).subscribe({
+          next: (results) => {
+            const groupsWithData = results
+              .filter((r) => r.hasData)
+              .map((r) => ({ _id: r._id as string, name: r.name as string }));
+
+            this.getTab.set({ ...res, musclesGroup: groupsWithData });
+
+            if (groupsWithData.length > 0) {
+              this.onTabChanged(groupsWithData[0]._id);
+            }
+          },
+        });
       },
     });
   }
+
+  // On tab click
+   onTabChanged(tabId: string | number) {
+    this.activeTabId.set(tabId);
+
+    this._exercises.getMuscleGroupsById(String(tabId)).subscribe({
+      next: (res) => {
+        this.workotbyid.set(res);
+      },
+    });
+  }
+
 }

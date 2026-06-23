@@ -1,24 +1,41 @@
-import { computed, Injectable, signal } from '@angular/core';
+import {
+  computed,
+  Injectable,
+  signal,
+  inject,
+  PLATFORM_ID,
+} from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
 
 @Injectable({
   providedIn: 'root',
 })
 export class Language {
-  
-  private _lang = signal<'en' | 'ar'>(
-    (localStorage.getItem('lang') as 'en' | 'ar') || 'en'
-  );
+  private platformId = inject(PLATFORM_ID);
+
+  private _lang = signal<'en' | 'ar'>('en');
+
+  constructor() {
+    if (isPlatformBrowser(this.platformId)) {
+      const savedLang =
+        (localStorage.getItem('lang') as 'en' | 'ar') || 'en';
+
+      this._lang.set(savedLang);
+    }
+  }
 
   lang = computed(() => this._lang());
 
   setLanguage(lang: 'en' | 'ar') {
     this._lang.set(lang);
-    localStorage.setItem('lang', lang);
+
+    if (isPlatformBrowser(this.platformId)) {
+      localStorage.setItem('lang', lang);
+    }
   }
 
   toggleLanguage() {
     const newLang = this._lang() === 'en' ? 'ar' : 'en';
     this.setLanguage(newLang);
   }
-  
 }

@@ -26,12 +26,6 @@
   display: none;
 }
 
-@keyframes slideIn {
-  /* Keyframes removed */
-
-
-/* Mobile responsiveness */
-}
 
 /* Mobile responsiveness */
 @media (max-width: 768px) {

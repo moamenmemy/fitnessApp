@@ -11,8 +11,8 @@
         @for (meal of group; track meal.idMeal) {
           <div class="w-full">
             <app-custom-card
-              [title]="meal.title" 
-              [imageSrc]="meal.imageSrc"
+              [title]="meal.name" 
+              [imageSrc]="meal.image"
               (cardClicked)="onCardAction(meal)"> 
             </app-custom-card>
           </div>
