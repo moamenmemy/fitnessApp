@@ -5,14 +5,18 @@ import { faArrowsRotate } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { ToggleSwitchModule } from 'primeng/toggleswitch';
 import { Theme } from '../../core/services/theme/theme';
-import { Exercises } from '../../core/auth/exercises/exercises';
-import { Language } from '../../core/auth/language/language';
+import { Exercises } from '../../core/services/exercises/exercises';
+
 import { AuthService } from '@org/auth';
 import { Router } from '@angular/router';
 import { DialogModule } from 'primeng/dialog';
-import { ChangePasswordDialogComponent } from "./components/chanagePassword/change-password-dialog.component";
-import { UpdateProfileDialogComponent } from "./components/update/update-profile-dialog.component";
-import { UpdateProfileRequest, UploadProfileUserRequest } from 'libs/auth/src/lib/interface/auth-response-dto';
+import { ChangePasswordDialogComponent } from './components/chanagePassword/change-password-dialog.component';
+import { UpdateProfileDialogComponent } from './components/update/update-profile-dialog.component';
+import {
+  UpdateProfileRequest,
+  UploadProfileUserRequest,
+} from 'libs/auth/src/lib/interface/auth-response-dto';
+import { Language } from '../../core/services/language/language';
 
 @Component({
   selector: 'app-userprofile',
@@ -23,13 +27,12 @@ import { UpdateProfileRequest, UploadProfileUserRequest } from 'libs/auth/src/li
     ToggleSwitchModule,
     DialogModule,
     ChangePasswordDialogComponent,
-    UpdateProfileDialogComponent
+    UpdateProfileDialogComponent,
   ],
   templateUrl: './userprofile.component.html',
   styleUrl: './userprofile.component.css',
 })
 export class UserprofileComponent {
-
   _e = inject(Exercises);
   _auth = inject(AuthService);
 
@@ -44,7 +47,7 @@ export class UserprofileComponent {
   selectedValue: any = null;
 
   // ✅ FIX: nullable safe
-  userData = signal<UploadProfileUserRequest  | null>(null);
+  userData = signal<UploadProfileUserRequest | null>(null);
 
   _router = inject(Router);
   rotate = faArrowsRotate;
@@ -72,8 +75,19 @@ export class UserprofileComponent {
   // ===================== SETTINGS =====================
   settingsCards = [
     { id: 'password', title: 'Change Password', icon: 'pi pi-refresh' },
-    { id: 'language', title: 'Select Language', subTitle: 'English', icon: 'pi pi-globe' },
-    { id: 'mood', title: 'Mood', subTitle: 'Dark', icon: 'pi pi-moon', type: 'switch' },
+    {
+      id: 'language',
+      title: 'Select Language',
+      subTitle: 'English',
+      icon: 'pi pi-globe',
+    },
+    {
+      id: 'mood',
+      title: 'Mood',
+      subTitle: 'Dark',
+      icon: 'pi pi-moon',
+      type: 'switch',
+    },
     { id: 'security', title: 'Security', icon: 'pi pi-shield' },
     { id: 'privacy', title: 'Privacy Policy', icon: 'pi pi-lock' },
     { id: 'help', title: 'Help', icon: 'pi pi-question-circle' },
@@ -100,28 +114,28 @@ export class UserprofileComponent {
       next: (res) => {
         this.userData.set(res.user); // ✅ مهم جدا
         console.log(res);
-      }
+      },
     });
   }
 
-uploaddata() {
-  const data = this.userData();
+  uploaddata() {
+    const data = this.userData();
 
-  if (!data) return;
+    if (!data) return;
 
-  const payload: UpdateProfileRequest = {
-    goal: data.goal,
-    weight: data.weight,
-    activityLevel: data.activityLevel
-  };
+    const payload: UpdateProfileRequest = {
+      goal: data.goal,
+      weight: data.weight,
+      activityLevel: data.activityLevel,
+    };
 
-  this._auth.editProfile(payload).subscribe({
-    next: (res) => {
-      console.log('updated', res);
-      this.userData.set(res.user); // مهم عشان UI يتحدث
-    }
-  });
-}
+    this._auth.editProfile(payload).subscribe({
+      next: (res) => {
+        console.log('updated', res);
+        this.userData.set(res.user); // مهم عشان UI يتحدث
+      },
+    });
+  }
   getExercise() {
     this._e.getExercises().subscribe((res) => console.log(res));
   }

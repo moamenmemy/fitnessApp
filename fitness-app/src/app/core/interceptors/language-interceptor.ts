@@ -1,6 +1,7 @@
 import { HttpInterceptorFn } from '@angular/common/http';
 import { inject } from '@angular/core';
-import { Language } from '../auth/language/language';
+import { Language } from '../services/language/language';
+
 
 // Debug: ensure file is loaded
 console.log('language-interceptor loaded');

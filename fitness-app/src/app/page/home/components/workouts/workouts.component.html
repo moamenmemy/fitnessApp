@@ -1,0 +1,67 @@
+<section class="relative min-h-screen w-full overflow-hidden">
+  <!-- Background -->
+  <img
+    ngSrc="assets/workout.jpg"
+    fill
+    alt="Workout Background"
+    class="absolute inset-0 object-cover"
+    priority
+  />
+  <div class="flex justify-center mb-8">
+    <app-secrion-title [title]="'WORKOUTS'" [bgTitle]="'Fitness Class'">
+    </app-secrion-title>
+  </div>
+  <!-- Dark Overlay -->
+  <div
+    class="absolute inset-x-0 top-28 bottom-96 bg-[#FFFFFF99] dark:bg-[#242424]/60 backdrop-blur-[46px]"
+  ></div>
+
+  <!-- Content -->
+  <div class="relative z-10 container mx-auto px-4 py-16">
+   <div class="flex justify-center mb-10">
+  <h3
+    class="max-w-3xl text-center uppercase font-extrabold leading-[1.2]
+           text-2xl md:text-3xl lg:text-4xl
+           text-[#242424] dark:text-white"
+  >
+    Transform Your Body with Our Dynamic
+    
+    <span class="text-[var(--main-color)]">
+      Upcoming Workouts
+    </span>
+  </h3>
+</div>
+    <!-- Tabs -->
+     <ng-template pTemplate="item" let-pageTabs>
+          <div class="w-full flex justify-center py-2 z-10">
+            
+            <app-custom-tabs 
+              [tabsData]="tabs" 
+             >
+            </app-custom-tabs>
+
+          </div>
+        </ng-template>
+    <!-- Cards -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <!-- Card 1 -->
+      <div class="rounded-2xl overflow-hidden bg-[#1f1f1f]">
+        <img
+          src="assets/workout1.jpg"
+          class="w-full h-[300px] object-cover"
+          alt=""
+        />
+
+        <div class="p-5 bg-gradient-to-r from-[#3b3b3b] to-[#222]">
+          <h3 class="text-white font-bold tracking-[3px]">GROUP WORKOUT</h3>
+
+          <button class="text-orange-500 mt-3 font-semibold text-sm">
+            Explore →
+          </button>
+        </div>
+      </div>
+
+      <!-- كرري الكارد -->
+    </div>
+  </div>
+</section>
