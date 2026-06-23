@@ -64,7 +64,7 @@ export class WorkoutsComponent implements OnInit {
     }))
   );
 
-  // Chunked Tabs (زي زميلك)
+  
   chunkedTabs = computed(() => {
     const allTabs = this.tabs();
     const chunkSize = 6;

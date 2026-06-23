@@ -10,6 +10,9 @@ color: var(--text-color-light);
 background-color: transparent;
 padding: 0.5rem 1rem;
 border-radius: 9999px;
+  flex: 0 0 auto;          /* يمنع الانكماش */
+  min-width: max-content;  /* يمنع تقطيع النص */
+  white-space: nowrap;  
 transition: all 0.3s ease;
 }
 
