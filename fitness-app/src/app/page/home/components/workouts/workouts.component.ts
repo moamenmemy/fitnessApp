@@ -3,32 +3,32 @@ import {
   Component,
   computed,
   inject,
-  OnDestroy,
   OnInit,
   signal,
 } from '@angular/core';
 import { NgOptimizedImage } from '@angular/common';
-import { SecrionTitleComponent } from 'fitness-app/src/app/Shareds/section-title/secrion-title.component';
 import { Exercises } from 'fitness-app/src/app/core/services/exercises/exercises';
 import {
   Workout,
   workotbyid,
 } from 'fitness-app/src/app/core/interface/workout';
-import { CustomTabsComponent } from 'fitness-app/src/app/Shareds/customTabs/custamTabs.component';
+  import { CarouselItem } from 'fitness-app/src/app/Shareds/customCarousel/interface/customCarusel';
+  import { CustomTabsComponent } from 'fitness-app/src/app/Shareds/customTabs/custamTabs.component';
 import { CarouselModule } from 'primeng/carousel';
 import { CustomCaruselComponent } from 'fitness-app/src/app/Shareds/customCarousel/customCarusel.component';
 import { forkJoin, map } from 'rxjs';
+import { SecrionTitleComponent } from "fitness-app/src/app/Shareds/section-title/secrion-title.component";
 
 @Component({
   selector: 'app-workouts',
   standalone: true,
   imports: [
     NgOptimizedImage,
-    SecrionTitleComponent,
     CustomTabsComponent,
     CarouselModule,
-    CustomCaruselComponent
-  ],
+    CustomCaruselComponent,
+    SecrionTitleComponent
+],
   templateUrl: './workouts.component.html',
   styleUrl: './workouts.component.css',
 })
@@ -56,7 +56,13 @@ export class WorkoutsComponent implements OnInit {
   );
 
   // Carousel data (muscles)
-  musclesList = computed(() => this.workotbyid()?.muscles ?? []);
+  musclesList = computed<CarouselItem[]>(() =>
+    (this.workotbyid()?.muscles ?? []).map((m) => ({
+      title: m.name,
+      imageSrc: m.image,
+      subText: '',
+    }))
+  );
 
   // Chunked Tabs (زي زميلك)
   chunkedTabs = computed(() => {

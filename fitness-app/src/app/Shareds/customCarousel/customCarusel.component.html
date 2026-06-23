@@ -1,18 +1,18 @@
 <div class="w-full max-w-6xl mx-auto my-8 px-4">
   <p-carousel 
     [value]="groupedItems()" 
-    [numVisible]="3" 
+    [numVisible]="groupedItems().length === 1 ? 1 : 3" 
     [numScroll]="1" 
-    [circular]="true"
+    [circular]="false"
     [responsiveOptions]="responsiveOptions()">
     
     <ng-template pTemplate="item" let-group>
       <div class="flex p-2 gap-4" [ngClass]="{'flex-col': rowsCount() > 1, 'flex-row': rowsCount() === 1}"> 
-        @for (meal of group; track meal.idMeal) {
+        @for (meal of group; track meal._id || meal.idMeal) {
           <div class="w-full">
             <app-custom-card
-              [title]="meal.name" 
-              [imageSrc]="meal.image"
+              [title]="meal.title " 
+              [imageSrc]="meal.imageSrc "
               (cardClicked)="onCardAction(meal)"> 
             </app-custom-card>
           </div>

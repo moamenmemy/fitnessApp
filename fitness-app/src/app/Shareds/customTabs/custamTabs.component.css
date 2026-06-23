@@ -1,63 +1,45 @@
 :host {
-  --tab-color-active: #f15a24;
-  --tab-color-inactive: #d1d5db;
-  --tab-color-hover: #f15a24;
+--tab-color-active: #F15A24;
+--text-color-light: #000000;
+--text-color-dark: #D1D5DB;
 }
 
 .tab-button {
-  font-weight: 500;
-  color: var(--tab-color-inactive);
-  background-color: transparent;
-  position: relative;
-  overflow: hidden;
+font-weight: 500;
+color: var(--text-color-light);
+background-color: transparent;
+padding: 0.5rem 1rem;
+border-radius: 9999px;
+transition: all 0.3s ease;
 }
 
-.tab-button:hover {
-  color: var(--tab-color-hover);
+
+
+:host-context(.dark) .tab-button {
+color: var(--text-color-dark);
 }
+
+
 
 .tab-button.active {
-  color: var(--tab-color-active);
-  font-weight: 800;
-  font-weight: extrabold;
+background-color: var(--tab-color-active) !important;
+color: #FFFFFF !important;
+font-weight: 700;
 }
 
-.tab-button.active::after {
-  display: none;
+/* حالة الـ Hover */
+.tab-button:hover {
+background-color: rgba(241, 90, 36, 0.1);
 }
 
 
-/* Mobile responsiveness */
-@media (max-width: 768px) {
-  .tab-button {
-    padding: 0.375rem 0.75rem !important;
-    font-size: 0.75rem;
-  }
-}
 
-@media (max-width: 480px) {
-  .tab-button {
-    padding: 0.25rem 0.5rem !important;
-    font-size: 0.65rem;
-    letter-spacing: 0.05em;
-  }
-}
-/* Underline animation removed */
-
-/* Mobile responsiveness */
-
-/* Remove any border/shadow from the tabs container */
 .tabs-wrapper {
-  border: none !important;
-  box-shadow: none !important;
-  background-color: transparent !important;
+border: none !important;
+box-shadow: none !important;
+background-color: transparent !important;
 }
 
-/* Ensure no underline pseudo-element appears */
-.tab-button::after,
-.tab-button.active::after {
-  display: none !important;
-  content: none !important;
+.tab-button::after {
+display: none !important;
 }
-
-

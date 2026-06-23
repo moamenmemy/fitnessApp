@@ -47,26 +47,6 @@
   transform: scale(1.1) !important;
 }
 
-/* Main heading responsiveness */
-h2 {
-  font-size: 1.875rem;
-  line-height: 2.25rem;
-}
-
-@media (max-width: 768px) {
-  h2 {
-    font-size: 1.5rem;
-    line-height: 2rem;
-  }
-}
-
-@media (max-width: 480px) {
-  h2 {
-    font-size: 1.25rem;
-    line-height: 1.75rem;
-  }
-}
-
 /* Padding adjustments for smaller screens */
 @media (max-width: 768px) {
   :host {
