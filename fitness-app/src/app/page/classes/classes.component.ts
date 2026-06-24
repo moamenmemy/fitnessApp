@@ -6,6 +6,7 @@ import { CommonModule } from '@angular/common';
 import {
   Component,
   computed,
+  HostListener,
   inject,
   OnInit,
   signal,
@@ -45,9 +46,12 @@ private _exercises = inject(Exercises);
 
   getTab = signal<Workout>({} as Workout);
   workotbyid = signal<workotbyid>({} as workotbyid);
-
+screenWidth = signal<number>(window.innerWidth);
   activeTabId = signal<string | number>('');
-
+@HostListener('window:resize')
+onResize() {
+  this.screenWidth.set(window.innerWidth);
+}
   // Tabs
    tabs = computed(() =>
     this.getTab()?.musclesGroup?.map((item) => ({
@@ -57,7 +61,13 @@ private _exercises = inject(Exercises);
   );
 rowsCount = computed(() => {
   const len = this.musclesList().length;
+  const width = this.screenWidth();
 
+  const isMobile = width < 768;
+
+  if (isMobile) {
+    return 1;
+  }
   return len > 3 ? 2 : 1;
 });
   // Carousel data (muscles)
@@ -72,7 +82,7 @@ rowsCount = computed(() => {
   
   chunkedTabs = computed(() => {
     const allTabs = this.tabs();
-    const chunkSize = 6;
+    const chunkSize = 4;
     const pages: any[][] = [];
 
     for (let i = 0; i < allTabs.length; i += chunkSize) {

@@ -67,7 +67,7 @@ export class WorkoutsComponent implements OnInit {
   
   chunkedTabs = computed(() => {
     const allTabs = this.tabs();
-    const chunkSize = 6;
+    const chunkSize = 4;
     const pages: any[][] = [];
 
     for (let i = 0; i < allTabs.length; i += chunkSize) {
