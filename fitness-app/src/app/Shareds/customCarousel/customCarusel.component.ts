@@ -38,7 +38,9 @@ groupedItems = computed<CarouselItem[][]>(() => {
 
   itemActionClicked = output<CarouselItem>();
 
-  onCardAction(item: CarouselItem): void {
-    this.itemActionClicked.emit(item);
-  }
+cardClicked = output<string>();
+
+onCardAction(id: string) {
+  this.cardClicked.emit(id);
+}
 }

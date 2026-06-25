@@ -34,6 +34,11 @@ export const appRoutes: Route[] = [
           import('./page/classes/classes.component').then((m) => m.ClassesComponent),
       },
       {
+        path: 'workoutsDetails/:id',
+        loadComponent: () =>
+          import('./page/classes/workout-details/workout-details.component').then((m) => m.WorkoutDetailsComponent),
+      },
+      {
         path: 'healthy',
         loadComponent: () =>
           import('./page/healthy/healthy.component').then((m) => m.HealthyComponent),

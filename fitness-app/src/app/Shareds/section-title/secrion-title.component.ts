@@ -13,4 +13,5 @@ export class SecrionTitleComponent {
    title = input.required<string>(); 
   fadumbbell=faDumbbell
   bgTitle = input<string>()
+  icon = input<boolean>(true)
 }

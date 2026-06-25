@@ -15,12 +15,16 @@ export class CustomCardComponent {
 imageSrc = input.required<string>(); 
   title = input.required<string>(); 
   subText = input<string>('Explore');
-  cardClicked = output<void>();
+  cardClicked = output<string>();
 fallbackImage = 'assets/workout.jpg';
-  onCardClick(event: MouseEvent) {
-    event.stopPropagation(); 
-    this.cardClicked.emit();
-  }
+id = input.required<string>();
+
+
+
+onCardClick(event: MouseEvent) {
+  event.stopPropagation();
+  this.cardClicked.emit(this.id());
+}
   getImage(img: string | null | undefined): string {
   return img?.trim() ? img : this.fallbackImage;
 }

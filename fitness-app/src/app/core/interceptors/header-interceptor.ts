@@ -4,18 +4,20 @@ import { inject, PLATFORM_ID } from '@angular/core';
 
 export const headerInterceptor: HttpInterceptorFn = (req, next) => {
   const platformId = inject(PLATFORM_ID);
-
-  if (isPlatformBrowser(platformId)) {
+  if (!isPlatformBrowser(platformId)) {
+    return next(req);
+  }
+  const isExternal = /^https?:\/\/(www\.)?themealdb\.com\//i.test(req.url);
+  let authReq = req;
+  if (!isExternal) {
     const token = localStorage.getItem('token');
-
     if (token) {
-      req = req.clone({
+      authReq = req.clone({
         setHeaders: {
           Authorization: `Bearer ${token}`
         }
       });
     }
   }
-
-  return next(req);
+  return next(authReq);
 };

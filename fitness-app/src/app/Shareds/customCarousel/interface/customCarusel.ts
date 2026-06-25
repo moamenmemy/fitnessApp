@@ -2,6 +2,7 @@ export interface CarouselItem {
   title: string;
   subText: string;
   imageSrc: string;
+   id: string   
   [key: string]: any;
 }
 

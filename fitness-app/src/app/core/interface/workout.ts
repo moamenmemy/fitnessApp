@@ -24,3 +24,14 @@ export interface Muscle {
     name:  string;
     image: string;
 }
+
+export interface DifficultyLevelsResponse {
+  message: string;
+  totalLevels: number;
+  difficulty_levels: DifficultyLevel[];
+}
+
+export interface DifficultyLevel {
+  id: string;
+  name: string;
+}

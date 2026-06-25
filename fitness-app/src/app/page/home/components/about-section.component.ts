@@ -4,12 +4,11 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faSagittarius } from '@fortawesome/free-solid-svg-icons';
 import { ButtonUiComponent } from 'fitness-app/src/app/Shareds/button-ui/buttonUi.component';
 import { SecrionTitleComponent } from 'fitness-app/src/app/Shareds/section-title/secrion-title.component';
-import { CustomCardComponent } from "fitness-app/src/app/Shareds/customCard/customCard.component";
 
 @Component({
   standalone: true,
   selector: 'app-about-section',
-  imports: [FontAwesomeModule, CommonModule, SecrionTitleComponent, ButtonUiComponent, CustomCardComponent],
+  imports: [FontAwesomeModule, CommonModule, SecrionTitleComponent, ButtonUiComponent],
   templateUrl: './about-section.component.html',
   styleUrls: ["./about-section.component.css"],
 })

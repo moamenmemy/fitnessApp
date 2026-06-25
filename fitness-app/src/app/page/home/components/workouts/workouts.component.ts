@@ -6,6 +6,7 @@ import {
   OnInit,
   signal,
 } from '@angular/core';
+import { Router } from '@angular/router';
 import { NgOptimizedImage } from '@angular/common';
 import { Exercises } from 'fitness-app/src/app/core/services/exercises/exercises';
 import {
@@ -34,6 +35,7 @@ import { SecrionTitleComponent } from "fitness-app/src/app/Shareds/section-title
 })
 export class WorkoutsComponent implements OnInit {
   private _exercises = inject(Exercises);
+  private _router = inject(Router);
   responsiveOptions = [
     { breakpoint: '1400px', numVisible: 5, numScroll: 1 },
     { breakpoint: '1024px', numVisible: 4, numScroll: 1 },
@@ -56,15 +58,14 @@ export class WorkoutsComponent implements OnInit {
   );
 
   // Carousel data (muscles)
-  musclesList = computed<CarouselItem[]>(() =>
-    (this.workotbyid()?.muscles ?? []).map((m) => ({
-      title: m.name,
-      imageSrc: m.image,
-      subText: '',
-    }))
-  );
-
-  
+musclesList = computed<CarouselItem[]>(() =>
+  (this.workotbyid()?.muscles ?? []).map((m) => ({
+    id: m._id,
+    title: m.name,
+    imageSrc: m.image,
+    subText: '',
+  }))
+);
   chunkedTabs = computed(() => {
     const allTabs = this.tabs();
     const chunkSize = 4;
@@ -120,6 +121,11 @@ export class WorkoutsComponent implements OnInit {
         this.workotbyid.set(res);
       },
     });
+  }
+
+  
+  goToDetails(id: string) {
+    this._router.navigate(['/workoutsDetails', id]);
   }
 
 }

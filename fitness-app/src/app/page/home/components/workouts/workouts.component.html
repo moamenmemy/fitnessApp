@@ -62,10 +62,11 @@
       </div>
  @if (musclesList().length > 0) {
   
-      <app-custom-carusel
-        [carouselItems]="musclesList()"
-        [rowsCount]="1">
-      </app-custom-carusel>
+     <app-custom-carusel
+  [carouselItems]="musclesList()"
+  [rowsCount]="1"
+  (cardClicked)="goToDetails($event)">
+</app-custom-carusel>
 
     } @else {
 

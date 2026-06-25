@@ -9,7 +9,8 @@
           </h2>
 
           <div class="absolute z-10 flex items-center mt-4 ml-2">
-            <svg
+          @if (icon()) {
+              <svg
               width="50"
               height="30"
               viewBox="0 0 34 26"
@@ -21,12 +22,14 @@
                 fill="#FF4100"
               />
             </svg>
-
-            <span
+               <span
              style="font-family: 'Baloo Thambi 2', system-ui"
               class="text-[#FF4100] font-semibold text-lg uppercase  tracking-wide  "
             >
             {{bgTitle()}}
             </span>
+          }
+
+         
           </div>
         </div>
