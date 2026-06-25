@@ -33,6 +33,11 @@ export const appRoutes: Route[] = [
         loadComponent: () =>
           import('./page/healthy/healthy.component').then((m) => m.HealthyComponent),
       },
+      {
+        path: 'meal-details/:id',
+        loadComponent: () =>
+          import('./page/healthy/components/healthyDetails/healthyDetails.component').then((m) => m.HealthyDetailsComponent),
+      },
     ],
   },
   {

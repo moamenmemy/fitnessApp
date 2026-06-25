@@ -17,8 +17,8 @@ imageSrc = input.required<string>();
   subText = input<string>('Explore');
   cardClicked = output<void>();
 
-  onCardClick(event: MouseEvent) {
-    event.stopPropagation(); 
-    this.cardClicked.emit();
-  }
+onCardClick() {
+  console.log('1. Card Clicked'); // إضافة هذا السطر للتأكد
+  this.cardClicked.emit();
+}
 }

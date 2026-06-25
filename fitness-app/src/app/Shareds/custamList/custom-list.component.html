@@ -1,36 +1,56 @@
-<div class="bg-[#1A1A1A]/80 backdrop-blur-md rounded-3xl p-6 w-full max-w-md border border-white/5">
+<div class=" bg-transparent dark:bg-[#242424] rounded-3xl p-6 w-full max-w-md border border-white/20">
   
-  <div class="flex flex-col gap-5 overflow-y-auto max-h-[500px] pr-1">
-    @for (item of items(); track item.id) {
-      <div class="flex items-center justify-between gap-4 group">
+  <div class="custom-tabs-carousel w-full mb-6">
+    @if (chunkedTabs().length > 0) {
+    <div class="w-full max-w-4xl mx-auto mb-8 md:mb-10 px-1 md:px-8 custom-tabs-carousel">
+      
+      <p-carousel 
+        [value]="chunkedTabs()" 
+        [numVisible]="1" 
+        [numScroll]="1" 
+        [circular]="false" 
+        [showIndicators]="false"
+        [showNavigators]="true">
         
-        <div class="flex items-center gap-4">
-          <img [src]="item.imageUrl" [alt]="item.title" class="w-16 h-16 rounded-2xl object-cover border border-white/10" />
-          <div class="flex flex-col">
-            <h4 class="text-white font-semibold text-base">{{ item.title }}</h4>
-            
-            @if (item.subTitle) {
-              <span class="text-gray-400 text-xs mt-0.5">{{ item.subTitle }}</span>
-            }
-            
-            <p class="text-gray-500 text-xs mt-1 max-w-[200px] line-clamp-2">{{ item.description }}</p>
+        <ng-template pTemplate="item" let-pageTabs>
+          <div class="w-full flex justify-center py-2 z-10">
+         
+           <app-custom-tabs 
+              [tabsData]="pageTabs" 
+              (tabChanged)="onTabChange($event)">
+            </app-custom-tabs>
+
           </div>
-        </div>
+        </ng-template>
 
-        <div class="flex-shrink-0 w-8 h-8 flex items-center justify-center">
-          @if (item.hasVideo) {
-            <button class="bg-[#FF4500] hover:bg-[#e03d00] text-white p-2 rounded-full flex items-center justify-center w-8 h-8 transition-colors duration-200 border-0 cursor-pointer">
-              <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24" class="w-4 h-4 ml-0.5">
-                <path d="M8 5v14l11-7z"/>
-              </svg>
-            </button>
-          }
-        </div>
+      </p-carousel>
 
-      </div>
-    } @empty {
-      <p class="text-gray-500 text-sm text-center py-4">No items found</p>
+    </div>
+} @else {
+    <div class="animate-pulse h-10 w-full bg-white/10 rounded-xl"></div>
+  }
+  </div>
+     
+  <div class="flex flex-col overflow-y-auto max-h-[500px] mt-6 pr-1">
+    @for (item of items(); track item.id) {
+        <button 
+            type="button" 
+            (click)="itemClick.emit(item)"
+            class="relative flex items-center justify-between gap-4 w-full text-left bg-transparent hover:bg-white/5 p-3 rounded-none transition-all
+                   after:content-[''] after:absolute after:bottom-0 after:left-3 after:right-3 after:h-px after:bg-white/5
+                   last:after:hidden">
+            
+            <div class="flex items-center gap-4">
+                <img [src]="item.imageUrl" 
+                     [alt]="item.title" 
+                     class="w-16 h-16 rounded-2xl object-cover border border-white/10" />
+                
+                <div class="flex flex-col">
+                    <h4 class=" dark:text-white font-semibold text-base">{{ item.title }}</h4>
+                    <span class=  " text-gray-700 dark:text-gray-400 text-xs">{{ item.subTitle }}</span>
+                </div>
+            </div>
+        </button>
     }
   </div>
-
 </div>

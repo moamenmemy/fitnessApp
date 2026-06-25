@@ -92,3 +92,18 @@
     user-select: none;
     cursor: pointer;
 }
+
+
+/* customCarusel.component.css */
+:host {
+  display: block;
+  width: 100%;
+  overflow-x: hidden; /* يمنع أي محتوى من الخروج أفقياً */
+}
+
+/* التأكد من أن الكاردات داخل الكاروسيل لا تضغط على الحاوية */
+::ng-deep .p-carousel-item {
+  width: 100% !important; /* إجبار الكارد على أخذ عرض الحاوية فقط */
+  box-sizing: border-box;
+  padding: 0 5px; /* مساحة صغيرة جداً للحماية */
+}

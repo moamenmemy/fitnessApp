@@ -7,6 +7,8 @@ import { CarouselModule } from 'primeng/carousel';
 import { CustomTabsComponent } from '../../Shareds/customTabs/custamTabs.component'; 
 import { CustomCaruselComponent } from '../../Shareds/customCarousel/customCarusel.component'
 import { CarouselItem } from './interface/healthy';
+import { SecrionTitleComponent } from "../../Shareds/section-title/secrion-title.component";
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -14,17 +16,17 @@ import { CarouselItem } from './interface/healthy';
   standalone: true,
   imports: [
     CommonModule,
-    CarouselModule,       
-    CustomTabsComponent
-    ,CustomCaruselComponent,
-
-  ],
+    CarouselModule,
+    CustomTabsComponent,
+    CustomCaruselComponent,
+    SecrionTitleComponent
+],
   templateUrl: './healthy.component.html',
   styleUrls: ['./healthy.component.css']
 })
 export class HealthyComponent implements OnInit {
  private mealService = inject(Meals);
-  
+  private router = inject(Router);
   mealsList = signal<CarouselItem[]>([]);
   tabs = signal<TabItem[]>([]);
   activeTab = signal<string | number>('');
@@ -54,9 +56,7 @@ export class HealthyComponent implements OnInit {
 
 
 
-  ngOnInit(): void {
-    this.loadTabs();
-  }
+ 
 
   loadTabs(): void {
     this.isLoadingTabs.set(true);
@@ -83,9 +83,13 @@ export class HealthyComponent implements OnInit {
 
 
   
-  onMealSelected(meal: any) {
-  console.log('Meal selected:', meal);
+onMealSelected(meal: CarouselItem): void { 
+  console.log('Navigating to details for ID:', meal.idMeal);
+    
  
+  if (meal && meal.idMeal) {
+    this.router.navigate(['/meal-details', meal.idMeal]);
+  }
 }
 
   onTabChange(selectedTabId: string | number): void {
@@ -118,4 +122,12 @@ export class HealthyComponent implements OnInit {
       }
     });
   }
+
+
+ ngOnInit(): void {
+    this.loadTabs();
+  }
+
+
+
 }
