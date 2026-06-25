@@ -1,23 +1,22 @@
 import {
   DifficultyLevelsResponse,
-  Workout,
 } from './../../../core/interface/workout';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { Component, computed, inject, signal } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { JsonPipe, NgOptimizedImage } from '@angular/common';
+import {  NgOptimizedImage } from '@angular/common';
 import { SecrionTitleComponent } from 'fitness-app/src/app/Shareds/section-title/secrion-title.component';
 import { CustomListComponent } from 'fitness-app/src/app/Shareds/custamList/custom-list.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faSagittarius } from '@fortawesome/free-solid-svg-icons';
 import { Exercises } from 'fitness-app/src/app/core/services/exercises/exercises';
 import { CustomTabsComponent } from 'fitness-app/src/app/Shareds/customTabs/custamTabs.component';
-import { Carousel } from 'primeng/carousel';
 import { Meals } from '../../healthy/service/meals/meals';
 import { TabItem } from 'fitness-app/src/app/Shareds/customTabs/interface/customTabs';
 import { CustomCaruselComponent } from 'fitness-app/src/app/Shareds/customCarousel/customCarusel.component';
 import { Exercise, ExercisesResponse } from 'fitness-app/src/app/core/interface/exercies';
 import { CustomListItem } from 'fitness-app/src/app/Shareds/custamList/interface/custom-list';
+import { MealCategory } from '../../healthy/interface/healthy';
 @Component({
   selector: 'app-workout-details',
   imports: [
@@ -107,21 +106,14 @@ exerciseList = signal<Exercise[]>([]);
     });
   }
 
-  getallmeal() {
-    this._meals.getAllCategories().subscribe({
-      next: (res) => {
-        console.log(res);
-        this.mealtab.set(
-          res.map((category: any) => ({
-            id: category.id,
-            title: category.title ?? category.text,
-            imageSrc: category.imageSrc,
-            text: category.text,
-          })),
-        );
-      },
-    });
-  }
+getallmeal() {
+  this._meals.getAllCategories().subscribe({
+    next: (res) => {
+      console.log(res);
+      this.mealtab.set(res);
+    },
+  });
+}
 onTabChanged(levelId: string | number) {
   this.activeTabId.set(String(levelId));
 

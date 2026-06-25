@@ -24,25 +24,14 @@
                   class="w-full h-full object-cover"
                   (click)="onThumbnailClick(item)"
                 />
-                <!-- <button 
-                  class="absolute inset-0 flex items-center justify-center bg-black/20 group"
-                  (click)="$event.stopPropagation(); onPlayClick(item)"
-                  aria-label="Play video"
-                >
-
-                  <div class="w-8 h-8 rounded-full bg-[#FF4500] flex items-center justify-center transition-transform duration-200 group-hover:scale-110">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24" class="w-4 h-4 ml-0.5 text-white">
-                      <path d="M8 5v14l11-7z"/>
-                    </svg>
-                  </div>
-                </button> -->
+           
               }
             </div>
           } @else {
             <img [src]="item.imageUrl" [alt]="item.title" class="w-20  h-20 rounded-2xl object-cover border border-white/10" />
           }
           <div class="flex flex-col">
-            <h4 class="dark:text-white text-black font-bold text-base">{{ item.title }}</h4>
+            <h4 class="dark:text-white text-black font-bold text-base">  {{ item.title.split(' ').slice(0, 2).join(' ') }}</h4>
             
             @if (item.subTitle) {
               <span class="text-gray-400 dark:text-[#F3F3F4] text-xs mt-0.5">{{ item.subTitle }}</span>

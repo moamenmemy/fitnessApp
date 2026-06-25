@@ -24,7 +24,7 @@
     border: none !important;
    
 }
-:host-context(.dark) ::ng-deep .p-dialog {
+/* :host-context(.dark) ::ng-deep .p-dialog {
   background: rgba(255, 255, 255, 0.6)!important;
   border: none !important;
-}
+} */

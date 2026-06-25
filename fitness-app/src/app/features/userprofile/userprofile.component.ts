@@ -5,7 +5,7 @@ import { faArrowsRotate } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { ToggleSwitchModule } from 'primeng/toggleswitch';
 import { Theme } from '../../core/services/theme/theme';
-import { Exercises } from '../../core/services/exercises/exercises';
+
 
 import { AuthService } from '@org/auth';
 import { Router } from '@angular/router';
@@ -17,6 +17,7 @@ import {
   UploadProfileUserRequest,
 } from 'libs/auth/src/lib/interface/auth-response-dto';
 import { Language } from '../../core/services/language/language';
+import { UpdateProfileData } from '../../core/interface/workout';
 
 @Component({
   selector: 'app-userprofile',
@@ -33,7 +34,7 @@ import { Language } from '../../core/services/language/language';
   styleUrl: './userprofile.component.css',
 })
 export class UserprofileComponent {
-  _e = inject(Exercises);
+
   _auth = inject(AuthService);
 
   showPasswordDialog = false;
@@ -44,9 +45,9 @@ export class UserprofileComponent {
   showUpdateDialog = signal(false);
   selectedType = signal<'goal' | 'activityLevel' | 'weight' | null>(null);
 
-  selectedValue: any = null;
+selectedValue: string | number | null = null;
 
-  // ✅ FIX: nullable safe
+
   userData = signal<UploadProfileUserRequest | null>(null);
 
   _router = inject(Router);
@@ -105,14 +106,13 @@ export class UserprofileComponent {
       }
 
       this.loadUserProfile();
-      this.getExercise();
     });
   }
 
   loadUserProfile() {
     this._auth.GetloggedUserData().subscribe({
       next: (res) => {
-        this.userData.set(res.user); // ✅ مهم جدا
+        this.userData.set(res.user); 
         console.log(res);
       },
     });
@@ -136,10 +136,7 @@ export class UserprofileComponent {
       },
     });
   }
-  getExercise() {
-    this._e.getExercises().subscribe((res) => console.log(res));
-  }
-
+ 
   // ===================== OPEN EDIT =====================
   openEdit(type: 'goal' | 'activityLevel' | 'weight') {
     this.selectedType.set(type);
@@ -151,7 +148,7 @@ export class UserprofileComponent {
   }
 
   // ===================== SAVE =====================
-  saveProfile(updated: any) {
+  saveProfile(updated: UpdateProfileData) {
     const payload: UpdateProfileRequest = {
       goal: updated.goal,
       weight: updated.weight,

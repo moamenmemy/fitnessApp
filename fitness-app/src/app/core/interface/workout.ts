@@ -35,3 +35,8 @@ export interface DifficultyLevel {
   id: string;
   name: string;
 }
+export interface UpdateProfileData {
+  goal: string;
+  weight: number;
+  activityLevel: string;
+}

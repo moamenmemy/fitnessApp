@@ -13,7 +13,7 @@ import { CustomCardComponent } from '../customCard/customCard.component';
 })
 export class CustomCaruselComponent {
   carouselItems = input.required<CarouselItem[]>();
-  
+  autoPlay = input<boolean>(false);
  
   rowsCount = input<number>(1);
 
