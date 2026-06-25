@@ -8,7 +8,7 @@ import {
   provideBrowserGlobalErrorListeners,
   inject,
 } from '@angular/core';
-import { provideRouter } from '@angular/router';
+import { provideRouter, withInMemoryScrolling } from '@angular/router';
 import { appRoutes } from './app.routes';
 import {
   provideClientHydration,
@@ -30,7 +30,9 @@ export const appConfig: ApplicationConfig = {
     provideClientHydration(withEventReplay()),
     provideBrowserGlobalErrorListeners(),
     provideHttpClient(withFetch(),  withInterceptors([languageInterceptor,headerInterceptor])),
-    provideRouter(appRoutes),
+    provideRouter(appRoutes,withInMemoryScrolling({
+        scrollPositionRestoration: 'top'
+      })),
     providePrimeNG({
       theme: {
         preset: Aura,

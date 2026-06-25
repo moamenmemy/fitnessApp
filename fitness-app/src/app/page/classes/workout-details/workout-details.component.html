@@ -38,16 +38,17 @@
 
           <!-- Exercise List -->
 
-        <app-custom-list
+<app-custom-list
   [items]="filteredClassItems()"
   (videoSelected)="onVideoSelected($event)">
-</app-custom-list>  
+</app-custom-list>
 
         </div>
       </div>
       <!-- Main Section -->
       <div class="lg:col-span-9">
         <!-- Hero -->
+     
         <div class="relative overflow-hidden rounded-[30px] h-[450px]">
         @if (isPlaying() && getYoutubeEmbedUrl()) {
 
@@ -94,11 +95,6 @@
                   </div>
                 </button>
               </div>
-              <!-- <button
-              class="w-20 h-20 rounded-full text-black dark:text-white   bg-[#ff5a1f] flex items-center justify-center mb-4"
-            >
-              <i class="pi pi-play text-4xl"></i>
-            </button> -->
             </div>
 
             <div class="flex items-center flex-col">

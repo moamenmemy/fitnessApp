@@ -11,19 +11,22 @@ import { CustomListItem } from './interface/custom-list';
 export class CustomListComponent {
   items = input.required<CustomListItem[]>();
   private _router = inject(Router);
-videoSelected = output<string>();
+
   playingVideoId = signal<string | number | null>(null);
 
   onThumbnailClick(item: CustomListItem) {
     this._router.navigate(['/workoutsDetails', item.id]);
   }
 
+
+
+  videoSelected = output<CustomListItem>();
+
 onPlayClick(item: CustomListItem) {
-  if (!item.videoUrl) return;
+  console.log('Clicked Item', item);
 
-  this.videoSelected.emit(item.id.toString());
+  this.videoSelected.emit(item);
 }
-
   onVideoEnded(item: CustomListItem) {
     if (this.playingVideoId() === item.id) {
       this.playingVideoId.set(null);

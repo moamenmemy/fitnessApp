@@ -5,7 +5,7 @@ import {
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { Component, computed, inject, signal } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { NgOptimizedImage } from '@angular/common';
+import { JsonPipe, NgOptimizedImage } from '@angular/common';
 import { SecrionTitleComponent } from 'fitness-app/src/app/Shareds/section-title/secrion-title.component';
 import { CustomListComponent } from 'fitness-app/src/app/Shareds/custamList/custom-list.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
@@ -17,6 +17,7 @@ import { Meals } from '../../healthy/service/meals/meals';
 import { TabItem } from 'fitness-app/src/app/Shareds/customTabs/interface/customTabs';
 import { CustomCaruselComponent } from 'fitness-app/src/app/Shareds/customCarousel/customCarusel.component';
 import { Exercise, ExercisesResponse } from 'fitness-app/src/app/core/interface/exercies';
+import { CustomListItem } from 'fitness-app/src/app/Shareds/custamList/interface/custom-list';
 @Component({
   selector: 'app-workout-details',
   imports: [
@@ -141,9 +142,11 @@ onTabChanged(levelId: string | number) {
       }
     });
 }
-onVideoSelected(id: string) {
+onVideoSelected(item: CustomListItem) {
+
+
   const exercise = this.exerciseList().find(
-    item => item._id === id
+    ex => ex._id === item.id
   );
 
   if (exercise) {
@@ -155,13 +158,18 @@ playSelectedVideo() {
   this.isPlaying.set(true);
 }
 getYoutubeEmbedUrl(): SafeResourceUrl | null {
-
   const url =
     this.selectedExercise()?.short_youtube_demonstration_link;
 
   if (!url) return null;
 
-  const videoId = url.split('/').pop();
+  const match = url.match(
+    /(?:youtu\.be\/|youtube\.com\/watch\?v=)([^&]+)/,
+  );
+
+  const videoId = match?.[1];
+
+  if (!videoId) return null;
 
   return this._sanitizer.bypassSecurityTrustResourceUrl(
     `https://www.youtube.com/embed/${videoId}?autoplay=1`
@@ -176,7 +184,8 @@ filteredClassItems = computed(() =>
       `${item.target_muscle_group} • ${item.primary_equipment}`,
     imageUrl: 'assets/workout.jpg',
     hasVideo: !!item.short_youtube_demonstration_link,
-    videoUrl: item.short_youtube_demonstration_link
+    videoUrl: item.short_youtube_demonstration_link,
+    exerciseData: item
   }))
 );
 }
