@@ -175,6 +175,13 @@ getYoutubeEmbedUrl(): SafeResourceUrl | null {
     `https://www.youtube.com/embed/${videoId}?autoplay=1`
   );
 }
+getYoutubeThumbnail(url: string | null): string {
+  if (!url) return 'assets/novideo.jpg';
+  const match = url.match(/(?:youtu\.be\/|youtube\.com\/watch\?v=)([^&]+)/);
+  const videoId = match?.[1];
+  if (!videoId) return 'assets/novideo.jpg';
+  return `https://img.youtube.com/vi/${videoId}/mqdefault.jpg`;
+}
 filteredClassItems = computed(() =>
   this.exerciseList().map(item => ({
     id: item._id,
@@ -182,7 +189,7 @@ filteredClassItems = computed(() =>
     subTitle: item.difficulty_level,
     description:
       `${item.target_muscle_group} • ${item.primary_equipment}`,
-    imageUrl: 'assets/workout.jpg',
+    imageUrl: this.getYoutubeThumbnail(item.short_youtube_demonstration_link),
     hasVideo: !!item.short_youtube_demonstration_link,
     videoUrl: item.short_youtube_demonstration_link,
     exerciseData: item

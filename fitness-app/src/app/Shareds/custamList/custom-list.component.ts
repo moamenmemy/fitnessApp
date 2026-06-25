@@ -1,5 +1,4 @@
 import { Component, input, signal, inject, output } from '@angular/core';
-import { Router } from '@angular/router';
 import { CustomListItem } from './interface/custom-list';
 
 @Component({
@@ -10,12 +9,14 @@ import { CustomListItem } from './interface/custom-list';
 })
 export class CustomListComponent {
   items = input.required<CustomListItem[]>();
-  private _router = inject(Router);
 
   playingVideoId = signal<string | number | null>(null);
 
   onThumbnailClick(item: CustomListItem) {
-    this._router.navigate(['/workoutsDetails', item.id]);
+    const videoUrl = item.videoUrl;
+    if (videoUrl) {
+      window.open(videoUrl, '_blank');
+    }
   }
 
 
