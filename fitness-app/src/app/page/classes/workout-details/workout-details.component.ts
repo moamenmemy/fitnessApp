@@ -2,6 +2,7 @@ import {
   DifficultyLevelsResponse,
   Workout,
 } from './../../../core/interface/workout';
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { Component, computed, inject, signal } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { NgOptimizedImage } from '@angular/common';
@@ -15,6 +16,7 @@ import { Carousel } from 'primeng/carousel';
 import { Meals } from '../../healthy/service/meals/meals';
 import { TabItem } from 'fitness-app/src/app/Shareds/customTabs/interface/customTabs';
 import { CustomCaruselComponent } from 'fitness-app/src/app/Shareds/customCarousel/customCarusel.component';
+import { Exercise, ExercisesResponse } from 'fitness-app/src/app/core/interface/exercies';
 @Component({
   selector: 'app-workout-details',
   imports: [
@@ -23,7 +25,7 @@ import { CustomCaruselComponent } from 'fitness-app/src/app/Shareds/customCarous
     CustomListComponent,
     FontAwesomeModule,
     CustomTabsComponent,
-    CustomCaruselComponent
+    CustomCaruselComponent,
   ],
   templateUrl: './workout-details.component.html',
   styleUrl: './workout-details.component.css',
@@ -41,12 +43,17 @@ export class WorkoutDetailsComponent {
       numScroll: 1,
     },
   ];
+  _sanitizer = inject(DomSanitizer);
 
+selectedExercise = signal<Exercise | null>(null);
+isPlaying = signal(false);
+  
+exerciseList = signal<Exercise[]>([]);
   sagittarius = faSagittarius;
   mealtab = signal<TabItem[]>([]);
   _activatedRoute = inject(ActivatedRoute);
   _exerces = inject(Exercises);
-   _meals = inject(Meals);
+  _meals = inject(Meals);
   workoutId = computed(() => this._activatedRoute.snapshot.paramMap.get('id'));
   workus = signal([
     { message: 'Expertly designed workout.' },
@@ -76,7 +83,6 @@ export class WorkoutDetailsComponent {
       pages.push(allTabs.slice(i, i + chunkSize));
     }
 
-
     return pages;
   });
   ngOnInit() {
@@ -100,101 +106,77 @@ export class WorkoutDetailsComponent {
     });
   }
 
-  getallmeal(){
+  getallmeal() {
     this._meals.getAllCategories().subscribe({
-      next:(res)=>{
+      next: (res) => {
         console.log(res);
-        this.mealtab.set(res.map((category: any) => ({
-          id: category.id,
-          title: category.title ?? category.text,
-          imageSrc: category.imageSrc,
-          text: category.text,
-        })));
+        this.mealtab.set(
+          res.map((category: any) => ({
+            id: category.id,
+            title: category.title ?? category.text,
+            imageSrc: category.imageSrc,
+            text: category.text,
+          })),
+        );
+      },
+    });
+  }
+onTabChanged(levelId: string | number) {
+  this.activeTabId.set(String(levelId));
+
+  this._exerces
+    .GetExercisesByPrime(
+      this.workoutId()!,
+      this.activeTabId()
+    )
+    .subscribe({
+      next: (res: ExercisesResponse) => {
+
+        this.exerciseList.set(res.exercises);
+
+        if (res.exercises.length) {
+          this.selectedExercise.set(res.exercises[0]);
+          this.isPlaying.set(false);
+        }
       }
-    })
+    });
+}
+onVideoSelected(id: string) {
+  const exercise = this.exerciseList().find(
+    item => item._id === id
+  );
 
+  if (exercise) {
+    this.selectedExercise.set(exercise);
+    this.isPlaying.set(false);
   }
-  onTabChanged(levelId: string | number) {
-    this.activeTabId.set(String(levelId));
+}
+playSelectedVideo() {
+  this.isPlaying.set(true);
+}
+getYoutubeEmbedUrl(): SafeResourceUrl | null {
 
-    console.log('Level Id:', levelId);
+  const url =
+    this.selectedExercise()?.short_youtube_demonstration_link;
 
-    // API الخاصة بالمستوى المختار
-    // this._exerces.getExercisesByLevel(levelId).subscribe(...)
-  }
-  exercises = Array(8).fill({
-    name: 'Bench Press',
-    image: 'assets/workout.jpg',
-  });
+  if (!url) return null;
 
-  classTabs = signal<string[]>(['All', 'Gym', 'Yoga', 'Cardio']);
-  currentTab = signal<string>('All');
+  const videoId = url.split('/').pop();
 
-  classItems = signal([
-    {
-      id: 1,
-      title: 'Bench Press ',
-      subTitle: '3 Groups * 15 Times',
-      description:
-        'A powerful chest exercise designed to build upper body strength and muscle mass effectively.',
-      imageUrl: 'assets/workout.jpg',
-      category: 'Gym',
-      hasVideo: true,
-    },
-    {
-      id: 2,
-      title: 'Vinyasa Yoga Flow',
-      subTitle: '45 Minutes Session',
-      description:
-        'Connect your breath with movement in this dynamic yoga session that improves flexibility and focus.',
-      imageUrl: 'assets/workout.jpg',
-      category: 'Yoga',
-      hasVideo: false,
-    },
-    {
-      id: 3,
-      title: 'High-Intensity Cardio',
-      subTitle: '4 Groups * 12 Times',
-      description:
-        'Burn calories and boost your endurance with this fast-paced, full-body cardio routine.',
-      imageUrl: 'assets/workout.jpg',
-      category: 'Cardio',
-      hasVideo: true,
-    },
-    {
-      id: 4,
-      title: 'Squats & Legs Day',
-      subTitle: '4 Groups * 12 Times',
-      description:
-        'Strengthen your lower body and core with standard and variations of heavy squats.',
-      imageUrl: 'assets/workout.jpg',
-      category: 'Gym',
-      hasVideo: true,
-    },
-  ]);
-
-  // filteredClassItems = computed(() => {
-  //   const items = this.classItems();
-  //   const tab = this.currentTab();
-  //   if (tab === 'All') return items;
-  //   return items.filter(item => item.category === tab);
-  // });
-  // onTabChange(tab: string) {
-  //   this.currentTab.set(tab);
-  // }
-
-  //   recommendations = [
-  //   {
-  //     image: 'assets/food1.jpg',
-  //     category: 'Breakfast'
-  //   },
-  //   {
-  //     image: 'assets/food2.jpg',
-  //     category: 'Lunch'
-  //   },
-  //   {
-  //     image: 'assets/food3.jpg',
-  //     category: 'Dinner'
-  //   }
-  // ];
+  return this._sanitizer.bypassSecurityTrustResourceUrl(
+    `https://www.youtube.com/embed/${videoId}?autoplay=1`
+  );
+}
+filteredClassItems = computed(() =>
+  this.exerciseList().map(item => ({
+    id: item._id,
+    title: item.exercise,
+    subTitle: item.difficulty_level,
+    description:
+      `${item.target_muscle_group} • ${item.primary_equipment}`,
+    imageUrl: 'assets/workout.jpg',
+    hasVideo: !!item.short_youtube_demonstration_link,
+    videoUrl: item.short_youtube_demonstration_link
+  }))
+);
 }
