@@ -46,7 +46,8 @@
         <fa-icon [icon]="_theme.theme() === 'dark' ? fasun : famoon" />
       </div>
     </button>
-    <button
+   @if (logged()) {
+     <button
       routerLink="/UserProfile"
       class="flex items-center text-white justify-center w-10 h-10 rounded-full bg-[var(--main-color)] transition-all active:scale-90"
     >
@@ -55,7 +56,9 @@
       </div>
     </button>
 
-    <app-button-ui
+   }
+ @else {
+     <app-button-ui
       route="/auth/login"
       text="LOGIN"
       textcolor="white"
@@ -67,15 +70,23 @@
       textcolor="var(--main-color)"
       backgroundcolor="transparent"
     ></app-button-ui>
+ }
   </div>
 
   <!-- Mobile Buttons -->
   <div class="md:hidden flex items-center gap-4">
-    <button
-      class="!bg-[#ff4500] hover:bg-[#e63e00] w-12 h-12 rounded-full flex items-center justify-center border-none transition-all shadow-lg text-white"
+   @if (logged()) {
+     <button
+      routerLink="/UserProfile"
+      class="flex items-center text-white justify-center w-10 h-10 rounded-full bg-[var(--main-color)] transition-all active:scale-90"
     >
-      <i class="pi pi-user"></i>
+      <div class="transition-transform duration-500 dark:text-white text-black">
+        <fa-icon [icon]="User"  />
+      </div>
     </button>
+
+   }
+
     <button
       (click)="sidebarVisible = true"
       class="!bg-[#ff4500] hover:bg-[#e63e00] w-12 h-12 rounded-full flex flex-col items-center justify-center gap-[4px] border-none transition-all shadow-lg"
@@ -129,5 +140,21 @@
         </li>
       }
     </ul>
+    <div class="flex  gap-6 mt-10 border-t py-10">
+       @if(!logged()){
+     <app-button-ui
+      route="/auth/login"
+      text="LOGIN"
+      textcolor="white"
+      backgroundcolor="var(--main-color)"
+    ></app-button-ui>
+    <app-button-ui
+      route="/auth/register"
+      text="SIGN UP"
+      textcolor="var(--main-color)"
+      backgroundcolor="transparent"
+    ></app-button-ui>
+ }
+      </div>
   </div>
 </p-drawer>

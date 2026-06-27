@@ -46,7 +46,7 @@ export class UserprofileComponent {
   selectedType = signal<'goal' | 'activityLevel' | 'weight' | null>(null);
 
 selectedValue: string | number | null = null;
-
+isloading=signal<boolean>(false);
 
   userData = signal<UploadProfileUserRequest | null>(null);
 
@@ -179,8 +179,9 @@ selectedValue: string | number | null = null;
       this._auth.logout().subscribe({
         next: (res) => {
           if (res.message === 'success') {
-            this._router.navigate(['/auth/login']);
+            this._router.navigate(['/home']);
             localStorage.removeItem('token');
+              this._auth.isLoggedIn.set(false);
           }
         },
       });

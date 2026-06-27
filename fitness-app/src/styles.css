@@ -1,4 +1,5 @@
 @import "primeicons/primeicons.css";
+@import 'fitness-app/src/styles.css';
 
 @tailwind base;
 @tailwind components;

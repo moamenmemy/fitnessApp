@@ -9,10 +9,10 @@
     class="absolute inset-0 bg-[#FFFFFF99] dark:bg-[#242424]/60 backdrop-blur-[46px]"
   ></div>
   <div
-    class="flex justify-center items-center flex-col container mx-auto pt-40"
+    class="flex justify-center items-center  flex-col container mx-auto pt-40"
   >
-    <div class="grid grid-cols-2 md:grid-cols-3 gap-16 z-10">
-      @for (info of infos; track $index) {
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3  gap-16 z-10">
+      @for (info of infos; track $index ) {
         <div class="">
           <h2
             class="text-[#242424] dark:text-white text-center font-bold text-3xl"
@@ -71,11 +71,11 @@
 }
 @else {
   <span class="text-lg font-bold">
-    (
+    
     <span class="text-[var(--main-color)]">
       {{ card.subTitle }}
     </span>
-    )
+    
   </span>
 }
               <!-- @if (card.subTitle) {

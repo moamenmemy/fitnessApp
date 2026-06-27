@@ -34,6 +34,11 @@ export const appRoutes: Route[] = [
           import('./page/classes/classes.component').then((m) => m.ClassesComponent),
       },
       {
+        path: 'smart-coach',
+        loadComponent: () =>
+          import('./features/gym-chat/pages/smart-coach.component').then((m) => m.SmartCoachComponent),
+      },
+      {
         path: 'workoutsDetails/:id',
         loadComponent: () =>
           import('./page/classes/workout-details/workout-details.component').then((m) => m.WorkoutDetailsComponent),

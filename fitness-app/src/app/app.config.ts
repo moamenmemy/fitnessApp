@@ -1,4 +1,3 @@
-
 import { BASE_URL } from '@org/auth'
 
 
@@ -20,6 +19,7 @@ import { provideHttpClient, withFetch, withInterceptors } from '@angular/common/
 import { Theme } from './core/services/theme/theme';
 import { languageInterceptor } from './core/interceptors/language-interceptor';
 import { headerInterceptor } from './core/interceptors/header-interceptor';
+import { loadingInterceptor } from './core/interceptors/loading-interceptor';
 
 function initializeTheme(): void {
   const theme = inject(Theme);
@@ -29,7 +29,7 @@ export const appConfig: ApplicationConfig = {
   providers: [
     provideClientHydration(withEventReplay()),
     provideBrowserGlobalErrorListeners(),
-    provideHttpClient(withFetch(),  withInterceptors([languageInterceptor,headerInterceptor])),
+    provideHttpClient(withFetch(),  withInterceptors([languageInterceptor, headerInterceptor, loadingInterceptor])),
     provideRouter(appRoutes,withInMemoryScrolling({
         scrollPositionRestoration: 'top'
       })),

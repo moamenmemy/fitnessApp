@@ -1,8 +1,9 @@
 import { Component, HostListener } from '@angular/core';
-
+import { SmartCoachComponent } from '../../features/gym-chat/pages/smart-coach.component';
+import { DialogModule } from 'primeng/dialog';
 @Component({
   selector: 'app-floating',
-  imports: [],
+  imports: [SmartCoachComponent, DialogModule],
   templateUrl: './floating.component.html',
   styleUrl: './floating.component.css',
 })
@@ -14,8 +15,10 @@ export class FloatingComponent {
   onScroll() {
     this.isVisible = window.scrollY > 300;
   }
+ visible = false;
 
   toggleChat() {
-    this.isChatOpen = !this.isChatOpen;
+    this.visible = !this.visible;
   }
+
 }

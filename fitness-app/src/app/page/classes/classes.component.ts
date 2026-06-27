@@ -39,6 +39,7 @@ export interface ClassesListItem extends CustomListItem {
   styleUrl: './classes.component.css',
 })
 export class ClassesComponent {
+  
   private _exercises = inject(Exercises);
   private _router = inject(Router);
   responsiveOptions = [

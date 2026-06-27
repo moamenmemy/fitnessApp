@@ -1,0 +1,142 @@
+<div class="relative h-[598px] overflow-hidden">
+  <!-- Background -->
+  <img
+    ngSrc="assets/chat.jpg"
+    fill
+    priority
+    alt="Workout Background"
+    class="object-center"
+  />
+
+  <!-- Blur Overlay -->
+  <div
+    class="absolute inset-0 bg-white/10 dark:bg-[#242424]/10 backdrop-blur-md"
+  ></div>
+
+  <!-- Main Content -->
+  <div class="relative z-10 flex w-full h-full">
+    <!-- Chat Container -->
+    <div class="flex-1 flex flex-col">
+      <!-- Header -->
+      <div
+        class="h-[80px] px-6 flex items-center justify-between bg-transparent"
+      >
+        <div class="flex items-center gap-3">
+          <div>
+            <h2 class="font-bold text-xl text-[#242424] dark:text-white">
+              Smart Coach
+            </h2>
+          </div>
+        </div>
+
+        <!-- Right Buttons -->
+        <div class="flex items-center gap-4">
+          <button
+            (click)="sidebarVisible = true"
+            class="w-12 h-12  flex flex-col items-center justify-center gap-[4px] border-none transition-all "
+          >
+            <span class="w-6 h-[2px] bg-[#e63e00] rounded-full"></span>
+            <span class="w-5 h-[2px] bg-[#e63e00] rounded-full"></span>
+            <span class="w-3 h-[2px] bg-[#e63e00] rounded-full"></span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Messages -->
+      <div #chatContainer class="flex-1 overflow-y-auto p-6 space-y-5">
+        @for (msg of messages(); track $index) {
+          @if (msg.role === 'assistant') {
+            <div class="flex gap-3">
+              <img
+                src="assets/repot2.jpg"
+                class="w-10 h-10 rounded-full object-cover"
+              />
+
+              <div
+                class="bg-white/60 dark:bg-[#1d1d1d]/60 text-[#242424] dark:text-white px-5 py-4 rounded-tr-[20px] rounded-bl-[20px]  rounded-br-[20px]  max-w-[70%]"
+              >
+                {{ msg.text }}
+              </div>
+            </div>
+          } @else {
+            <div class="flex justify-end gap-3">
+              <div
+                class="bg-[#FF6A0080] text-white px-5 py-4 rounded-tl-[20px] rounded-bl-[20px]  rounded-br-[20px] max-w-[70%]"
+              >
+                {{ msg.text }}
+              </div>
+
+              <img
+                src="assets/chat1.jpg"
+                class="w-10 h-10 rounded-full object-cover"
+              />
+            </div>
+          }
+        }
+
+        @if (loading()) {
+          <div class="flex gap-3">
+            <img
+              src="assets/repot2.jpg"
+              class="w-10 h-10 rounded-full object-cover"
+            />
+
+            <div class="typing-indicator">
+              <span></span>
+              <span></span>
+              <span></span>
+            </div>
+          </div>
+        }
+      </div>
+
+      <!-- Input -->
+      <div class="p-5 border-t border-white/10">
+        <div
+          class="bg-transparent border rounded-full flex items-center gap-3 px-4 py-2.5"
+        >
+          <input
+            [(ngModel)]="message"
+            (keyup.enter)="sendMessage()"
+            placeholder="Ask your Smart Coach..."
+            class="flex-1 bg-transparent outline-none text-black font-bold dark:text-white"
+          />
+
+          <button
+            (click)="sendMessage()"
+            class=" rounded-full text-white"
+          >
+            <i class="pi pi-pencil" style="color: #ff4500"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Drawer -->
+
+<p-drawer
+  [(visible)]="sidebarVisible"
+  position="right"
+  [modal]="false"
+  styleClass="custom-white-drawer"
+>
+  <div class="p-5">
+    <h2 class="text-xl font-bold mb-5 text-[#242424] dark:text-white">
+      Previous Conversations
+    </h2>
+
+    <div class="space-y-3">
+      @for (item of chatHistory(); track $index) {
+        <div
+          class="text-[#242424] dark:text-white border-b border-black/20 dark:border-gray-200 pt-3 pb-5 cursor-pointer flex justify-between items-center"
+        >
+          <i class="pi pi-angle-left" style="color: #ff4100"></i>
+
+          {{ item }}
+        </div>
+      }
+    </div>
+  </div>
+</p-drawer>

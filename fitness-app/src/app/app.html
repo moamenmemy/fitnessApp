@@ -1,12 +1,7 @@
-
-
-
+@if (isLoading()) {
+  <div class="loading-overlay">
+    <p-progress-spinner ariaLabel="loading" />
+  </div>
+}
 
 <router-outlet></router-outlet>
-<app-floating></app-floating>
-
-
-
-
-  
-

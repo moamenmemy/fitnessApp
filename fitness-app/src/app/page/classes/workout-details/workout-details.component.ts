@@ -45,10 +45,72 @@ export class WorkoutDetailsComponent {
   ];
   _sanitizer = inject(DomSanitizer);
 
-selectedExercise = signal<Exercise | null>(null);
-isPlaying = signal(false);
-  
-exerciseList = signal<Exercise[]>([]);
+  _cachedEmbedUrl: SafeResourceUrl | null = null;
+
+  onExerciseChange() {
+    const selected = this.selectedExercise();
+    const url = selected?.short_youtube_demonstration_link;
+    if (!url) {
+      this._cachedEmbedUrl = null;
+      return;
+    }
+    const match = url.match(
+      /(?:youtu\.be\/|youtube\.com\/watch\?v=)([^&]+)/,
+    );
+    const videoId = match?.[1];
+    if (!videoId) {
+      this._cachedEmbedUrl = null;
+      return;
+    }
+    this._cachedEmbedUrl = this._sanitizer.bypassSecurityTrustResourceUrl(
+      `https://www.youtube.com/embed/${videoId}?autoplay=1&enablejsapi=1&origin=${window.location.origin}`,
+    );
+  }
+
+  selectedExercise = signal<Exercise | null>(null);
+  isPlaying = signal(false);
+  private currentTime = signal(0);
+  private isVideoEnded = signal(false);
+
+  playSelectedVideo() {
+    const playing = this.isPlaying();
+
+    if (this.isVideoEnded()) {
+      this.seekToStart();
+      this.isVideoEnded.set(false);
+      return;
+    }
+
+    this.isPlaying.set(!playing);
+    if (!playing) {
+      this.sendCommand('playVideo');
+    } else {
+      this.sendCommand('pauseVideo');
+    }
+  }
+
+  private sendCommand(command: string) {
+    const iframe = document.querySelector('iframe');
+    if (iframe?.contentWindow) {
+      iframe.contentWindow.postMessage(
+        JSON.stringify({ event: 'command', func: command }),
+        '*'
+      );
+    }
+  }
+
+  private seekToStart() {
+    const iframe = document.querySelector('iframe');
+    if (iframe?.contentWindow) {
+      iframe.contentWindow.postMessage(
+        JSON.stringify({ event: 'command', func: 'seekTo', args: [0, true] }),
+        '*'
+      );
+      setTimeout(() => this.sendCommand('playVideo'), 100);
+    }
+  }
+
+  exerciseList = signal<Exercise[]>([]);
   sagittarius = faSagittarius;
   mealtab = signal<TabItem[]>([]);
   _activatedRoute = inject(ActivatedRoute);
@@ -88,6 +150,23 @@ exerciseList = signal<Exercise[]>([]);
   ngOnInit() {
     this.getDifficultyLevels();
     this.getallmeal();
+    window.addEventListener('message', this.handleYoutubeMessage.bind(this));
+  }
+
+  ngOnDestroy() {
+    window.removeEventListener('message', this.handleYoutubeMessage.bind(this));
+  }
+
+  private handleYoutubeMessage(event: MessageEvent) {
+    if (!event.data || typeof event.data !== 'string') return;
+    
+    try {
+      const data = JSON.parse(event.data);
+      if (data?.event === 'onStateChange' && data?.data === 0) {
+        this.isVideoEnded.set(true);
+        this.isPlaying.set(false);
+      }
+    } catch {}
   }
   getDifficultyLevels() {
     const id = this.workoutId();
@@ -129,6 +208,7 @@ onTabChanged(levelId: string | number) {
 
         if (res.exercises.length) {
           this.selectedExercise.set(res.exercises[0]);
+          this.onExerciseChange();
           this.isPlaying.set(false);
         }
       }
@@ -143,29 +223,12 @@ onVideoSelected(item: CustomListItem) {
 
   if (exercise) {
     this.selectedExercise.set(exercise);
+    this.onExerciseChange();
     this.isPlaying.set(false);
   }
 }
-playSelectedVideo() {
-  this.isPlaying.set(true);
-}
 getYoutubeEmbedUrl(): SafeResourceUrl | null {
-  const url =
-    this.selectedExercise()?.short_youtube_demonstration_link;
-
-  if (!url) return null;
-
-  const match = url.match(
-    /(?:youtu\.be\/|youtube\.com\/watch\?v=)([^&]+)/,
-  );
-
-  const videoId = match?.[1];
-
-  if (!videoId) return null;
-
-  return this._sanitizer.bypassSecurityTrustResourceUrl(
-    `https://www.youtube.com/embed/${videoId}?autoplay=1`
-  );
+  return this._cachedEmbedUrl;
 }
 getYoutubeThumbnail(url: string | null): string {
   if (!url) return 'assets/novideo.jpg';
