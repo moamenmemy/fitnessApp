@@ -37,16 +37,9 @@ groupedItems = computed<CarouselItem[][]>(() => {
     { breakpoint: '480px', numVisible: 1, numScroll: 1 }
   ]);
 
-  itemActionClicked = output<CarouselItem>();
+  cardClicked = output<string>();
 
-cardClicked = output<string>();
-
-  onCardAction(item: CarouselItem): void {
-    this.itemActionClicked.emit(item);
-
-    // إذا كان الـ CarouselItem فيه id
-    if (item.id) {
-      this.cardClicked.emit(item.id);
-    }
+  onCardAction(id: string): void {
+    this.cardClicked.emit(id);
   }
-} 
+}
