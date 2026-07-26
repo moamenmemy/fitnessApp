@@ -11,6 +11,7 @@ export interface ApiMeal {
   strMealThumb: string;
 }
 
+
 export interface CarouselItem {
   idMeal: string;
   title: string;
@@ -26,3 +27,5 @@ export interface MealCategory {
 export interface ApiMealsResponse {
   meals: ApiMeal[] | null;
 }
+
+

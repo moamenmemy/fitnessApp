@@ -14,6 +14,7 @@ import { CustomCardComponent } from '../customCard/customCard.component';
 export class CustomCaruselComponent {
   carouselItems = input.required<CarouselItem[]>();
   autoPlay = input<boolean>(false);
+  
  
   rowsCount = input<number>(1);
 
@@ -40,7 +41,12 @@ groupedItems = computed<CarouselItem[][]>(() => {
 
 cardClicked = output<string>();
 
-onCardAction(id: string) {
-  this.cardClicked.emit(id);
-}
-}
+  onCardAction(item: CarouselItem): void {
+    this.itemActionClicked.emit(item);
+
+    // إذا كان الـ CarouselItem فيه id
+    if (item.id) {
+      this.cardClicked.emit(item.id);
+    }
+  }
+} 
