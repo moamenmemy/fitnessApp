@@ -143,3 +143,4 @@ vitest.config.*.timestamp*
 .specify/workflows/workflow-registry.json
 .specify/workflows/speckit/workflow.yml
 .vscode/settings.json
+.env

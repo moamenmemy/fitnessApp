@@ -19,6 +19,11 @@ export const appRoutes: Route[] = [
           import('./page/home/home.component').then((m) => m.HomeComponent),
       },
       {
+        path: 'UserProfile',
+        loadComponent: () =>
+          import('./features/userprofile/userprofile.component').then((m) => m.UserprofileComponent),
+      },
+      {
         path: 'about',
         loadComponent: () =>
           import('./page/about/about.component').then((m) => m.AboutComponent),
@@ -27,6 +32,16 @@ export const appRoutes: Route[] = [
         path: 'classes',
         loadComponent: () =>
           import('./page/classes/classes.component').then((m) => m.ClassesComponent),
+      },
+      {
+        path: 'smart-coach',
+        loadComponent: () =>
+          import('./features/gym-chat/pages/smart-coach.component').then((m) => m.SmartCoachComponent),
+      },
+      {
+        path: 'workoutsDetails/:id',
+        loadComponent: () =>
+          import('./page/classes/workout-details/workout-details.component').then((m) => m.WorkoutDetailsComponent),
       },
       {
         path: 'healthy',

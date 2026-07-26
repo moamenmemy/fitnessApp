@@ -13,6 +13,7 @@ import { CustomCardComponent } from '../customCard/customCard.component';
 })
 export class CustomCaruselComponent {
   carouselItems = input.required<CarouselItem[]>();
+  autoPlay = input<boolean>(false);
   
  
   rowsCount = input<number>(1);
@@ -36,9 +37,9 @@ groupedItems = computed<CarouselItem[][]>(() => {
     { breakpoint: '480px', numVisible: 1, numScroll: 1 }
   ]);
 
-  itemActionClicked = output<CarouselItem>();
+  cardClicked = output<string>();
 
-  onCardAction(item: CarouselItem): void {
-    this.itemActionClicked.emit(item);
+  onCardAction(id: string): void {
+    this.cardClicked.emit(id);
   }
 }

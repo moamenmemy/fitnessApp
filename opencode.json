@@ -3,8 +3,13 @@
   "mcp": {
     "nx-mcp": {
       "type": "local",
-      "command": ["npx", "nx", "mcp"],
+      "command": [
+        "npx",
+        "nx",
+        "mcp"
+      ],
       "enabled": true
     }
-  }
+  },
+  "snapshot": false
 }

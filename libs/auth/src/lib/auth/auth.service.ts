@@ -1,6 +1,6 @@
 import { map, Observable } from 'rxjs';
-import { inject, Injectable } from '@angular/core';
-import { AuthResponseDto, AuthUser, ChangePasswordRequest, ChangePasswordResponse, codeRequest, codeResponse, ForgotRequest, ForgotResponse, LoginRequest, logoutResponse, RegisterRequest, RestPasswordRequest, RestPasswordResponse, UploadProfilePhoto, UploadProfilePhotoResponse, UploadProfileUserRequest, UploadProfileUserResponse } from '../interface/auth-response-dto';
+import { inject, Injectable, signal } from '@angular/core';
+import { AuthResponseDto, AuthUser, ChangePasswordRequest, ChangePasswordResponse, codeRequest, codeResponse, ForgotRequest, ForgotResponse, LoginRequest, logoutResponse, RegisterRequest, RestPasswordRequest, RestPasswordResponse, UpdateProfileRequest, UploadProfilePhoto, UploadProfilePhotoResponse, UploadProfileUserRequest, UploadProfileUserResponse } from '../interface/auth-response-dto';
 import { HttpClient } from '@angular/common/http';
 import { BASE_URL } from '../interface/Base_url';
 import { AuthApi } from '../base/aurthApi';
@@ -13,6 +13,11 @@ export class AuthService implements AuthApi {
   _httpclient=inject(HttpClient)
   _authApiadaptor=inject(AuthApiadaptor)
    _bASEURL=inject(BASE_URL)
+   isLoggedIn = signal(
+  typeof localStorage !== 'undefined' &&
+  !!localStorage.getItem('token')
+);
+
 Login(data:LoginRequest): Observable<AuthUser> {
 return this._httpclient.post<AuthResponseDto>(this._bASEURL+AuthEndPoint.Login, data).pipe(
   map(data=>this._authApiadaptor.adapt(data))
@@ -69,11 +74,12 @@ return this._httpclient.post<AuthResponseDto>(this._bASEURL+AuthEndPoint.SiginUp
       this._bASEURL + AuthEndPoint.deleteMyAccount
     );
   };
-    editProfile(data: UploadProfileUserRequest): Observable<UploadProfileUserResponse> {
-    return this._httpclient.put<UploadProfileUserResponse>(
-      this._bASEURL + AuthEndPoint.editProfile,
-      data
-    );
-  }
+ editProfile(data: UpdateProfileRequest): Observable<UploadProfileUserResponse> {
+  return this._httpclient.put<UploadProfileUserResponse>(
+    this._bASEURL + AuthEndPoint.editProfile,
+    data
+  );
+}
+
 }
 

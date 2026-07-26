@@ -1,7 +1,50 @@
 :host {
-  --tab-color-active: #f15a24;
-  --tab-color-inactive: #d1d5db;
-  --tab-color-hover: #f15a24;
+--tab-color-active: #F15A24;
+--text-color-light: #000000;
+--text-color-dark: #D1D5DB;
+}
+
+.tab-button {
+font-weight: 500;
+color: var(--text-color-light);
+background-color: transparent;
+padding: 0.5rem 0.5rem;
+border-radius: 9999px;
+  flex: 0 0 auto;          /* يمنع الانكماش */
+  min-width: max-content;  /* يمنع تقطيع النص */
+  white-space: nowrap;  
+transition: all 0.3s ease;
+}
+
+
+
+:host-context(.dark) .tab-button {
+color: var(--text-color-dark);
+}
+
+
+
+.tab-button.active {
+background-color: var(--tab-color-active) !important;
+color: #FFFFFF !important;
+font-weight: 700;
+}
+
+/* حالة الـ Hover */
+.tab-button:hover {
+background-color: rgba(241, 90, 36, 0.1);
+}
+
+
+
+.tabs-wrapper {
+border: none !important;
+box-shadow: none !important;
+background-color: transparent !important;
+}
+
+.tab-button::after {
+display: none !important;
 }
 
 .tab-button {

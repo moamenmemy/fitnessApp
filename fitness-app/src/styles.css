@@ -1,6 +1,5 @@
 @import "primeicons/primeicons.css";
-
-/* You can add global styles to this file, and also import other style files */
+@import 'fitness-app/src/styles.css';
 
 @tailwind base;
 @tailwind components;
@@ -9,14 +8,28 @@
  .container{
     margin-inline: auto;
     width: 95%;
-
 }
-
+ 
 
 :root{
     --main-color:#FF4100;
 }
 .main-color{
     color: var(--main-color);
+}
+
+.p-toggleswitch.p-toggleswitch-checked .p-toggleswitch-slider {
+    background: var(--main-color) !important;
+    border-color: var(--main-color) !important;
+}
+
+.p-toggleswitch .p-toggleswitch-slider {
+  background: #374151 !important;
+    border-color: #374151 !important;
+}
+
+.dark .p-toggleswitch .p-toggleswitch-slider {
+       background: var(--main-color) !important;
+    border-color: var(--main-color) !important;
 }
 

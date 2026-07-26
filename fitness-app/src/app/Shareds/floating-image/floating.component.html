@@ -1,20 +1,39 @@
-<div
-  class="fixed right-5 top-[70vh] z-50 flex flex-col justify-center items-center"
->
-  <div
-    class="absolute w-64 h-64 bg-[var(--main-color)]/20 blur-[100px] rounded-full"
-  ></div>
+<!-- Dialog -->
 
+<p-dialog
+  [(visible)]="visible"
+  [modal]="false"
+  [draggable]="false"
+  [resizable]="false"
+  [closable]="true"
+  [style]="{
+    width: '350px',
+    height: '590px',
+  }"
+  styleClass="smart-coach-dialog"
+>
+  <app-smart-coach></app-smart-coach>
+</p-dialog>
+
+<!-- Floating Robot -->
+
+<div
+  class="fixed z-[9999] flex flex-col items-center transition-all duration-500"
+  [class.right-5]="!visible"
+  [class.right-32]="visible"
+  [class.bottom-5]="!visible"
+  [class.top-1]="visible"
+>
   <img
     src="assets/repot.png"
-    alt="Robot AI"
-    class="w-40 md:w-48 h-auto z-10 cursor-pointer drop-shadow-[0_0_30px_rgb(255,65,0)]"
+    class="w-32 cursor-pointer"
+    (click)="toggleChat()"
   />
 
-  <button
-    (click)="toggleChat()"
-    class="ms-6 text-white font-bold py-2 px-8 bg-[var(--main-color)] hover:bg-[#e63e00] rounded-full text-lg shadow-lg transition-all transform hover:scale-105 active:scale-95 z-10"
-  >
-    {{ isChatOpen ? 'Tap to Close' : 'Hey Ask Me' }}
-  </button>
+ <button
+  (click)="toggleChat()"
+  class="bg-[var(--main-color)] text-white px-6 py-3 rounded-full"
+>
+  {{ visible ? 'Tap to Close' : 'Hey Ask Me' }}
+</button>
 </div>

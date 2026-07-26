@@ -23,8 +23,10 @@ export class Meals {
       map(response => {
         const categoriesArray = response.categories || [];
         return categoriesArray.map(cat => ({
-          id: cat.strCategory, 
-          text: cat.strCategory  
+          id: cat.strCategory,
+          text: cat.strCategory,
+          imageSrc: cat.strCategoryThumb,
+          title: cat.strCategory,
         }));
       })
     );

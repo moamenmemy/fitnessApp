@@ -1,25 +1,49 @@
-<div class="bg-[#1A1A1A]/80 backdrop-blur-md rounded-3xl p-6 w-full max-w-md border border-white/5">
+<div class="">
   
-  <div class="flex flex-col gap-5 overflow-y-auto max-h-[500px] pr-1">
+  <div class="flex flex-col gap-5 overflow-y-auto max-h-[300px] lg:max-h-[920px] pr-1">
     @for (item of items(); track item.id) {
-      <div class="flex items-center justify-between gap-4 group">
+      <div class="flex items-center  border-black/10 border-b dark:border-white/10 pb-4 justify-between gap-4 group">
         
-        <div class="flex items-center gap-4">
-          <img [src]="item.imageUrl" [alt]="item.title" class="w-16 h-16 rounded-2xl object-cover border border-white/10" />
+        <div class="flex items-center  justify-center gap-4">
+          @if (item.hasVideo && item.videoUrl) {
+            <div class="relative w-20 h-20 rounded-2xl overflow-hidden border border-white/10">
+              @if (playing(item)) {
+                <video 
+                  [src]="item.videoUrl" 
+                  class="absolute inset-0 w-full h-full object-cover"
+                  autoplay
+                  playsinline
+                  (ended)="onVideoEnded(item)"
+                  (click)="$event.stopPropagation()"
+                  controls
+                ></video>
+              } @else {
+                <img 
+                  [src]="item.imageUrl" 
+                  [alt]="item.title" 
+                  class="w-full h-full object-cover"
+                  (click)="onThumbnailClick(item)"
+                />
+           
+              }
+            </div>
+          } @else {
+            <img [src]="item.imageUrl" [alt]="item.title" class="w-20  h-20 rounded-2xl object-cover border border-white/10" />
+          }
           <div class="flex flex-col">
-            <h4 class="text-white font-semibold text-base">{{ item.title }}</h4>
+            <h4 class="dark:text-white text-black font-bold text-base">  {{ item.title.split(' ').slice(0, 2).join(' ') }}</h4>
             
             @if (item.subTitle) {
-              <span class="text-gray-400 text-xs mt-0.5">{{ item.subTitle }}</span>
+              <span class="text-gray-400 dark:text-[#F3F3F4] text-xs mt-0.5">{{ item.subTitle }}</span>
             }
             
-            <p class="text-gray-500 text-xs mt-1 max-w-[200px] line-clamp-2">{{ item.description }}</p>
+            <p class="text-gray-500 dark:text-[#F3F3F4] text-xs mt-1 max-w-[200px] line-clamp-2">{{ item.description }}</p>
           </div>
         </div>
 
         <div class="flex-shrink-0 w-8 h-8 flex items-center justify-center">
           @if (item.hasVideo) {
-            <button class="bg-[#FF4500] hover:bg-[#e03d00] text-white p-2 rounded-full flex items-center justify-center w-8 h-8 transition-colors duration-200 border-0 cursor-pointer">
+            <button class="bg-[#FF4500] hover:bg-[#e03d00] text-white p-2 rounded-full flex items-center justify-center w-8 h-8 transition-colors duration-200 border-0 cursor-pointer" (click)="onPlayClick(item)">
               <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24" class="w-4 h-4 ml-0.5">
                 <path d="M8 5v14l11-7z"/>
               </svg>

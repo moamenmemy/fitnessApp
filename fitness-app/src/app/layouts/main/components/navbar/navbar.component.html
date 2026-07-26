@@ -1,7 +1,7 @@
 <nav
   class="flex items-center justify-between fixed top-0 w-full z-50 py-4 px-12 transition-all duration-300"
   [ngClass]="{
-    'bg-transparent text-white': !isScrolled,
+    'bg-transparent text-[#242424] dark:text-white': !isScrolled,
     'bg-white/70 backdrop-blur-md shadow-md dark:bg-[#242424]/80 text-[#242424] dark:text-white':
       isScrolled,
   }"
@@ -17,11 +17,7 @@
 
   <!-- Desktop Links -->
   <ul
-    class="hidden md:flex items-center gap-8 font-bold"
-    [ngClass]="{
-      'text-white': !isScrolled,
-      'text-[#242424] dark:text-white': isScrolled,
-    }"
+    class="hidden md:flex items-center gap-8 font-bold text-[#242424] dark:text-white"
   >
     @for (link of navLinks; track $index) {
       <li>
@@ -50,8 +46,19 @@
         <fa-icon [icon]="_theme.theme() === 'dark' ? fasun : famoon" />
       </div>
     </button>
+   @if (logged()) {
+     <button
+      routerLink="/UserProfile"
+      class="flex items-center text-white justify-center w-10 h-10 rounded-full bg-[var(--main-color)] transition-all active:scale-90"
+    >
+      <div class="transition-transform duration-500 dark:text-white text-black">
+        <fa-icon [icon]="User"  />
+      </div>
+    </button>
 
-    <app-button-ui
+   }
+ @else {
+     <app-button-ui
       route="/auth/login"
       text="LOGIN"
       textcolor="white"
@@ -63,15 +70,23 @@
       textcolor="var(--main-color)"
       backgroundcolor="transparent"
     ></app-button-ui>
+ }
   </div>
 
   <!-- Mobile Buttons -->
   <div class="md:hidden flex items-center gap-4">
-    <button
-      class="!bg-[#ff4500] hover:bg-[#e63e00] w-12 h-12 rounded-full flex items-center justify-center border-none transition-all shadow-lg text-white"
+   @if (logged()) {
+     <button
+      routerLink="/UserProfile"
+      class="flex items-center text-white justify-center w-10 h-10 rounded-full bg-[var(--main-color)] transition-all active:scale-90"
     >
-      <i class="pi pi-user"></i>
+      <div class="transition-transform duration-500 dark:text-white text-black">
+        <fa-icon [icon]="User"  />
+      </div>
     </button>
+
+   }
+
     <button
       (click)="sidebarVisible = true"
       class="!bg-[#ff4500] hover:bg-[#e63e00] w-12 h-12 rounded-full flex flex-col items-center justify-center gap-[4px] border-none transition-all shadow-lg"
@@ -125,5 +140,21 @@
         </li>
       }
     </ul>
+    <div class="flex  gap-6 mt-10 border-t py-10">
+       @if(!logged()){
+     <app-button-ui
+      route="/auth/login"
+      text="LOGIN"
+      textcolor="white"
+      backgroundcolor="var(--main-color)"
+    ></app-button-ui>
+    <app-button-ui
+      route="/auth/register"
+      text="SIGN UP"
+      textcolor="var(--main-color)"
+      backgroundcolor="transparent"
+    ></app-button-ui>
+ }
+      </div>
   </div>
 </p-drawer>

@@ -63,9 +63,12 @@ private authCookieService = inject(AuthCookieService);
         console.log('Login Success:', res);
         if (res && res.token) {
         this.authCookieService.setToken(res.token);
+
       }
     
         this._router.navigate(['/home']);
+        localStorage.setItem('token', res.token);
+        this._authService.isLoggedIn.set(true);
       },
       error: (err) => {
         this.isSubmitting = false;

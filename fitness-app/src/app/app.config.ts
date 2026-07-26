@@ -1,4 +1,3 @@
-
 import { BASE_URL } from '@org/auth'
 
 
@@ -8,7 +7,7 @@ import {
   provideBrowserGlobalErrorListeners,
   inject,
 } from '@angular/core';
-import { provideRouter } from '@angular/router';
+import { provideRouter, withInMemoryScrolling } from '@angular/router';
 import { appRoutes } from './app.routes';
 import {
   provideClientHydration,
@@ -16,8 +15,11 @@ import {
 } from '@angular/platform-browser';
 import { providePrimeNG } from 'primeng/config';
 import Aura from '@primeuix/themes/aura';
-import { provideHttpClient, withFetch } from '@angular/common/http';
+import { provideHttpClient, withFetch, withInterceptors } from '@angular/common/http';
 import { Theme } from './core/services/theme/theme';
+import { languageInterceptor } from './core/interceptors/language-interceptor';
+import { headerInterceptor } from './core/interceptors/header-interceptor';
+import { loadingInterceptor } from './core/interceptors/loading-interceptor';
 
 function initializeTheme(): void {
   const theme = inject(Theme);
@@ -27,8 +29,10 @@ export const appConfig: ApplicationConfig = {
   providers: [
     provideClientHydration(withEventReplay()),
     provideBrowserGlobalErrorListeners(),
-    provideHttpClient(withFetch()),
-    provideRouter(appRoutes),
+    provideHttpClient(withFetch(),  withInterceptors([languageInterceptor, headerInterceptor, loadingInterceptor])),
+    provideRouter(appRoutes,withInMemoryScrolling({
+        scrollPositionRestoration: 'top'
+      })),
     providePrimeNG({
       theme: {
         preset: Aura,

@@ -1,0 +1,212 @@
+import { Component, computed, effect, inject, signal } from '@angular/core';
+import { NgOptimizedImage } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { faArrowsRotate } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { ToggleSwitchModule } from 'primeng/toggleswitch';
+import { Theme } from '../../core/services/theme/theme';
+
+
+import { AuthService } from '@org/auth';
+import { Router } from '@angular/router';
+import { DialogModule } from 'primeng/dialog';
+import { ChangePasswordDialogComponent } from './components/chanagePassword/change-password-dialog.component';
+import { UpdateProfileDialogComponent } from './components/update/update-profile-dialog.component';
+import {
+  UpdateProfileRequest,
+  UploadProfileUserRequest,
+} from 'libs/auth/src/lib/interface/auth-response-dto';
+import { Language } from '../../core/services/language/language';
+import { UpdateProfileData } from '../../core/interface/workout';
+
+@Component({
+  selector: 'app-userprofile',
+  imports: [
+    NgOptimizedImage,
+    FontAwesomeModule,
+    FormsModule,
+    ToggleSwitchModule,
+    DialogModule,
+    ChangePasswordDialogComponent,
+    UpdateProfileDialogComponent,
+  ],
+  templateUrl: './userprofile.component.html',
+  styleUrl: './userprofile.component.css',
+})
+export class UserprofileComponent {
+
+  _auth = inject(AuthService);
+
+  showPasswordDialog = false;
+  showEditDialog = false;
+
+  selectedField = '';
+
+  showUpdateDialog = signal(false);
+  selectedType = signal<'goal' | 'activityLevel' | 'weight' | null>(null);
+
+selectedValue: string | number | null = null;
+isloading=signal<boolean>(false);
+
+  userData = signal<UploadProfileUserRequest | null>(null);
+
+  _router = inject(Router);
+  rotate = faArrowsRotate;
+
+  currentLanguage = computed(() =>
+    this.langService.lang() === 'en' ? 'English' : 'Arabic',
+  );
+
+  theme = inject(Theme);
+  langService = inject(Language);
+
+  isDarkMode = computed(() => this.theme.theme() === 'dark');
+
+  onThemeToggle(checked: boolean) {
+    this.theme.setTheme(checked ? 'dark' : 'light');
+  }
+
+  // ===================== INFO CARDS =====================
+  infos = [
+    { id: 'goal', title: 'your Goal', text: 'TAP TO CHANGE' },
+    { id: 'activityLevel', title: 'level', text: 'TAP TO CHANGE' },
+    { id: 'weight', title: 'weight', text: 'TAP TO CHANGE' },
+  ];
+
+  // ===================== SETTINGS =====================
+  settingsCards = [
+    { id: 'password', title: 'Change Password', icon: 'pi pi-refresh' },
+    {
+      id: 'language',
+      title: 'Select Language',
+      subTitle: 'English',
+      icon: 'pi pi-globe',
+    },
+    {
+      id: 'mood',
+      title: 'Mood',
+      subTitle: 'Dark',
+      icon: 'pi pi-moon',
+      type: 'switch',
+    },
+    { id: 'security', title: 'Security', icon: 'pi pi-shield' },
+    { id: 'privacy', title: 'Privacy Policy', icon: 'pi pi-lock' },
+    { id: 'help', title: 'Help', icon: 'pi pi-question-circle' },
+    { id: 'logout', title: 'Logout', icon: 'pi pi-sign-out', type: 'logout' },
+  ];
+
+  private hasLoadedInitialData = false;
+
+  constructor() {
+    effect(() => {
+      this.langService.lang();
+
+      if (!this.hasLoadedInitialData) {
+        this.hasLoadedInitialData = true;
+      }
+
+      this.loadUserProfile();
+    });
+  }
+
+  loadUserProfile() {
+    this._auth.GetloggedUserData().subscribe({
+      next: (res) => {
+        this.userData.set(res.user); 
+        console.log(res);
+      },
+    });
+  }
+
+  uploaddata() {
+    const data = this.userData();
+
+    if (!data) return;
+
+    const payload: UpdateProfileRequest = {
+      goal: data.goal,
+      weight: data.weight,
+      activityLevel: data.activityLevel,
+    };
+
+    this._auth.editProfile(payload).subscribe({
+      next: (res) => {
+        console.log('updated', res);
+        this.userData.set(res.user); // مهم عشان UI يتحدث
+      },
+    });
+  }
+ 
+  // ===================== OPEN EDIT =====================
+  openEdit(type: 'goal' | 'activityLevel' | 'weight') {
+    this.selectedType.set(type);
+
+    const current = this.userData();
+    this.selectedValue = current ? (current as any)[type] : null;
+
+    this.showUpdateDialog.set(true);
+  }
+
+  // ===================== SAVE =====================
+  saveProfile(updated: UpdateProfileData) {
+    const payload: UpdateProfileRequest = {
+      goal: updated.goal,
+      weight: updated.weight,
+      activityLevel: updated.activityLevel,
+    };
+
+    this._auth.editProfile(payload).subscribe({
+      next: (res) => {
+        this.userData.set(res.user);
+      },
+      error: (err) => {
+        console.error('edit profile failed', err);
+      },
+    });
+  }
+
+  toggleLanguage() {
+    this.langService.toggleLanguage();
+  }
+
+  onCardClick(cardId: string) {
+    if (cardId === 'language') {
+      this.toggleLanguage();
+      return;
+    }
+
+    if (cardId === 'logout') {
+      this._auth.logout().subscribe({
+        next: (res) => {
+          if (res.message === 'success') {
+            this._router.navigate(['/home']);
+            localStorage.removeItem('token');
+              this._auth.isLoggedIn.set(false);
+          }
+        },
+      });
+      return;
+    }
+
+    if (cardId === 'password') {
+      this.showPasswordDialog = true;
+      return;
+    }
+  }
+
+  goals = signal([
+    { id: 'Gain Weight', text: 'Gain Weight' },
+    { id: 'Lose Weight', text: 'Lose Weight' },
+    { id: 'Get Fitter', text: 'Get Fitter' },
+    { id: 'Gain More Flexible', text: 'Gain More Flexible' },
+    { id: 'Learn The Basic', text: 'Learn The Basic' },
+  ]);
+
+  activityLevel = signal([
+    { id: 'level1', text: 'level1' },
+    { id: 'level2', text: 'level2' },
+    { id: 'level3', text: 'level3' },
+    { id: 'level4', text: 'level4' },
+    { id: 'level5', text: 'level5' },
+  ]);
+}

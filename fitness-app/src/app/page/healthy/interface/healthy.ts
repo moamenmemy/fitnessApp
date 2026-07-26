@@ -17,8 +17,15 @@ export interface CarouselItem {
   title: string;
   imageSrc: string;
   subText?: string;
-} 
-
+}
+export interface MealCategory {
+  id: string;
+  title: string;
+  imageSrc: string;
+  text?: string;
+}
 export interface ApiMealsResponse {
   meals: ApiMeal[] | null;
 }
+
+

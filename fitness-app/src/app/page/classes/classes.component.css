@@ -1,0 +1,83 @@
+/* Responsive container adjustments */
+:host {
+  --container-px: 1rem;
+}
+
+@media (min-width: 768px) {
+  :host {
+    --container-px: 2rem;
+  }
+}
+
+/* Custom tabs carousel styling */
+::ng-deep .custom-tabs-carousel {
+  width: 100%;
+  padding: var(--container-px);
+}
+
+::ng-deep .custom-tabs-carousel .p-carousel {
+  width: 100% !important;
+}
+
+::ng-deep .custom-tabs-carousel .p-carousel-prev,
+::ng-deep .custom-tabs-carousel .p-carousel-next {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 1.75rem !important;
+  height: 1.75rem !important;
+  background-color: rgba(241, 90, 36, 0.7) !important;
+  color: white !important;
+  border: none !important;
+  border-radius: 50% !important;
+  transition: all 0.3s ease !important;
+}
+
+@media (max-width: 640px) {
+  ::ng-deep .custom-tabs-carousel .p-carousel-prev,
+  ::ng-deep .custom-tabs-carousel .p-carousel-next {
+    width: 1.5rem !important;
+    height: 1.5rem !important;
+  }
+}
+
+::ng-deep .custom-tabs-carousel .p-carousel-prev:hover,
+::ng-deep .custom-tabs-carousel .p-carousel-next:hover {
+  background-color: #f15a24 !important;
+  transform: scale(1.1) !important;
+}
+
+/* Padding adjustments for smaller screens */
+@media (max-width: 768px) {
+  :host {
+    --py: 0.75rem;
+  }
+}
+
+@media (max-width: 480px) {
+  :host {
+    --py: 0.5rem;
+  }
+}
+
+/* Carousel items visibility fix */
+::ng-deep .p-carousel-item {
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+  width: 100% !important;
+}
+
+/* Tab info box responsiveness */
+.text-mono {
+  padding: 0.5rem;
+  font-size: 0.75rem;
+}
+
+@media (max-width: 640px) {
+  .text-mono {
+    font-size: 0.65rem;
+    padding: 0.375rem;
+  }
+}
+

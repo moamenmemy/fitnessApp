@@ -4,5 +4,6 @@ export interface CustomListItem {
   subTitle?: string;
   description: string;
   imageUrl: string;
-  hasVideo?: boolean; 
+  videoUrl?: string;
+  hasVideo?: boolean;
 }

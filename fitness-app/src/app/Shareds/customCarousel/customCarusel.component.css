@@ -68,7 +68,14 @@
     height: 12px;   
     border-radius: 50%; 
 }
+:host ::ng-deep .p-carousel-items-content {
+  justify-content: center;
+}
 
+:host ::ng-deep .p-carousel-item {
+  display: flex;
+  justify-content: center;
+}
 
 
 

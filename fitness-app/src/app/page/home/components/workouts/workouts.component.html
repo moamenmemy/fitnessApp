@@ -1,0 +1,84 @@
+<section class="relative min-h-screen w-full overflow-hidden">
+
+  <!-- Background -->
+  <img
+    ngSrc="assets/workout.jpg"
+    fill
+    alt="Workout Background"
+    class="absolute inset-0 object-cover"
+    priority
+  />
+
+  <div
+    class="absolute inset-x-0 top-28 bottom-96 bg-[#FFFFFF]/60 dark:bg-[#242424]/60 backdrop-blur-[46px]">
+  </div>
+
+  <!-- Content -->
+  <div class="relative z-10 container mx-auto px-4 py-16">
+  <div class="flex items-center flex-col z-20 ">
+    
+
+    
+    <app-secrion-title
+      [title]="'WORKOUTS'"
+      [bgTitle]="'Fitness Class'">
+    </app-secrion-title>
+  </div>
+    <!-- Heading -->
+    <div class="flex justify-center ">
+      <h3 class="max-w-3xl text-center uppercase font-extrabold text-2xl md:text-3xl lg:text-4xl text-[#242424] dark:text-white">
+        Transform Your Body with Our Dynamic
+        <span class="text-[var(--main-color)]">Upcoming Workouts</span>
+      </h3>
+    </div>
+
+    <!-- Tabs Carousel (زي زميلك) -->
+    @if (chunkedTabs().length > 0) {
+
+    <div class="w-full max-w-4xl mx-auto  px-1 md:px-8 custom-tabs-carousel">
+
+        <p-carousel
+          [value]="chunkedTabs()"
+          [numVisible]="1"
+          [numScroll]="1"
+          [circular]="false"
+          [showIndicators]="false"
+          [showNavigators]="true">
+
+          <ng-template pTemplate="item" let-pageTabs>
+          <div class="w-full flex justify-center py-2 z-10">
+
+              <app-custom-tabs
+                [tabsData]="pageTabs"
+                (tabChanged)="onTabChanged($event)">
+              </app-custom-tabs>
+
+            </div>
+
+          </ng-template>
+
+        </p-carousel>
+
+      </div>
+ @if (musclesList().length > 0) {
+  
+     <app-custom-carusel
+  [carouselItems]="musclesList()"
+  [rowsCount]="1"
+  (cardClicked)="goToDetails($event)">
+</app-custom-carusel>
+
+    } @else {
+
+      <div class="text-center text-gray-500 py-10">
+        No workouts available for this category
+      </div>
+
+    }
+    }
+
+    <!-- Muscles Carousel (IMPORTANT PART) -->
+  
+
+  </div>
+</section>

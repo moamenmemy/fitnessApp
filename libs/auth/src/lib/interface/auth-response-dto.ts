@@ -80,13 +80,19 @@ export interface UploadProfileUserRequest {
     passwordChangedAt:string
   
 }
+export interface UpdateProfileRequest {
+  goal?: string;
+  weight?: number;
+  height?: number;
+  activityLevel?: string;
+}
 export interface UploadProfileUserResponse {
-massage:string,
+message:string,
 user:UploadProfileUserRequest
   
 }
 export interface logoutResponse {
-massage:string,
+message:string,
 
   
 }

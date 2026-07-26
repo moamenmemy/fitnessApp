@@ -1,73 +1,148 @@
-import { Component, computed,signal } from '@angular/core';
 import { CustomListItem } from '../../Shareds/custamList/interface/custom-list';
-import { CustomListComponent } from '../../Shareds/custamList/custom-list.component';
+import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
+
+import {
+  Component,
+  computed,
+  HostListener,
+  inject,
+  signal,
+} from '@angular/core';
+import { NgOptimizedImage } from '@angular/common';
+import { Exercises } from 'fitness-app/src/app/core/services/exercises/exercises';
+import {
+  Workout,
+  workotbyid,
+} from 'fitness-app/src/app/core/interface/workout';
+import { CarouselItem } from 'fitness-app/src/app/Shareds/customCarousel/interface/customCarusel';
+import { CustomTabsComponent } from 'fitness-app/src/app/Shareds/customTabs/custamTabs.component';
+import { CarouselModule } from 'primeng/carousel';
+import { CustomCaruselComponent } from 'fitness-app/src/app/Shareds/customCarousel/customCarusel.component';
+import { forkJoin, map } from 'rxjs';
+import { SecrionTitleComponent } from 'fitness-app/src/app/Shareds/section-title/secrion-title.component';
+
 export interface ClassesListItem extends CustomListItem {
   category: string;
 }
 @Component({
   selector: 'app-classes',
-  imports: [CommonModule, CustomListComponent],
+  imports: [
+    CommonModule,
+    NgOptimizedImage,
+    CarouselModule,
+    CustomTabsComponent,
+    CustomCaruselComponent,
+    SecrionTitleComponent,
+  ],
   templateUrl: './classes.component.html',
   styleUrl: './classes.component.css',
 })
 export class ClassesComponent {
-// 1. التابات المتاحة في الديزاين
-  classTabs = signal<string[]>(['All', 'Gym', 'Yoga', 'Cardio']); 
-  currentTab = signal<string>('All');
+  
+  private _exercises = inject(Exercises);
+  private _router = inject(Router);
+  responsiveOptions = [
+    { breakpoint: '1400px', numVisible: 5, numScroll: 1 },
+    { breakpoint: '1024px', numVisible: 4, numScroll: 1 },
+    { breakpoint: '768px', numVisible: 3, numScroll: 1 },
+    { breakpoint: '560px', numVisible: 2, numScroll: 1 },
+  ];
 
-  // 2. حطينا داتا من عندنا هنا مؤقتاً عشان الـ Tabs تشتغل وتفلتر صح
-  classItems = signal<ClassesListItem[]>([
-    {
-      id: 1,
-      title: 'Bench Press Workout',
-      subTitle: '3 Groups * 15 Times',
-      description: 'A powerful chest exercise designed to build upper body strength and muscle mass effectively.',
-      imageUrl: 'assets/images/bench-press.jpg',
-      category: 'Gym',
-      hasVideo: true
-    },
-    {
-      id: 2,
-      title: 'Vinyasa Yoga Flow',
-      subTitle: '45 Minutes Session',
-      description: 'Connect your breath with movement in this dynamic yoga session that improves flexibility and focus.',
-      imageUrl: 'assets/images/yoga.jpg',
-      category: 'Yoga',
-      hasVideo: false
-    },
-    {
-      id: 3,
-      title: 'High-Intensity Cardio',
-      subTitle: '4 Groups * 12 Times',
-      description: 'Burn calories and boost your endurance with this fast-paced, full-body cardio routine.',
-      imageUrl: 'assets/images/cardio.jpg',
-      category: 'Cardio',
-      hasVideo: true
-    },
-    {
-      id: 4,
-      title: 'Squats & Legs Day',
-      subTitle: '4 Groups * 12 Times',
-      description: 'Strengthen your lower body and core with standard and variations of heavy squats.',
-      imageUrl: 'assets/images/squats.jpg',
-      category: 'Gym',
-      hasVideo: true
+  getTab = signal<Workout>({} as Workout);
+  workotbyid = signal<workotbyid>({} as workotbyid);
+  screenWidth = signal<number>(window.innerWidth);
+  activeTabId = signal<string | number>('');
+  @HostListener('window:resize')
+  onResize() {
+    this.screenWidth.set(window.innerWidth);
+  }
+  // Tabs
+  tabs = computed(
+    () =>
+      this.getTab()?.musclesGroup?.map((item) => ({
+        id: item._id,
+        text: item.name,
+      })) ?? [],
+  );
+  rowsCount = computed(() => {
+    const len = this.musclesList().length;
+    const width = this.screenWidth();
+
+    const isMobile = width < 768;
+
+    if (isMobile) {
+      return 1;
     }
-  ]); 
+    return len > 3 ? 2 : 1;
+  });
+  // Carousel data (muscles)
+musclesList = computed<CarouselItem[]>(() =>
+  (this.workotbyid()?.muscles ?? []).map((m) => ({
+    id: m._id,
+    title: m.name,
+    imageSrc: m.image,
+    subText: '',
+  }))
+);
+  chunkedTabs = computed(() => {
+    const allTabs = this.tabs();
+    const chunkSize = 4;
+    const pages: any[][] = [];
 
-  // 3. الـ Computed بيفلتر تلقائياً بناءً على الـ category المكتوب فوق
-  filteredClassItems = computed(() => {
-    const items = this.classItems();
-    const tab = this.currentTab();
-    if (tab === 'All') return items;
-    return items.filter(item => item.category === tab); 
+    for (let i = 0; i < allTabs.length; i += chunkSize) {
+      pages.push(allTabs.slice(i, i + chunkSize));
+    }
+
+    return pages;
   });
 
- 
+  ngOnInit() {
+    this.getMuscleGroups();
+  }
 
-  // 4. دالة تغيير الـ Tab وسيت للـ Signal
-  onTabChange(tab: string) {
-    this.currentTab.set(tab);
+  // Load tabs (only show groups that have data)
+  getMuscleGroups() {
+    this._exercises.getMuscleGroups().subscribe({
+      next: (res) => {
+        const checks = res.musclesGroup.map((group) =>
+          this._exercises.getMuscleGroupsById(group._id).pipe(
+            map((data) => ({
+              ...group,
+              hasData: data.muscles && data.muscles.length > 0,
+            })),
+          ),
+        );
+
+        forkJoin(checks).subscribe({
+          next: (results) => {
+            const groupsWithData = results
+              .filter((r) => r.hasData)
+              .map((r) => ({ _id: r._id as string, name: r.name as string }));
+
+            this.getTab.set({ ...res, musclesGroup: groupsWithData });
+
+            if (groupsWithData.length > 0) {
+              this.onTabChanged(groupsWithData[0]._id);
+            }
+          },
+        });
+      },
+    });
+  }
+
+  // On tab click
+  onTabChanged(tabId: string | number) {
+    this.activeTabId.set(tabId);
+
+    this._exercises.getMuscleGroupsById(String(tabId)).subscribe({
+      next: (res) => {
+        this.workotbyid.set(res);
+      },
+    });
+  }
+
+  onCardClick(id: string) {
+    this._router.navigate(['/workoutsDetails', id]);
   }
 }

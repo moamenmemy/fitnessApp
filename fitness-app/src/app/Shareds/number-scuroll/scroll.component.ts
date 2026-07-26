@@ -83,10 +83,11 @@ export class ScrollComponent  implements ControlValueAccessor, AfterViewInit {
     if (this.disabled) return;
     const container = event.target as HTMLDivElement;
     const scrollLeft = container.scrollLeft;
-    const itemWidth = 64;
+    const itemWidth = this.getItemWidth();
     const centerOffset = container.clientWidth / 2;
+    const paddingLeft = container.clientWidth * 0.3;
     const scrolledCenter = scrollLeft + centerOffset;
-    const index = Math.round((scrolledCenter - itemWidth / 2) / itemWidth) - 2;
+    const index = Math.round((scrolledCenter - paddingLeft - itemWidth / 2) / itemWidth);
     const targetValue = this.min() + index * this.step();
 
     if (
@@ -112,16 +113,22 @@ export class ScrollComponent  implements ControlValueAccessor, AfterViewInit {
     this.scrollToValue(value);
   }
 
+  private getItemWidth(): number {
+    const firstItem = this.scrollContainer?.nativeElement?.firstElementChild;
+    return firstItem?.getBoundingClientRect().width || 64;
+  }
+
   private scrollToValue(value: number) {
     if (!this.scrollContainer) return;
     const container = this.scrollContainer.nativeElement;
-    const itemWidth = 64;
+    const itemWidth = this.getItemWidth();
     const index = (value - this.min()) / this.step();
-    const targetScroll =
-      (index + 2) * itemWidth - container.clientWidth / 2 + itemWidth / 2;
+    const paddingLeft = container.clientWidth * 0.3;
+    const centerOffset = container.clientWidth / 2;
+    const targetScroll = index * itemWidth + paddingLeft - centerOffset + itemWidth / 2;
 
     container.scrollTo({
-      left: targetScroll,
+      left: Math.max(0, targetScroll),
       behavior: 'smooth',
     });
   }
