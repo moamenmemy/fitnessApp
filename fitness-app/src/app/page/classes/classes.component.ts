@@ -1,13 +1,13 @@
 import { Component, computed,signal } from '@angular/core';
 import { CustomListItem } from '../../Shareds/custamList/interface/custom-list';
-import { CustomListComponent } from '../../Shareds/custamList/custom-list.component';
+
 import { CommonModule } from '@angular/common';
 export interface ClassesListItem extends CustomListItem {
   category: string;
 }
 @Component({
   selector: 'app-classes',
-  imports: [CommonModule, CustomListComponent],
+  imports: [CommonModule],
   templateUrl: './classes.component.html',
   styleUrl: './classes.component.css',
 })

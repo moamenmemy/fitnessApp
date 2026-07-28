@@ -17,6 +17,8 @@ export class CustomCaruselComponent {
  
   rowsCount = input<number>(1);
 
+
+itemActionClicked = output<CarouselItem>();
   
 groupedItems = computed<CarouselItem[][]>(() => {
   const items = this.carouselItems();
@@ -36,9 +38,10 @@ groupedItems = computed<CarouselItem[][]>(() => {
     { breakpoint: '480px', numVisible: 1, numScroll: 1 }
   ]);
 
-  itemActionClicked = output<CarouselItem>();
 
-  onCardAction(item: CarouselItem): void {
-    this.itemActionClicked.emit(item);
-  }
+
+ onCardAction(item: CarouselItem): void {
+  console.log('2. Carousel Item Action Triggered', item); // يجب أن يظهر هذا الآن
+  this.itemActionClicked.emit(item);
+ }
 }

@@ -1,0 +1,10 @@
+/* أجبر الحاوية على أخذ مساحة كافية دائماً */
+.custom-tabs-carousel {
+  min-height: 120px; /* أو حسب الارتفاع الذي تحتاجه التابات */
+  display: block;
+}
+
+/* التأكد من أن الكاروسيل لا يختفي */
+::ng-deep .p-carousel .p-carousel-items-content {
+  min-height: 80px;
+}

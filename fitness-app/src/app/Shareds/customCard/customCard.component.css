@@ -1,0 +1,17 @@
+/* في الشاشات الصغيرة */
+@media (max-width: 480px) {
+  :host {
+    display: block;
+    width: 90%; /* تجعل الكارد يأخذ 90% من عرض الحاوية بدلاً من 100% */
+    margin: 0 auto; /* توسيط الكارد */
+  }
+
+  .group {
+    aspect-ratio: 1/1; /* تقليل الارتفاع ليكون الكارد مربعاً أو أصغر */
+    border-radius: 16px; /* تقليل الـ border radius ليتناسب مع الحجم */
+  }
+
+  .p-5 {
+    padding: 0.75rem !important; /* تقليل الـ padding الداخلي للكارد */
+  }
+}

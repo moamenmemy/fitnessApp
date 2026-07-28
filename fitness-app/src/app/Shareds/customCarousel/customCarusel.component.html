@@ -7,17 +7,17 @@
     [responsiveOptions]="responsiveOptions()">
     
     <ng-template pTemplate="item" let-group>
-      <div class="flex p-2 gap-4" [ngClass]="{'flex-col': rowsCount() > 1, 'flex-row': rowsCount() === 1}"> 
-        @for (meal of group; track meal.idMeal) {
-          <div class="w-full">
+<div class="flex p-1 gap-6" [ngClass]="{'flex-col': rowsCount() > 1, 'flex-row': rowsCount() === 1}">
+    @for (meal of group; track meal.idMeal) {
+        <div class="w-full">
             <app-custom-card
-              [title]="meal.title" 
-              [imageSrc]="meal.imageSrc"
-              (cardClicked)="onCardAction(meal)"> 
+                [title]="meal.title" 
+                [imageSrc]="meal.imageSrc"
+                (cardClicked)="onCardAction(meal)"> 
             </app-custom-card>
-          </div>
-        }
-      </div>
+        </div>
+    }
+</div>
     </ng-template>
   </p-carousel>
 </div>
